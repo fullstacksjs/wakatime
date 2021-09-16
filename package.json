@@ -14,6 +14,7 @@
     "*.*": "prettier '**/*' --write --ignore-unknown"
   },
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "clean": "prettier '**/*' --write .  --ignore-unknown"
   }
 }
