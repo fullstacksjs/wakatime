@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/mohammadizanloo55/tg-wakatime-bot.git",
   "author": "mohammadizanloo55 <mohammadizanloo55@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.4.1"
+  }
 }
