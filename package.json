@@ -1,0 +1,8 @@
+{
+  "name": "tg-wakatime-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mohammadizanloo55/tg-wakatime-bot.git",
+  "author": "mohammadizanloo55 <mohammadizanloo55@gmail.com>",
+  "license": "MIT"
+}
