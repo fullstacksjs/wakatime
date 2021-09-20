@@ -6,7 +6,7 @@
   "author": "mohammadizanloo55 <mohammadizanloo55@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@fullstacksjs/eslint-config": "^6.5.2",
+    "@fullstacksjs/eslint-config": "6.5.2",
     "eslint": "^7.32.0",
     "husky": "7.0.2",
     "lint-staged": "11.1.2",
