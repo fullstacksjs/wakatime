@@ -13,7 +13,6 @@
     "prettier": "^2.4.1"
   },
   "scripts": {
-    "prepare": "husky install",
-    "clean": "prettier '**/*' --write .  --ignore-unknown"
+    "prepare": "husky install"
   }
 }
