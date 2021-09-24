@@ -21,6 +21,10 @@ body {
 .Winner-Box {
   display: flex;
   align-items: center;
+  box-shadow: 0px 20px 20px -23px rgb(0 0 0 / 75%);
+  padding: 1.5em 2em;
+  margin-bottom: 1.25em;
+  position: relative;
 }
 .Winner-Rank {
   font-family: "Rajdhani-Bold";
