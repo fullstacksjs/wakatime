@@ -83,3 +83,7 @@ body {
   display: flex;
   margin-left: 4.9rem;
 }
+.Socail-Media {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}
