@@ -55,3 +55,6 @@ body {
 .User-Chart {
   display: flex;
 }
+.User-Chart-Item {
+  margin: 0 2rem;
+}
