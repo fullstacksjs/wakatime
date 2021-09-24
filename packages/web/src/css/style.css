@@ -16,6 +16,7 @@ body {
   font-family: "Rajdhani-Bold";
   font-weight: 700;
   color: white;
+  margin-bottom: 1.3em;
 }
 .Winner-Box {
   display: flex;
