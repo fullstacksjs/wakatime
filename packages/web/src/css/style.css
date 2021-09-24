@@ -11,3 +11,9 @@ body {
   margin-top: 3em;
   max-width: 100%;
 }
+#Date-Text {
+  font-size: 2em;
+  font-family: "Rajdhani-Bold";
+  font-weight: 700;
+  color: white;
+}
