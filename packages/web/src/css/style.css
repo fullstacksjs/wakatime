@@ -58,3 +58,9 @@ body {
 .User-Chart-Item {
   margin: 0 2rem;
 }
+.User-Chart-Detail {
+  font-size: 1rem;
+  color: #d4dded80;
+  font-weight: 600;
+  font-family: "Rajdhani-Bold";
+}
