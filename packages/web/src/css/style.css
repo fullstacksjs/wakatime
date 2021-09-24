@@ -34,3 +34,8 @@ body {
   height: 44px;
   object-fit: cover;
 }
+.User-Data {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5rem;
+}
