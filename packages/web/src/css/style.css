@@ -31,6 +31,7 @@ body {
   font-weight: 700;
   color: #d4dded1a;
   font-size: 4rem;
+  position: absolute;
 }
 .Winner-Avatar {
   border-radius: 200px;
@@ -77,4 +78,8 @@ body {
 }
 .User-Chart-Status {
   width: 15px;
+}
+.Separator {
+  display: flex;
+  margin-left: 4.9rem;
 }
