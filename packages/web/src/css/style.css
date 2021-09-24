@@ -39,3 +39,9 @@ body {
   flex-direction: column;
   margin-left: 0.5rem;
 }
+.User-Name {
+  font-family: "Rajdhani-Light";
+  font-weight: 400;
+  color: #f8f9fb;
+  font-size: 1.2rem;
+}
