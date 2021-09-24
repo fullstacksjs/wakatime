@@ -64,3 +64,10 @@ body {
   font-weight: 600;
   font-family: "Rajdhani-Bold";
 }
+.User-Chart-Time {
+  font-size: 1.25rem;
+  margin-top: 5px;
+  font-weight: 600;
+  font-family: "Rajdhani-Bold";
+  color: #e8ecf3;
+}
