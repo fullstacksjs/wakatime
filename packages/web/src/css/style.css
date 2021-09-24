@@ -21,3 +21,9 @@ body {
   display: flex;
   align-items: center;
 }
+.Winner-Rank {
+  font-family: "Rajdhani-Bold";
+  font-weight: 700;
+  color: #d4dded1a;
+  font-size: 4rem;
+}
