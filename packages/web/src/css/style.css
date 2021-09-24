@@ -17,3 +17,7 @@ body {
   font-weight: 700;
   color: white;
 }
+.Winner-Box {
+  display: flex;
+  align-items: center;
+}
