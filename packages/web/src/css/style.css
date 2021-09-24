@@ -45,3 +45,9 @@ body {
   color: #f8f9fb;
   font-size: 1.2rem;
 }
+.User-Id {
+  font-family: "Rajdhani-Bold";
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: white;
+}
