@@ -86,6 +86,7 @@ body {
 .Socail-Media {
   display: grid;
   grid-template-columns: repeat(3, auto);
+  margin-top: 43px;
 }
 .Socail-Media-Item {
   margin: 16px 40px 0;
