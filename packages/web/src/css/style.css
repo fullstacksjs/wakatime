@@ -8,7 +8,7 @@ body {
   overflow-x: hidden;
 }
 #Fullstacks-Logo {
-  margin-top: 3em;
+  margin-top: 48px;
   max-width: 100%;
 }
 #Date-Text {
@@ -16,14 +16,14 @@ body {
   font-family: "Rajdhani-Bold";
   font-weight: 700;
   color: white;
-  margin-bottom: 1.3em;
+  margin-bottom: 20px;
 }
 .Winner-Box {
   display: flex;
   align-items: center;
   box-shadow: 0px 20px 20px -23px rgb(0 0 0 / 75%);
-  padding: 1.5em 2em;
-  margin-bottom: 1.25em;
+  padding: 24px 32px;
+  margin-bottom: 20px;
   position: relative;
 }
 .Winner-Rank {
@@ -43,7 +43,7 @@ body {
 .User-Data {
   display: flex;
   flex-direction: column;
-  margin-left: 0.5rem;
+  margin-left: 8px;
 }
 .User-Name {
   font-family: "Rajdhani-Light";
@@ -61,7 +61,7 @@ body {
   display: flex;
 }
 .User-Chart-Item {
-  margin: 0 2rem;
+  margin: 0 32px;
 }
 .User-Chart-Detail {
   font-size: 1rem;
@@ -81,14 +81,14 @@ body {
 }
 .Separator {
   display: flex;
-  margin-left: 4.9rem;
+  margin-left: 80px;
 }
 .Socail-Media {
   display: grid;
   grid-template-columns: repeat(3, auto);
 }
 .Socail-Media-Item {
-  margin: 1rem 2.5rem 0;
+  margin: 16px 40px 0;
   display: flex;
   align-items: center;
   font-size: 1.25rem;
