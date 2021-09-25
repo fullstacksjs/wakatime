@@ -95,3 +95,7 @@ body {
   font-family: "Rajdhani-Bold";
   color: #d4dded33;
 }
+.Socail-Media-Item-Icon {
+  max-width: 100%;
+  margin-right: 12px;
+}
