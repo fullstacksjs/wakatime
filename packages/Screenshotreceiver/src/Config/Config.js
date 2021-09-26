@@ -35,6 +35,7 @@ const BaseUrlResolver = () =>
   API_URL.endsWith('/')
     ? `${API_URL}${LEADERBOARD_ID}`
     : `${API_URL}/${LEADERBOARD_ID}`;
+
 const NewAxios = create({
   baseURL: BaseUrlResolver(),
   params: {
