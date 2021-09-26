@@ -1,4 +1,5 @@
 const { config } = require('dotenv');
+const { create } = require('axios');
 
 const DotEnvErrorChecker = () => {
   const { error } = config();
@@ -27,7 +28,22 @@ const ValidateEnv = () => {
 DotEnvErrorChecker();
 ValidateEnv();
 
+const BaseUrlResolver = () =>
+  API_URL.endsWith('/')
+    ? `${API_URL}${LEADERBOARD_ID}`
+    : `${API_URL}/${LEADERBOARD_ID}`;
+
+const NewAxios = create({
+  baseURL: BaseUrlResolver(),
+  params: {
+    // eslint-disable-next-line camelcase
+    api_key: API_KEY,
+    timeout: 10000,
+  },
+});
+
 module.exports = {
   API_KEY,
   PUPPETEER_EXECUTABLE_PATH,
+  axios: NewAxios,
 };
