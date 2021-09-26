@@ -4,7 +4,8 @@ const { create } = require('axios');
 const DotEnvErrorChecker = () => {
   const { error } = config();
   if (error) {
-    throw Error(`There was a problem reading the .env file.\n${error}`);
+    console.error(error);
+    throw Error('There was a problem reading the .env file.');
   }
 };
 const { API_KEY, PUPPETEER_EXECUTABLE_PATH, API_URL, LEADERBOARD_ID } =
