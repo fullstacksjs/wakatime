@@ -8,6 +8,9 @@ const DotEnvErrorChecker = () => {
     throw Error('There was a problem reading the .env file.');
   }
 };
+
+DotEnvErrorChecker();
+
 const { API_KEY, PUPPETEER_EXECUTABLE_PATH, API_URL, LEADERBOARD_ID } =
   process.env;
 
@@ -26,7 +29,6 @@ const ValidateEnv = () => {
   }
 };
 
-DotEnvErrorChecker();
 ValidateEnv();
 
 const BaseUrlResolver = () =>
