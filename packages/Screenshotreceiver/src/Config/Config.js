@@ -11,8 +11,13 @@ const DotEnvErrorChecker = () => {
 
 DotEnvErrorChecker();
 
-const { API_KEY, PUPPETEER_EXECUTABLE_PATH, API_URL, LEADERBOARD_ID } =
-  process.env;
+const {
+  API_KEY,
+  PUPPETEER_EXECUTABLE_PATH,
+  API_URL,
+  LEADERBOARD_ID,
+  WEBPAGE_URL,
+} = process.env;
 
 const ValidateEnv = () => {
   if (!API_KEY) {
@@ -26,6 +31,9 @@ const ValidateEnv = () => {
   }
   if (!LEADERBOARD_ID) {
     throw Error('LEADERBOARD_ID is not defined in .env file');
+  }
+  if (!WEBPAGE_URL) {
+    throw Error('WEBPAGE_URL is not defined in .env file');
   }
 };
 
