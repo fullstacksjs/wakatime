@@ -57,4 +57,5 @@ module.exports = {
   API_KEY,
   PUPPETEER_EXECUTABLE_PATH,
   axios: NewAxios,
+  WEBPAGE_URL,
 };
