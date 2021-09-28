@@ -18,7 +18,7 @@ const GetScreenShot = async (Url) => {
 
   await Page.waitForTimeout(2000);
 
-  await Page.setViewport({ width: 800, height: 700, deviceScaleFactor: 2 });
+  await Page.setViewport({ width: 815, height: 700, deviceScaleFactor: 2 });
 
   await Page.screenshot({
     path: 'screenshot.jpg',
