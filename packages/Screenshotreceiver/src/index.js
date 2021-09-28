@@ -24,6 +24,8 @@ const GetScreenShot = async (Url) => {
     path: 'screenshot.jpg',
     fullPage: true,
   });
+
+  await browser.close();
 };
 
 GetScreenShot(WEBPAGE_URL);
