@@ -1,7 +1,7 @@
-const FetchRankedUsers = require('./Api/FetchRankedUsers');
 const puppeteer = require('puppeteer-core');
 const { PUPPETEER_EXECUTABLE_PATH, WEBPAGE_URL } = require('./Config/Config');
 const fs = require('fs/promises');
+const FetchRankedUsers = require('./Api/FetchRankedUsers');
 
 const InitJsonDB = async (JsonFileName) => {
   const FileExist = fs.readFile(JsonFileName);
@@ -12,10 +12,8 @@ const InitJsonDB = async (JsonFileName) => {
   return JSON.parse(DB);
 };
 
-const PageQuery = async () => {
-  const ThreeTopUsers = (await FetchRankedUsers()).slice(0, 3);
-  return `?Data=${JSON.stringify(ThreeTopUsers)}`;
-};
+const PageQuery = (Url, Query) =>
+  `${Url.replace(/\/$/, '')}?Data=${JSON.stringify(Query)}`;
 
 const GetScreenShot = async (Url) => {
   try {
@@ -25,7 +23,7 @@ const GetScreenShot = async (Url) => {
 
     const Page = await browser.newPage();
 
-    await Page.goto(`${Url.replace(/\/$/, '')}${await PageQuery()}`);
+    await Page.goto(Url);
 
     await Page.waitForTimeout(2000);
 
@@ -45,6 +43,8 @@ const GetScreenShot = async (Url) => {
 
 const AllSteps = async () => {
   await InitJsonDB('DB.json');
-  await GetScreenShot(WEBPAGE_URL);
+  const ThreeTopUsers = (await FetchRankedUsers()).slice(0, 3);
+  const Url = PageQuery(WEBPAGE_URL, ThreeTopUsers);
+  await GetScreenShot(Url);
 };
 AllSteps();
