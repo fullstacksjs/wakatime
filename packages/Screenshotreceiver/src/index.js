@@ -1,6 +1,16 @@
 const FetchRankedUsers = require('./Api/FetchRankedUsers');
 const puppeteer = require('puppeteer-core');
 const { PUPPETEER_EXECUTABLE_PATH, WEBPAGE_URL } = require('./Config/Config');
+const fs = require('fs/promises');
+
+const InitJsonDB = async (JsonFileName) => {
+  const FileExist = fs.readFile(JsonFileName);
+  await FileExist.catch(async () => {
+    await fs.writeFile(JsonFileName, '[]');
+  });
+  const DB = await (await fs.readFile(JsonFileName)).toString('utf-8');
+  return JSON.parse(DB);
+};
 
 const PageQuery = async () => {
   const ThreeTopUsers = (await FetchRankedUsers()).slice(0, 3);
@@ -33,4 +43,8 @@ const GetScreenShot = async (Url) => {
   }
 };
 
-GetScreenShot(WEBPAGE_URL);
+const AllSteps = async () => {
+  await InitJsonDB('DB.json');
+  await GetScreenShot(WEBPAGE_URL);
+};
+AllSteps();
