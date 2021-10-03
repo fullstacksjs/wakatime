@@ -54,6 +54,12 @@ const WinnerBoxElements = Data.map((Item, Index) => {
             );
 
       ChartTimeElem.innerHTML = Text;
+
+      if (ChartTimeIndex % 2 && Item.running_total.daily_status) {
+        ChartTimeElem.querySelector('img').src = 'assets/Images/UpIcon.svg';
+      } else if (Item.running_total.total_status) {
+        ChartTimeElem.querySelector('img').src = 'assets/Images/UpIcon.svg';
+      }
     }
   );
 
