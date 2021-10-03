@@ -12,6 +12,18 @@ const InitJsonDB = async (JsonFileName) => {
   return JSON.parse(DB);
 };
 
+const InsertNewDataToDB = async (JsonFileName, DB, JsonData) => {
+  const NewDB = [...DB, JsonData];
+  const OptimalDB = NewDB.filter((Value, Index) => {
+    if (NewDB.length >= 2) {
+      return Index > NewDB.length - 3;
+    }
+    return true;
+  });
+
+  await fs.writeFile(JsonFileName, JSON.stringify(OptimalDB));
+};
+
 const PageQuery = (Url, Query) =>
   `${Url.replace(/\/$/, '')}?Data=${JSON.stringify(Query)}`;
 
@@ -42,9 +54,56 @@ const GetScreenShot = async (Url) => {
 };
 
 const AllSteps = async () => {
-  await InitJsonDB('DB.json');
-  const ThreeTopUsers = (await FetchRankedUsers()).slice(0, 3);
-  const Url = PageQuery(WEBPAGE_URL, ThreeTopUsers);
+  const DB = await InitJsonDB('DB.json');
+  const AllUsers = await FetchRankedUsers();
+
+  const NewDB = AllUsers.map((User) => ({
+    [User.user.id]: {
+      daily_average: User.running_total.daily_average,
+      total_seconds: User.running_total.total_seconds,
+    },
+  }));
+
+  await InsertNewDataToDB('DB.json', DB, NewDB);
+
+  const ThreeTopUsers = AllUsers.slice(0, 3);
+
+  const PrevWeek = DB[DB.length - 1];
+  const PrevWeekIds = PrevWeek.map((Value) => Object.keys(Value)[0]);
+
+  const ThisWeek = ThreeTopUsers.map((User) => {
+    const Id = User.user.id;
+
+    const PrevWeekTopUser = PrevWeek[PrevWeekIds.indexOf(Id)]?.[Id];
+
+    if (!PrevWeekTopUser) {
+      return {
+        daily_status: false,
+        total_status: false,
+      };
+    }
+
+    return {
+      daily_status:
+        PrevWeekTopUser.daily_average < User.running_total.daily_average,
+
+      total_status:
+        PrevWeekTopUser.total_seconds < User.running_total.total_seconds,
+    };
+  });
+
+  const Url = PageQuery(
+    WEBPAGE_URL,
+    ThreeTopUsers.map((User, Index) => ({
+      ...User,
+      running_total: {
+        ...User.running_total,
+        ...ThisWeek[Index],
+      },
+    }))
+  );
+
   await GetScreenShot(Url);
 };
+
 AllSteps();
