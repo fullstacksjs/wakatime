@@ -1,0 +1,39 @@
+{
+  "name": "tg-wakatime-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently npm:start:* -raw"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoseinprd/tg-wakatime-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hoseinprd/tg-wakatime-bot/issues"
+  },
+  "homepage": "https://github.com/hoseinprd/tg-wakatime-bot#readme",
+  "dependencies": {
+    "@types/node": "^16.10.3",
+    "axios": "^0.22.0",
+    "dotenv": "^10.0.0",
+    "https-proxy-agent": "^5.0.0",
+    "telegraf": "^4.4.2",
+    "telegraf-inline-menu": "^4.0.0"
+  },
+  "devDependencies": {
+    "@fullstacksjs/eslint-config": "^6.7.2",
+    "@fullstacksjs/toolbox": "^2.0.1",
+    "concurrently": "^6.3.0",
+    "eslint": "^8.0.0",
+    "nodemon": "^2.0.13",
+    "prettier": "^2.4.1",
+    "typescript": "^4.4.3"
+  }
+}
