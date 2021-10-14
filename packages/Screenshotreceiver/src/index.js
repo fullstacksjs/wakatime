@@ -69,11 +69,16 @@ const AllSteps = async () => {
   const ThreeTopUsers = AllUsers.slice(0, 3);
 
   const PrevWeek = DB[DB.length - 1];
-  const PrevWeekIds = PrevWeek.map((Value) => Object.keys(Value)[0]);
 
   const ThisWeek = ThreeTopUsers.map((User) => {
     const Id = User.user.id;
-
+    if (!PrevWeek) {
+      return {
+        daily_status: false,
+        total_status: false,
+      };
+    }
+    const PrevWeekIds = PrevWeek.map((Value) => Object.keys(Value)[0]);
     const PrevWeekTopUser = PrevWeek[PrevWeekIds.indexOf(Id)]?.[Id];
 
     if (!PrevWeekTopUser) {
