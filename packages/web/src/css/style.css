@@ -82,19 +82,19 @@ body {
   width: 100%;
   margin-left: 80px;
 }
-.Socail-Media {
+.Social-Media {
   display: grid;
   grid-template-columns: repeat(3, auto);
   margin-top: 43px;
 }
-.Socail-Media-Item {
+.Social-Media-Item {
   margin: 16px 40px 0;
   display: flex;
   align-items: center;
   font-size: 1.25rem;
   color: #d4dded33;
 }
-.Socail-Media-Item-Icon {
+.Social-Media-Item-Icon {
   max-width: 100%;
   margin-right: 12px;
 }
