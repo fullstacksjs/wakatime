@@ -8,11 +8,11 @@ body {
   overflow-x: hidden;
   font-family: "Rajdhani";
 }
-#Fullstacks-Logo {
+.Fullstacks-Logo {
   margin-top: 48px;
   max-width: 100%;
 }
-#Date-Text {
+.Date-Text {
   font-size: 2em;
   font-weight: 700;
   color: white;

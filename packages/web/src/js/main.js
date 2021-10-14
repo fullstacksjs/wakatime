@@ -1,7 +1,7 @@
 const StringifyData = new URLSearchParams(window.location.search).get('Data');
 const Data = JSON.parse(StringifyData);
 
-const DateTextElement = document.getElementById('Date-Text');
+const DateTextElement = document.querySelector('.Date-Text');
 
 const WeekCounter = (DateString) => {
   const date = new Date(DateString);
@@ -67,7 +67,7 @@ const WinnerBoxElements = Data.map((Item, Index) => {
 });
 
 WinnerBoxElements.forEach((element) =>
-  document.querySelector('#Winners').appendChild(element)
+  document.querySelector('.Winners').appendChild(element)
 );
 
 WinnerBox.remove();
