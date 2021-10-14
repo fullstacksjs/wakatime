@@ -3,7 +3,7 @@ const Data = JSON.parse(StringifyData);
 
 const DateTextElement = document.querySelector('.Date-Text');
 
-const WeekCounter = (DateString) => {
+const weekCounter = (DateString) => {
   const date = new Date(DateString);
   const today = new Date();
   return Math.floor((today - date) / (1000 * 60 * 60 * 24 * 7));
@@ -11,14 +11,14 @@ const WeekCounter = (DateString) => {
 
 const TimeCreated = new Date('Monday, 4 January 2021');
 
-DateTextElement.innerHTML = `${new Date().getFullYear()} - WEEK ${WeekCounter(
+DateTextElement.innerHTML = `${new Date().getFullYear()} - WEEK ${weekCounter(
   TimeCreated
 )}`;
 
 const WinnerBox = document.querySelector('.Winner-Box');
 const WinnerBoxTemplate = WinnerBox.outerHTML;
 
-const ConvertTextToElement = (StringifyElement) => {
+const convertTextToElement = (StringifyElement) => {
   const Parser = new DOMParser();
   const { firstChild: NewElement } = Parser.parseFromString(
     StringifyElement,
@@ -30,7 +30,7 @@ const ConvertTextToElement = (StringifyElement) => {
 
 const WinnerBoxElements = Data.map((Item, Index) => {
   const Ranks = ['1st', '2nd', '3rd'];
-  const Elem = ConvertTextToElement(WinnerBoxTemplate);
+  const Elem = convertTextToElement(WinnerBoxTemplate);
   Elem.querySelector('.Winner-Rank').innerHTML = Ranks[Index];
 
   if (Item.user.photo_public) {
