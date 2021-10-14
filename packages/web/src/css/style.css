@@ -76,6 +76,7 @@ body {
 }
 .User-Chart-Status {
   width: 15px;
+  margin-left: 7px;
 }
 .Separator {
   display: flex;

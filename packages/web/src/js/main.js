@@ -46,10 +46,13 @@ const winnerBoxElements = data.map((item, Index) => {
     .querySelectorAll('.User-Chart-Time')
     .forEach((ChartTimeElem, ChartTimeIndex) => {
       if (ChartTimeIndex === 0) {
-        ChartTimeElem.textContent = item.running_total.human_readable_total;
+        ChartTimeElem.innerHTML =
+          item.running_total.human_readable_total +
+          document.querySelector('.User-Chart-Status').outerHTML;
       } else {
-        ChartTimeElem.textContent =
-          item.running_total.human_readable_daily_average;
+        ChartTimeElem.innerHTML =
+          item.running_total.human_readable_daily_average +
+          document.querySelector('.User-Chart-Status').outerHTML;
       }
 
       if (ChartTimeIndex % 2 && item.running_total.daily_status) {
