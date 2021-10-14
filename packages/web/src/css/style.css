@@ -6,6 +6,7 @@ body {
   min-height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
+  font-family: "Rajdhani";
 }
 #Fullstacks-Logo {
   margin-top: 48px;
@@ -13,7 +14,6 @@ body {
 }
 #Date-Text {
   font-size: 2em;
-  font-family: "Rajdhani-Bold";
   font-weight: 700;
   color: white;
   margin-bottom: 20px;
@@ -27,7 +27,6 @@ body {
   position: relative;
 }
 .Winner-Rank {
-  font-family: "Rajdhani-Bold";
   font-weight: 700;
   color: #d4dded1a;
   font-size: 4rem;
@@ -47,13 +46,11 @@ body {
   margin-left: 8px;
 }
 .User-Name {
-  font-family: "Rajdhani-Light";
   font-weight: 400;
   color: #f8f9fb;
   font-size: 1.2rem;
 }
 .User-Id {
-  font-family: "Rajdhani-Bold";
   font-weight: 700;
   font-size: 1.3rem;
   color: white;
@@ -70,13 +67,11 @@ body {
   font-size: 1rem;
   color: #d4dded80;
   font-weight: 600;
-  font-family: "Rajdhani-Bold";
 }
 .User-Chart-Time {
   font-size: 1.25rem;
   margin-top: 5px;
   font-weight: 600;
-  font-family: "Rajdhani-Bold";
   color: #e8ecf3;
 }
 .User-Chart-Status {
@@ -97,7 +92,6 @@ body {
   display: flex;
   align-items: center;
   font-size: 1.25rem;
-  font-family: "Rajdhani-Bold";
   color: #d4dded33;
 }
 .Socail-Media-Item-Icon {

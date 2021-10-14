@@ -1,20 +1,4 @@
 @font-face {
-  font-family: "Rajdhani-Bold";
-  src: url("../assets/Fonts/Rajdhani/Rajdhani-Bold.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Rajdhani-Light";
-  src: url("../assets/Fonts/Rajdhani/Rajdhani-Light.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Rajdhani-Medium";
-  src: url("../assets/Fonts/Rajdhani/Rajdhani-Medium.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Rajdhani-Regular";
+  font-family: "Rajdhani";
   src: url("../assets/Fonts/Rajdhani/Rajdhani-Regular.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Rajdhani-SemiBold";
-  src: url("../assets/Fonts/Rajdhani/Rajdhani-SemiBold.ttf") format("truetype");
 }
