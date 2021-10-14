@@ -27,6 +27,13 @@ const InsertNewDataToDB = async (JsonFileName, DB, JsonData) => {
 const PageQuery = (Url, Query) =>
   `${Url.replace(/\/$/, '')}?Data=${JSON.stringify(Query)}`;
 
+const formatWakatimeTime = (raw) => {
+  const [rawHrs, rawMins] = raw.split(/ hrs | mins/);
+  const [hrs, mins] = [rawHrs, rawMins]
+    .map((n) => Number.parseInt(n, 10))
+    .map((n) => n.toLocaleString('en-US', { minimumIntegerDigits: 2 }));
+  return `${hrs}:${mins}`;
+};
 const GetScreenShot = async (Url) => {
   try {
     const browser = await puppeteer.launch({
@@ -104,6 +111,12 @@ const AllSteps = async () => {
       running_total: {
         ...User.running_total,
         ...ThisWeek[Index],
+        human_readable_daily_average: formatWakatimeTime(
+          User.running_total.human_readable_daily_average
+        ),
+        human_readable_total: formatWakatimeTime(
+          User.running_total.human_readable_total
+        ),
       },
     }))
   );
