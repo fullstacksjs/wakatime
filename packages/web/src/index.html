@@ -169,24 +169,26 @@
       </div>
 
       <div class="winners">
-        <div class="winner-box">
-          <p class="winner-rank">Error</p>
+        <div id="winner-box" class="winner-box">
+          <p data-rank class="winner-rank">Error</p>
           <div class="separator">
             <img
+              data-avatar
               src="https://ps.w.org/cbxuseronline/assets/icon-256x256.png?rev=2284897"
               alt="Winner-Avatar"
               class="winner-avatar"
             />
             <div class="user-data">
-              <p class="user-name">Error</p>
-              <p class="user-id">Error</p>
+              <p data-fullname class="user-name">Error</p>
+              <p data-username class="user-id">Error</p>
             </div>
             <div class="user-chart">
               <div class="user-chart-item">
                 <p class="user-chart-detail">Total:</p>
                 <p class="user-chart-time">
-                  Error
+                  <span data-total>Error</span>
                   <img
+                    data-total-status
                     class="user-chart-status"
                     src="assets/images/DownIcon.svg"
                     alt="Status"
@@ -196,8 +198,9 @@
               <div class="user-chart-item">
                 <p class="user-chart-detail">Daily:</p>
                 <p class="user-chart-time">
-                  Error
+                  <span data-daily>Error</span>
                   <img
+                    data-daily-status
                     class="user-chart-status"
                     src="assets/images/DownIcon.svg"
                     alt="Status"
@@ -260,6 +263,6 @@
         </p>
       </div>
     </div>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
