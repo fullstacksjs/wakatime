@@ -6,33 +6,38 @@ body {
   min-height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: "Rajdhani";
+  font-family: "Rajdhani", serif;
 }
-.Fullstacks-Logo {
+
+.fullstacks-logo {
   margin-top: 48px;
   max-width: 100%;
 }
-.Date-Text {
+
+.date-text {
   font-size: 2em;
   font-weight: 700;
   color: white;
   margin-bottom: 20px;
 }
-.Winner-Box {
+
+.winner-box {
   display: flex;
   align-items: center;
-  box-shadow: 0px 20px 20px -23px rgb(0 0 0 / 75%);
+  box-shadow: 0 20px 20px -23px rgb(0 0 0 / 75%);
   padding: 24px 32px;
   margin-bottom: 20px;
   position: relative;
 }
-.Winner-Rank {
+
+.winner-rank {
   font-weight: 700;
   color: #d4dded1a;
   font-size: 4rem;
   position: absolute;
 }
-.Winner-Avatar {
+
+.winner-avatar {
   border-radius: 200px;
   max-width: 100%;
   width: 44px;
@@ -40,62 +45,74 @@ body {
   object-fit: cover;
   z-index: 2;
 }
-.User-Data {
+
+.user-data {
   display: flex;
   flex-direction: column;
   margin-left: 8px;
 }
-.User-Name {
+
+.user-name {
   font-weight: 400;
   color: #f8f9fb;
   font-size: 1.2rem;
 }
-.User-Id {
+
+.user-id {
   font-weight: 700;
   font-size: 1.3rem;
   color: white;
 }
-.User-Chart {
+
+.user-chart {
   display: flex;
   flex: 1;
   justify-content: end;
 }
-.User-Chart-Item {
+
+.user-chart-item {
   margin: 0 32px;
 }
-.User-Chart-Detail {
+
+.user-chart-detail {
   font-size: 1rem;
   color: #d4dded80;
   font-weight: 600;
 }
-.User-Chart-Time {
+
+.user-chart-time {
   font-size: 1.25rem;
   margin-top: 5px;
   font-weight: 600;
   color: #e8ecf3;
 }
-.User-Chart-Status {
+
+.user-chart-status {
   width: 15px;
   margin-left: 7px;
 }
-.Separator {
+
+.separator {
   display: flex;
   width: 100%;
   margin-left: 80px;
 }
-.Social-Media {
+
+.social-media {
   display: grid;
   grid-template-columns: repeat(3, auto);
   margin-top: 43px;
 }
-.Social-Media-Item {
+
+.social-media-item {
   margin: 16px 40px 0;
   display: flex;
   align-items: center;
   font-size: 1.25rem;
   color: #d4dded33;
 }
-.Social-Media-Item-Icon {
+
+.social-media-item-icon {
   max-width: 100%;
   margin-right: 12px;
 }
