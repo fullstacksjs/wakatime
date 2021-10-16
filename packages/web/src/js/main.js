@@ -1,7 +1,7 @@
 const stringifyData = new URLSearchParams(window.location.search).get('Data');
 const data = JSON.parse(stringifyData);
 
-const dateTextElement = document.querySelector('.Date-Text');
+const dateTextElement = document.querySelector('.date');
 
 const weekCounter = (DateString) => {
   const date = new Date(DateString);
@@ -15,7 +15,7 @@ dateTextElement.textContent = `${new Date().getFullYear()} - WEEK ${weekCounter(
   timeCreated
 )}`;
 
-const winnerBox = document.querySelector('.Winner-Box');
+const winnerBox = document.querySelector('.winner-box');
 
 const convertTextToElement = (StringifyElement) => {
   const Parser = new DOMParser();
@@ -33,26 +33,26 @@ const winnerBoxElements = data.map((item, Index) => {
 
   const elem = convertTextToElement(winnerBoxTemplate);
 
-  elem.querySelector('.Winner-Rank').textContent = ranks[Index];
+  elem.querySelector('.winner-rank').textContent = ranks[Index];
 
   if (item.user.photo_public) {
-    elem.querySelector('.Winner-Avatar').src = `${item.user.photo}?s=420`;
+    elem.querySelector('.winner-avatar').src = `${item.user.photo}?s=420`;
   }
 
-  elem.querySelector('.User-Name').textContent = item.user.display_name;
-  elem.querySelector('.User-Id').textContent = item.user.username;
+  elem.querySelector('.user-name').textContent = item.user.display_name;
+  elem.querySelector('.user-id').textContent = item.user.username;
 
   elem
-    .querySelectorAll('.User-Chart-Time')
+    .querySelectorAll('.user-chart-time')
     .forEach((ChartTimeElem, ChartTimeIndex) => {
       if (ChartTimeIndex === 0) {
         ChartTimeElem.innerHTML =
           item.running_total.human_readable_total +
-          document.querySelector('.User-Chart-Status').outerHTML;
+          document.querySelector('.user-chart-status').outerHTML;
       } else {
         ChartTimeElem.innerHTML =
           item.running_total.human_readable_daily_average +
-          document.querySelector('.User-Chart-Status').outerHTML;
+          document.querySelector('.user-chart-status').outerHTML;
       }
 
       if (ChartTimeIndex % 2 && item.running_total.daily_status) {
@@ -66,7 +66,7 @@ const winnerBoxElements = data.map((item, Index) => {
 });
 
 winnerBoxElements.forEach((element) =>
-  document.querySelector('.Winners').appendChild(element)
+  document.querySelector('.winners').appendChild(element)
 );
 
 winnerBox.remove();
