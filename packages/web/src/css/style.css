@@ -48,9 +48,20 @@ body {
 .winner-box {
   display: flex;
   align-items: center;
-  box-shadow: 0 20px 20px -23px rgb(0 0 0 / 75%);
   padding: 24px 32px;
   position: relative;
+  background-color: #313744;
+}
+
+.winner-box::before {
+  content: " ";
+  width: calc(100% - 40px);
+  height: 100%;
+  left: 20px;
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 20px 25px rgb(0 0 0 / 20%);
+  z-index: -1;
 }
 
 .winner-rank {
