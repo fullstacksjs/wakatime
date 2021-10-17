@@ -1,6 +1,3 @@
 module.exports = {
-  extends: ['@fullstacksjs'],
-  rules: {
-    'import/extensions': 'off',
-  },
+  extends: ['@fullstacksjs', '@fullstacksjs/eslint-config/esm.js'],
 };

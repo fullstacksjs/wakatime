@@ -1,0 +1,7 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": ["**/node_modules/**"],
+  "words": ["wakatime", "leaderboard", "fullstacks", "fullstacksjs"],
+  "dictionaries": ["node", "libs", "keywords"]
+}
