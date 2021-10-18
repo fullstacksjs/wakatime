@@ -1,1 +1,1 @@
-export { getLeaderboardImage } from './src/getLeaderboardImage';
+export { getLeaderboardImage } from './src/getLeaderboardImage.js';
