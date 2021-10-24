@@ -1,9 +1,13 @@
-import { WakatimeContext } from '../Context';
-import { getHours } from '../utils';
+import { getLeaderboardImage } from '../../../screenshot-receiver/index.js';
+import { WakatimeContext } from '../Context.js';
+// import { getHours } from '../utils.js';
 
 const medals = ['🥇', '🥈', '🥉'];
 
 export const listWeekly = async (ctx: WakatimeContext) => {
+  const image = await getLeaderboardImage({ encoding: 'binary', type: 'png' });
+  if (!image) return ctx.reply('Oops!');
+
   // const {
   //   data: { data },
   // } = await api.get<WakaTimeAPI>(`/users/current/leaderboards/${leaderboardsId}`);
@@ -21,4 +25,5 @@ export const listWeekly = async (ctx: WakatimeContext) => {
   // ctx.reply(`${header + body + footer}`, {
   //   parse_mode: 'HTML',
   // });
+  return ctx.replyWithPhoto({ source: image as Buffer }, { caption: 'Hello' });
 };

@@ -1,7 +1,7 @@
 import { Telegraf } from 'telegraf';
 
-import { WakatimeContext } from './Context';
-import { getConfig } from './getConfig';
+import { WakatimeContext } from './Context.js';
+import { getConfig } from './getConfig.js';
 
 const config = getConfig();
 

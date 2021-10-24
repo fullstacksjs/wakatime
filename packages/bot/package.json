@@ -2,10 +2,11 @@
   "name": "wakatime-bot",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/index.ts",
-    "dev": "ts-node-dev --transpile-only src/index.ts"
+    "dev": "node --loader ts-node/esm/transpile-only -r tsconfig-paths/register src/index.ts"
   },
   "dependencies": {
     "axios": "0.22.0",
@@ -15,7 +16,7 @@
     "ts-dedent": "2.2.0"
   },
   "devDependencies": {
-    "@fullstacksjs/toolbox": "2.0.1",
+    "@fullstacksjs/toolbox": "2.3.0",
     "@types/node": "16.10.3",
     "concurrently": "6.3.0",
     "nodemon": "2.0.13",

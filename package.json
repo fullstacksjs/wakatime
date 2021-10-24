@@ -7,6 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "@fullstacksjs/eslint-config": "6.8.2",
+    "@fullstacksjs/tsconfig": "0.6.0",
     "eslint": "7.32.0",
     "husky": "7.0.2",
     "lint-staged": "11.1.2",

@@ -1,0 +1,10 @@
+{
+  "extends": "@fullstacksjs/tsconfig/esm",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": ["DOM", "ESNext"],
+    "paths": {
+      "screenshot-receiver": ["packages/screenshot-receiver/index.js"]
+    }
+  }
+}
