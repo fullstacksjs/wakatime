@@ -1,16 +1,5 @@
-import { Context } from 'telegraf';
+import { WakatimeContext } from '../Context';
 
-export const helpCpmmand = (ctx: Context) => {
-  const text = `
-    You can control me by sending these commands:
-    /help - to see this help.
-    /list_weekly - see list of best coder during current week
-  
-  
-  
-    Report <b>Bugs</b>: @Hoseinprd
-    `;
-  ctx.reply(text, {
-    parse_mode: 'HTML',
-  });
+export const helpCommand = (ctx: WakatimeContext) => {
+  return ctx.reply(ctx.messages.help);
 };

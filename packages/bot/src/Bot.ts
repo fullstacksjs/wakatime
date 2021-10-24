@@ -1,9 +1,13 @@
 import { Telegraf } from 'telegraf';
 
-import { TOKEN } from './env';
+import { WakatimeContext } from './Context';
+import { getConfig } from './getConfig';
 
-export default new Telegraf(TOKEN, {
-  telegram: {
-    apiRoot: 'https://tgproxy-m.herokuapp.com/',
-  },
+const config = getConfig();
+
+export default new Telegraf(config.botToken, {
+  contextType: WakatimeContext,
+  // telegram: {
+  //   apiRoot: 'https://tgproxy-m.herokuapp.com/',
+  // },
 });

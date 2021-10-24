@@ -9,11 +9,13 @@ interface WakaTimeAPI {
   total_pages: number;
   writes_only: boolean;
 }
+
 interface CurrentUser {
   rank: number;
   running_total: RunningTotal;
   user: User;
 }
+
 interface RunningTotal {
   daily_average: number;
   human_readable_daily_average: string;
@@ -27,6 +29,7 @@ interface LanguagesEntity {
   name: string;
   total_seconds: number;
 }
+
 interface User {
   full_name: string;
   human_readable_website: string;
@@ -37,6 +40,7 @@ interface User {
   username: string;
   website: string;
 }
+
 interface DataEntity {
   rank: number;
   running_total: RunningTotal;
