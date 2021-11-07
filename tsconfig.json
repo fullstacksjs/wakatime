@@ -1,0 +1,7 @@
+{
+  "extends": "@fullstacksjs/tsconfig/esm",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": ["DOM", "ESNext"]
+  }
+}
