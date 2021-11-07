@@ -23,6 +23,7 @@
     "prettier": "2.4.1",
     "stylelint": "13.13.1",
     "stylelint-config-standard": "22.0.0",
+    "ts-node": "10.4.0",
     "typescript": "4.4.4"
   },
   "dependencies": {
