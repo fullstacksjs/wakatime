@@ -14,6 +14,7 @@ export const createBot = (config: Config, db: WakatimeRepo) => {
     // },
   });
   bot.context.db = db;
+  bot.context.config = config;
   bot.start(startCommand);
   bot.help(helpCommand);
   bot.command('list_weekly', listWeekly);
