@@ -1,6 +1,6 @@
-import { getScreenshot } from 'src/utils/getScreenshot.js';
-import { getUrlWithParams } from 'src/utils/url';
-import { WakatimeRepo } from 'src/WakatimeRepo.js';
+import { getScreenshot } from '../utils/getScreenshot.js';
+import { getUrlWithParams } from '../utils/url';
+import { WakatimeRepo } from '../WakatimeRepo.js';
 import { Context } from 'telegraf';
 import { dedent } from 'ts-dedent';
 
