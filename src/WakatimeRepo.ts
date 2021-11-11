@@ -64,7 +64,7 @@ export class WakatimeRepo {
     const currentYear = new Date().getFullYear();
     const currentWeek = getWeekOfYear(new Date());
     const currentWeekReports = this.db.data!.weeks[`${currentYear}:${currentWeek}`]!.reports;
-    return currentWeekReports.slice(0, count + 1).map(
+    return currentWeekReports.slice(0, count).map(
       (report): ReportAndUser => ({
         report,
         user: this.db!.data!.users[report.userId] as User,
