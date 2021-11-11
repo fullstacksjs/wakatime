@@ -58,15 +58,18 @@ export class WakatimeRepo {
   async getTopUsers(count: number): Promise<ReportAndUser[]> {
     if (isNull(this.db)) throw Error('You need to init db before use');
 
+    await this.syncDb();
     await this.db.read();
-    // TODO: Should return top users from DB
-    // return reportAndUsers.slice(0, count).map(reportAndUser => ({
-    //   report: reportAndUser.report,
-    //   user: {
-    //     ...reportAndUser.user,
-    //     diff: this.db!.data?.users[reportAndUser.user.id]?.diff ?? 0,
-    //   },
-    // }));
+
+    const currentYear = new Date().getFullYear();
+    const currentWeek = getWeekOfYear(new Date());
+    const currentWeekReports = this.db.data!.weeks[`${currentYear}:${currentWeek}`]!.reports;
+    return currentWeekReports.slice(0, count + 1).map(
+      (report): ReportAndUser => ({
+        report,
+        user: this.db!.data!.users[report.userId] as User,
+      }),
+    );
   }
 
   async syncDb() {
