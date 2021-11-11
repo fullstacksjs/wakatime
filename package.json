@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec tsm ./src/main.ts",
+    "dev": "nodemon --exec tsm ./src/main.ts --ignore src/data/",
     "prepare": "husky install",
     "lint": "npm-run-all -p lint:*",
     "lint:style": "stylelint \"packages/web/src/css/*.css\"",
