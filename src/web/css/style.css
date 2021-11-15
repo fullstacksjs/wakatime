@@ -101,7 +101,7 @@ body {
 .user-chart {
   display: flex;
   flex: 1;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .user-chart-item {
