@@ -1,4 +1,4 @@
-import { getRequiredEnv } from '@fullstacksjs/toolbox';
+import { getRequiredEnv, getEnv, toInteger } from '@fullstacksjs/toolbox';
 import dotenv from 'dotenv';
 
 import { toAbsolutePath } from './utils/path.js';
@@ -11,6 +11,7 @@ export function getConfig(): Config {
     puppeteerExecutablePath: getRequiredEnv('PUPPETEER_EXECUTABLE_PATH'),
     leaderboardUrl: getRequiredEnv('LEADERBOARD_URL'),
     webpageUrl: getRequiredEnv('WEBPAGE_URL'),
+    port: toInteger(getEnv('PORT') ?? '3000'),
     dbFilePath: toAbsolutePath('../data/db.json'),
   };
 }
