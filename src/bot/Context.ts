@@ -1,8 +1,9 @@
-import { getScreenshot } from '../utils/getScreenshot.js';
-import { getUrlWithParams } from '../utils/url';
-import { WakatimeRepo } from '../WakatimeRepo.js';
 import { Context } from 'telegraf';
 import { dedent } from 'ts-dedent';
+
+import { getScreenshot } from '../utils/getScreenshot.js';
+import { WakatimeRepo } from '../WakatimeRepo.js';
+import { getWeekOfYear } from '../web/js/app.js';
 
 export class WakatimeContext extends Context {
   medals = ['🥇', '🥈', '🥉'];
@@ -11,10 +12,9 @@ export class WakatimeContext extends Context {
   // @ts-expect-error the config will get initiated dynamically due to lack of control from TelegrafContext
   config: Config;
 
-  getLeaderboardImage(topUsers: ReportAndUser[]) {
-    const url = getUrlWithParams(this.config.webpageUrl, [['users', topUsers]]);
+  getLeaderboardImage() {
     return getScreenshot({
-      url,
+      url: this.config.webpageUrl,
       puppeteerExecutablePath: this.config.puppeteerExecutablePath,
       encoding: 'binary',
       type: 'png',
@@ -26,6 +26,21 @@ export class WakatimeContext extends Context {
   }
 
   messages = {
+    getReportTitle: (users: ReportAndUser[]) => dedent`
+    <b>Wakatime Report</b>
+    <i>${new Date().getFullYear()} - Week ${getWeekOfYear(new Date())} </i>
+    ${users
+      .map(
+        ({ user }, idx: number) =>
+          `${this.medals[idx]} <b>${user.name}</b>: <i>~${user.lastTotalSeconds}hrs</i>`,
+      )
+      .join('\n')}
+
+    #wakatime_report
+
+    @fullstacks
+    `,
+
     help: dedent`
       You can control me by sending these commands:
       /help - to see this help.
