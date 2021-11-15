@@ -1,7 +1,9 @@
-import { getDataFromUrl } from './api.js';
+import { toUser } from './api.js';
 import { createWinnerBoxElement, getDateTitle } from './app.js';
 
-const winners = getDataFromUrl();
+const rawWinners = document.getElementById('data').dataset.winners;
+const winners = JSON.parse(rawWinners).map(toUser);
+
 const dateElement = document.getElementById('date');
 dateElement.textContent = getDateTitle(new Date());
 
