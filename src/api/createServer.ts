@@ -3,8 +3,9 @@ import path from 'path';
 
 import { getDirname } from '../utils/getDirname';
 import { WakatimeRepo } from '../WakatimeRepo';
+import { createRenderLeaderboardRoute } from './routes/createRenderLeaderboardRoute';
 
-export const createServer = (config: Config, _db: WakatimeRepo) => {
+export const createServer = (config: Config, db: WakatimeRepo) => {
   const app = express();
   const viewPath = path.join(getDirname(), '../web');
 
@@ -12,6 +13,7 @@ export const createServer = (config: Config, _db: WakatimeRepo) => {
   app.set('views', viewPath);
 
   app.use(express.static(viewPath));
+  app.get('/', createRenderLeaderboardRoute(db));
 
   return () => app.listen(config.port);
 };
