@@ -1,6 +1,7 @@
 import { Context } from 'grammy';
 import { dedent } from 'ts-dedent';
 
+import { ScheduleRepo } from '../ScheduleRepo.js';
 import { secondsToHours } from '../utils/date.js';
 import { getScreenshot } from '../utils/getScreenshot.js';
 import { WakatimeRepo } from '../WakatimeRepo.js';
@@ -9,7 +10,9 @@ import { getWeekOfYear } from '../web/js/app.js';
 export class WakatimeContext extends Context {
   medals = ['🥇', '🥈', '🥉'];
   // @ts-expect-error the DB will get initiated dynamically due to lack of control from TelegrafContext
-  db: WakatimeRepo;
+  wakatimeDb: WakatimeRepo;
+  // @ts-expect-error the config will get initiated dynamically due to lack of control from TelegrafContext
+  scheduleDb: ScheduleRepo;
   // @ts-expect-error the config will get initiated dynamically due to lack of control from TelegrafContext
   config: Config;
 
