@@ -5,9 +5,9 @@ import { WakatimeRepo } from './WakatimeRepo.js';
 
 const config = getConfig();
 
-const db = await new WakatimeRepo(config.dbFilePath).init();
-const runServer = createServer(config, db);
-const bot = createBot(config, db);
+const wakatimeDb = await new WakatimeRepo(config.wakatimeDbFilePath).init();
+const runServer = createServer(config, wakatimeDb);
+const bot = createBot(config, wakatimeDb);
 
 runServer();
 bot.start();
