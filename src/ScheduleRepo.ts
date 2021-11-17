@@ -24,4 +24,11 @@ export class ScheduleRepo {
     this.db.data ??= { schedules: {} };
     await this.db.write();
   }
+
+  async getSchedules() {
+    if (isNull(this.db)) throw Error('You need to init db before use');
+
+    await this.db.read();
+    return this.db.data?.schedules;
+  }
 }

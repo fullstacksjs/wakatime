@@ -3,7 +3,7 @@ import { InputFile } from 'grammy';
 import { WakatimeContext } from '../Context.js';
 
 export const listWeekly = async (ctx: WakatimeContext) => {
-  const users = await ctx.db.getTopUsers(3);
+  const users = await ctx.wakatimeDb.getTopUsers(3);
   try {
     const image = await ctx.getLeaderboardImage();
     const file = new InputFile(image);
