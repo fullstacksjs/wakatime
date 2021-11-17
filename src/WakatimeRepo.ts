@@ -6,22 +6,15 @@ import path from 'path';
 import { getUsers } from './getUsers.js';
 import { getWeekOfYear } from './utils/date.js';
 
-interface Db {
-  users: { [key: string]: User };
-  weeks: {
-    [key: Week]: WeekReport | null;
-  };
-}
-
 export class WakatimeRepo {
-  db: Low<Db> | undefined;
+  db: Low<WakatimeDb> | undefined;
 
   constructor(private dbFilePath: string) {}
 
   async init() {
     await fs.mkdir(path.dirname(this.dbFilePath), { recursive: true });
-    const adapter = new JSONFile<Db>(this.dbFilePath);
-    this.db = new Low<Db>(adapter);
+    const adapter = new JSONFile<WakatimeDb>(this.dbFilePath);
+    this.db = new Low<WakatimeDb>(adapter);
     await this.seedDb();
     return this;
   }

@@ -1,4 +1,4 @@
-import { getRequiredEnv, getEnv, toInteger } from '@fullstacksjs/toolbox';
+import { getEnv, getRequiredEnv, toInteger } from '@fullstacksjs/toolbox';
 import dotenv from 'dotenv';
 
 import { toAbsolutePath } from './utils/path.js';
@@ -12,6 +12,7 @@ export function getConfig(): Config {
     leaderboardUrl: getRequiredEnv('LEADERBOARD_URL'),
     webpageUrl: getRequiredEnv('WEBPAGE_URL'),
     port: toInteger(getEnv('PORT') ?? '3000'),
-    dbFilePath: toAbsolutePath('../data/db.json'),
+    wakatimeDbFilePath: toAbsolutePath('../data/wakatime.db.json'),
+    scheduleDbFilePath: toAbsolutePath('../data/wakatime.db.json'),
   };
 }

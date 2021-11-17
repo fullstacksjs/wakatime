@@ -5,7 +5,8 @@ interface Config {
   puppeteerExecutablePath: string;
   leaderboardUrl: string;
   webpageUrl: string;
-  dbFilePath: string;
+  wakatimeDbFilePath: string;
+  scheduleDbFilePath: string;
 }
 
 type Week = string;
@@ -65,4 +66,24 @@ interface UserReport {
 interface ReportAndUser {
   report: UserReport;
   user: User;
+}
+
+type Day = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+type Hour = number;
+type Minute = number;
+
+type Schedule = `${Day} ${Hour}:${Minute}`;
+type GroupId = string;
+
+interface WakatimeDb {
+  users: { [key: string]: User };
+  weeks: {
+    [key: Week]: WeekReport | null;
+  };
+}
+
+interface ScheduleDb {
+  schedules: {
+    [key: GroupId]: Schedule;
+  };
 }
