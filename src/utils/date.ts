@@ -5,3 +5,7 @@ export function getWeekOfYear(date: Date) {
     ((date.valueOf() - oneJan.valueOf()) / millisecondsInDay + oneJan.getDay() + 1) / 7,
   );
 }
+
+export function secondsToHours(sec: number) {
+  return Math.floor(sec / 3600);
+}

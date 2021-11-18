@@ -1,6 +1,7 @@
 import { Context } from 'telegraf';
 import { dedent } from 'ts-dedent';
 
+import { secondsToHours } from '../utils/date.js';
 import { getScreenshot } from '../utils/getScreenshot.js';
 import { WakatimeRepo } from '../WakatimeRepo.js';
 import { getWeekOfYear } from '../web/js/app.js';
@@ -32,7 +33,9 @@ export class WakatimeContext extends Context {
     ${users
       .map(
         ({ user }, idx: number) =>
-          `${this.medals[idx]} <b>${user.name}</b>: <i>~${user.lastTotalSeconds}hrs</i>`,
+          `${this.medals[idx]} <b>${user.name}</b>: <i>~${secondsToHours(
+            user.lastTotalSeconds ?? 0,
+          )}hrs</i>`,
       )
       .join('\n')}
 
