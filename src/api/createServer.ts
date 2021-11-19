@@ -15,5 +15,5 @@ export const createServer = (config: Config, db: WakatimeRepo) => {
   app.use(express.static(viewPath));
   app.get('/', createRenderLeaderboardRoute(db));
 
-  return () => app.listen(config.port);
+  return () => app.listen(config.port, () => console.log(`listening on port ${config.port}`));
 };

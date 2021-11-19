@@ -1,4 +1,4 @@
-import { Context } from 'telegraf';
+import { Context } from 'grammy';
 import { dedent } from 'ts-dedent';
 
 import { secondsToHours } from '../utils/date.js';

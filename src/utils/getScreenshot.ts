@@ -24,6 +24,17 @@ export const getScreenshot = async ({
 }) => {
   const browser = await puppeteer.launch({
     executablePath: puppeteerExecutablePath,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process', // <- this one doesn't works in Windows
+      '--disable-gpu',
+    ],
+    headless: true,
   });
   const page = await browser.newPage();
   await page.goto(url);
