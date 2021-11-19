@@ -13,6 +13,6 @@ export function getConfig(): Config {
     webpageUrl: getRequiredEnv('WEBPAGE_URL'),
     port: toInteger(getEnv('PORT') ?? '3000'),
     wakatimeDbFilePath: toAbsolutePath('../data/wakatime.db.json'),
-    scheduleDbFilePath: toAbsolutePath('../data/wakatime.db.json'),
+    scheduleDbFilePath: toAbsolutePath('../data/schedule.db.json'),
   };
 }
