@@ -36,7 +36,6 @@
     "grammy": "1.4.0",
     "lowdb": "3.0.0",
     "puppeteer-core": "11.0.0",
-    "telegraf": "4.4.2",
     "ts-dedent": "2.2.0"
   },
   "volta": {
