@@ -31,4 +31,12 @@ export class ScheduleRepo {
     await this.db.read();
     return this.db.data?.schedules;
   }
+
+  async addSchedule(groupId: GroupId, schedule: Schedule) {
+    if (isNull(this.db)) throw Error('You need to init db before use');
+    await this.db.read();
+    const schedules = this.db.data!.schedules;
+    schedules[groupId] = schedule;
+    await this.db.write();
+  }
 }
