@@ -67,8 +67,13 @@ export class WakatimeContext extends Context {
     bad pattern
     an accepted pattern is in this format:
     <code>\\schedule DAY HH:MM</code>`,
+
     notAGroup: dedent`
     this command is only available in group chats
+    `,
+
+    scheduleSaved: dedent`
+    schedule saved successfully
     `,
   };
 
