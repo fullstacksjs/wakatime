@@ -72,7 +72,7 @@ type Day = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 type Hour = number;
 type Minute = number;
 
-type Schedule = `${Day} ${Hour}:${Minute}`;
+type Schedule = [Day, Hour, Minute];
 type GroupId = string;
 
 interface WakatimeDb {
@@ -81,7 +81,6 @@ interface WakatimeDb {
     [key: Week]: WeekReport | null;
   };
 }
-
 interface ScheduleDb {
   schedules: {
     [key: GroupId]: Schedule;
