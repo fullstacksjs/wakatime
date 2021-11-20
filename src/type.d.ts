@@ -86,3 +86,8 @@ interface ScheduleDb {
     [key: GroupId]: Schedule;
   };
 }
+
+interface Leaderboard {
+  image: Buffer | string;
+  caption: string;
+}
