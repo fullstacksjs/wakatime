@@ -2,12 +2,14 @@ import { Bot } from 'grammy';
 import type { WakatimeRepo } from 'src/WakatimeRepo.js';
 
 import { ScheduleRepo } from '../ScheduleRepo.js';
+import { ScheduleService } from '../ScheduleService.js';
 import { helpCommand } from './commands/help.js';
 import { listWeekly } from './commands/listWeekly.js';
 import { schedule } from './commands/schedule.js';
 import { startCommand } from './commands/start.js';
 import { WakatimeContext } from './Context.js';
 import { parseSchedule } from './middlewares/parseSchedule.js';
+import { createSendWeeklyCommand } from './sendWeekly.js';
 
 export const createBot = (config: Config, wakatimeDb: WakatimeRepo, scheduleDb: ScheduleRepo) => {
   const bot = new Bot(config.botToken, {
@@ -17,11 +19,14 @@ export const createBot = (config: Config, wakatimeDb: WakatimeRepo, scheduleDb: 
     //   apiRoot: 'https://tgproxy-m.herokuapp.com/',
     // },
   });
-  bot.use((ctx, next) => {
+  bot.use(async (ctx, next) => {
     ctx.wakatimeDb = wakatimeDb;
     ctx.scheduleDb = scheduleDb;
     ctx.config = config;
-    next();
+    const sendWeekly = createSendWeeklyCommand(config, wakatimeDb, bot.api);
+    const scheduleService = await new ScheduleService(scheduleDb, sendWeekly).init();
+    ctx.scheduleService = scheduleService;
+    await next();
   });
 
   bot.command('start', startCommand);

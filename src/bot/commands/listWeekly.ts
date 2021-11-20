@@ -3,12 +3,11 @@ import { InputFile } from 'grammy';
 import { WakatimeContext } from '../Context.js';
 
 export const listWeekly = async (ctx: WakatimeContext) => {
-  const users = await ctx.wakatimeDb.getTopUsers(3);
   try {
-    const image = await ctx.getLeaderboardImage();
-    const file = new InputFile(image);
+    const leaderboard = await ctx.getLeaderboard();
+    const file = new InputFile(leaderboard.image);
     return ctx.replyWithPhoto(file, {
-      caption: ctx.messages.getReportTitle(users),
+      caption: leaderboard.caption,
       parse_mode: 'HTML',
     });
   } catch (error) {
