@@ -5,7 +5,7 @@ import { ScheduleRepo } from '../ScheduleRepo.js';
 import { ScheduleService } from '../ScheduleService.js';
 import { getScreenshot } from '../utils/getScreenshot.js';
 import { WakatimeRepo } from '../WakatimeRepo.js';
-import { createLeaderboard } from './createLeaderboard.js';
+import { createLeaderboard } from './useCases/createLeaderboard.js';
 
 export class WakatimeContext extends Context {
   // @ts-expect-error the DB will get initiated dynamically due to lack of control from TelegrafContext

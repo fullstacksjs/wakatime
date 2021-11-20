@@ -1,6 +1,6 @@
-import { getScreenshot } from '../utils/getScreenshot';
-import { WakatimeRepo } from '../WakatimeRepo';
-import { getReportCaption } from './getReportCaption';
+import { getScreenshot } from '../../utils/getScreenshot';
+import { WakatimeRepo } from '../../WakatimeRepo';
+import { getReportCaption } from '../getReportCaption';
 
 export const createLeaderboard = async (
   config: Config,
