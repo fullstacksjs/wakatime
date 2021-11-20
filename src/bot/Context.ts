@@ -55,7 +55,8 @@ export class WakatimeContext extends Context {
     badSchedulePattern: dedent`
     bad pattern
     an accepted pattern is in this format:
-    <code>\\schedule DAY HH:MM</code>`,
+    <code>\\schedule DD HH:MM</code>
+    note: days start from 1 (saturday) to 7 (friday)`,
 
     notAGroup: dedent`
     this command is only available in group chats
