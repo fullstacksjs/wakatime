@@ -38,10 +38,6 @@ export const createBot = async (
   bot.command('help', helpCommand);
   bot.command('list_weekly', listWeekly);
   bot.hears(/\/schedule ([1-7]) ([0-1]?[0-9]|2[0-3]):([0-5][0-9])/, parseSchedule, schedule);
-  bot.hears(/\/schedule/, ctx =>
-    ctx.reply(ctx.messages.badSchedulePattern, {
-      parse_mode: 'HTML',
-    }),
-  );
+  bot.hears(/\/schedule/, ctx => ctx.reply(ctx.messages.badSchedulePattern));
   return bot;
 };
