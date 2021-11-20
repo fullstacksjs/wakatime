@@ -9,10 +9,11 @@ interface ScheduleJob {
 
 export class ScheduleService {
   private jobs: ScheduleJob = {};
-  constructor(private repo: ScheduleRepo, private cb: (id: GroupId) => any) {}
+  constructor(private repo: ScheduleRepo, private createCb: (id: GroupId) => any) {}
 
   async init() {
     const schedules = await this.repo.getSchedules();
+
     Object.entries(schedules).forEach(([id, schedule]) => this.addOrUpdateOne(id, schedule));
     return this;
   }
@@ -22,7 +23,9 @@ export class ScheduleService {
     if (!isNull(currentJob)) currentJob.stop();
     this.jobs[id] = new CronJob(
       `${mins} ${hrs} * * ${day - 1}`,
-      this.cb(id),
+      () => {
+        this.createCb(id);
+      },
       null,
       true,
       'Asia/Tehran',
