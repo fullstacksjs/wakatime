@@ -29,7 +29,7 @@ export class ScheduleRepo {
     if (isNull(this.db)) throw Error('You need to init db before use');
 
     await this.db.read();
-    return this.db.data?.schedules;
+    return this.db.data!.schedules;
   }
 
   async addSchedule(groupId: GroupId, schedule: Schedule) {
