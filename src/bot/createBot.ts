@@ -11,7 +11,11 @@ import { WakatimeContext } from './Context.js';
 import { parseSchedule } from './middlewares/parseSchedule.js';
 import { createSendWeekly } from './useCases/createSendWeekly';
 
-export const createBot = (config: Config, wakatimeDb: WakatimeRepo, scheduleDb: ScheduleRepo) => {
+export const createBot = async (
+  config: Config,
+  wakatimeDb: WakatimeRepo,
+  scheduleDb: ScheduleRepo,
+) => {
   const bot = new Bot(config.botToken, {
     ContextConstructor: WakatimeContext,
 
@@ -19,12 +23,13 @@ export const createBot = (config: Config, wakatimeDb: WakatimeRepo, scheduleDb: 
     //   apiRoot: 'https://tgproxy-m.herokuapp.com/',
     // },
   });
+  const sendWeekly = createSendWeekly(config, wakatimeDb, bot.api);
+  const scheduleService = await new ScheduleService(scheduleDb, sendWeekly).init();
+
   bot.use(async (ctx, next) => {
     ctx.wakatimeDb = wakatimeDb;
     ctx.scheduleDb = scheduleDb;
     ctx.config = config;
-    const sendWeekly = createSendWeekly(config, wakatimeDb, bot.api);
-    const scheduleService = await new ScheduleService(scheduleDb, sendWeekly).init();
     ctx.scheduleService = scheduleService;
     await next();
   });

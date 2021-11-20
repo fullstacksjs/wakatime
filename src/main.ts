@@ -10,7 +10,7 @@ const wakatimeDb = await new WakatimeRepo(config.wakatimeDbFilePath).init();
 const scheduleDb = await new ScheduleRepo(config.scheduleDbFilePath).init();
 
 const runServer = createServer(config, wakatimeDb);
-const bot = createBot(config, wakatimeDb, scheduleDb);
+const bot = await createBot(config, wakatimeDb, scheduleDb);
 
 runServer();
 bot.start();
