@@ -23,9 +23,7 @@ export class ScheduleService {
     if (!isNull(currentJob)) currentJob.stop();
     this.jobs[id] = new CronJob(
       `${mins} ${hrs} * * ${day - 1}`,
-      () => {
-        this.createCb(id);
-      },
+      this.createCb(id),
       null,
       true,
       'Asia/Tehran',
