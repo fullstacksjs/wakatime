@@ -1,11 +1,11 @@
 import { toInteger } from '@fullstacksjs/toolbox';
 import { Middleware } from 'grammy';
 
+import { toEnglishDay } from '../../utils/date';
 import { WakatimeContext } from '../Context';
 
 export const parseSchedule: Middleware<WakatimeContext> = async (ctx, next) => {
-  const [, day, time] = ctx.match as [string, string, string];
-  const [hrs, mins] = time.split(':').map(toInteger) as [number, number];
-  ctx.schedule = [toInteger(day) as Day, hrs, mins];
+  const [day, hrs, mins] = (ctx.match as RegExpMatchArray).slice(1, 4).map(toInteger) as Schedule;
+  ctx.schedule = [toEnglishDay(day) as Day, hrs, mins];
   await next();
 };
