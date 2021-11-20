@@ -10,4 +10,4 @@ export function secondsToHours(sec: number) {
   return Math.floor(sec / 3600);
 }
 
-export const toEnglishDay = (day: Day) => (day === 1 ? 6 : day - 1);
+export const toEnglishDay = (day: Day) => (day === 1 ? 7 : day - 1);
