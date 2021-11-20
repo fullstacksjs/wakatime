@@ -33,6 +33,16 @@ export const createBot = async (
     ctx.scheduleService = scheduleService;
     await next();
   });
+  await bot.api.setMyCommands([
+    { command: 'start', description: 'Start the bot' },
+    { command: 'help', description: 'Show help text' },
+    { command: 'list_weekly', description: 'list the current week leaderboard' },
+    {
+      command: 'schedule',
+      description:
+        'schedule leaderboard to be send each week on DD at HH:MM (days start from 1 (saturday) to 7(friday))',
+    },
+  ]);
 
   bot.command('start', startCommand);
   bot.command('help', helpCommand);
