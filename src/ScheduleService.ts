@@ -9,15 +9,23 @@ interface ScheduleJob {
 
 export class ScheduleService {
   private jobs: ScheduleJob = {};
-  constructor(private repo: ScheduleRepo) {}
-  async init(cb: any) {
+  constructor(private repo: ScheduleRepo, private cb: (id: GroupId) => any) {}
+
+  async init() {
     const schedules = await this.repo.getSchedules();
-    Object.entries(schedules).forEach(([id, schedule]) => this.addOne(id, schedule, cb));
+    Object.entries(schedules).forEach(([id, schedule]) => this.addOrUpdateOne(id, schedule));
+    return this;
   }
 
-  addOne(id: GroupId, [day, hrs, mins]: Schedule, cb: any) {
+  addOrUpdateOne(id: GroupId, [day, hrs, mins]: Schedule) {
     const currentJob = this.jobs[id];
     if (!isNull(currentJob)) currentJob.stop();
-    this.jobs[id] = new CronJob(`${mins} ${hrs} * * ${day - 1}`, cb(id), null, true, 'Asia/Tehran');
+    this.jobs[id] = new CronJob(
+      `${mins} ${hrs} * * ${day - 1}`,
+      this.cb(id),
+      null,
+      true,
+      'Asia/Tehran',
+    );
   }
 }
