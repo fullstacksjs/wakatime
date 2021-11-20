@@ -2,19 +2,21 @@ import { Context } from 'grammy';
 import { dedent } from 'ts-dedent';
 
 import { ScheduleRepo } from '../ScheduleRepo.js';
-import { secondsToHours } from '../utils/date.js';
+import { ScheduleService } from '../ScheduleService.js';
 import { getScreenshot } from '../utils/getScreenshot.js';
 import { WakatimeRepo } from '../WakatimeRepo.js';
-import { getWeekOfYear } from '../web/js/app.js';
+import { createLeaderboard } from './createLeaderboard.js';
 
 export class WakatimeContext extends Context {
-  medals = ['🥇', '🥈', '🥉'];
   // @ts-expect-error the DB will get initiated dynamically due to lack of control from TelegrafContext
   wakatimeDb: WakatimeRepo;
   // @ts-expect-error the config will get initiated dynamically due to lack of control from TelegrafContext
   scheduleDb: ScheduleRepo;
   // @ts-expect-error the config will get initiated dynamically due to lack of control from TelegrafContext
   config: Config;
+  // @ts-expect-error the config will get initiated dynamically due to lack of control from TelegrafContext
+  scheduleService: ScheduleService;
+
   schedule: Schedule | null = null;
   getLeaderboardImage() {
     return getScreenshot({
@@ -29,24 +31,11 @@ export class WakatimeContext extends Context {
     });
   }
 
+  getLeaderboard() {
+    return createLeaderboard(this.config, this.wakatimeDb);
+  }
+
   messages = {
-    getReportTitle: (users: ReportAndUser[]) => dedent`
-    <b>Wakatime Report</b>
-    <i>${new Date().getFullYear()} - Week ${getWeekOfYear(new Date())} </i>
-    ${users
-      .map(
-        ({ user }, idx: number) =>
-          `${this.medals[idx]} <b>${user.name}</b>: <i>~${secondsToHours(
-            user.lastTotalSeconds ?? 0,
-          )}hrs</i>`,
-      )
-      .join('\n')}
-
-    #wakatime_report
-
-    @fullstacks
-    `,
-
     help: dedent`
       You can control me by sending these commands:
       /help - to see this help.
