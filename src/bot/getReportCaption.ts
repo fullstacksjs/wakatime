@@ -1,4 +1,4 @@
-import dedent from 'ts-dedent';
+import { dedent } from 'ts-dedent';
 
 import { getWeekOfYear, secondsToHours } from '../utils/date';
 import { medals } from './medals';
