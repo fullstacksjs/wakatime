@@ -9,7 +9,7 @@ import { schedule } from './commands/schedule.js';
 import { startCommand } from './commands/start.js';
 import { WakatimeContext } from './Context.js';
 import { parseSchedule } from './middlewares/parseSchedule.js';
-import { createSendWeeklyCommand } from './sendWeekly.js';
+import { createSendWeekly } from './useCases/createSendWeekly';
 
 export const createBot = (config: Config, wakatimeDb: WakatimeRepo, scheduleDb: ScheduleRepo) => {
   const bot = new Bot(config.botToken, {
@@ -23,7 +23,7 @@ export const createBot = (config: Config, wakatimeDb: WakatimeRepo, scheduleDb: 
     ctx.wakatimeDb = wakatimeDb;
     ctx.scheduleDb = scheduleDb;
     ctx.config = config;
-    const sendWeekly = createSendWeeklyCommand(config, wakatimeDb, bot.api);
+    const sendWeekly = createSendWeekly(config, wakatimeDb, bot.api);
     const scheduleService = await new ScheduleService(scheduleDb, sendWeekly).init();
     ctx.scheduleService = scheduleService;
     await next();
