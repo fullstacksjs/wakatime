@@ -38,7 +38,8 @@
     "grammy": "1.4.0",
     "lowdb": "3.0.0",
     "puppeteer-core": "11.0.0",
-    "ts-dedent": "2.2.0"
+    "ts-dedent": "2.2.0",
+    "typescript-ioc": "3.2.2"
   },
   "volta": {
     "node": "16.13.0",

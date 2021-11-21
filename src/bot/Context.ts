@@ -1,25 +1,23 @@
 import { Context } from 'grammy';
+import { PuppeteerService } from 'src/Services/PuppeteerService.js';
 import { dedent } from 'ts-dedent';
+import { Inject, InjectValue } from 'typescript-ioc';
 
-import { ScheduleRepo } from '../ScheduleRepo.js';
-import { ScheduleService } from '../ScheduleService.js';
-import { getScreenshot } from '../utils/getScreenshot.js';
-import { WakatimeRepo } from '../WakatimeRepo.js';
-import { createLeaderboard } from './useCases/createLeaderboard.js';
+import { LeaderboardRepo } from '../repos/LeaderboardRepo.js';
+import { ScheduleRepo } from '../repos/ScheduleRepo.js';
+import { GroupScheduleService } from '../Services/ScheduleService.js';
+import { LeaderboardUseCase } from './useCases/LeaderboardUsecase.js';
 
 export class WakatimeContext extends Context {
-  // @ts-expect-error the DB will get initiated dynamically due to lack of control from TelegrafContext
-  wakatimeDb: WakatimeRepo;
-  // @ts-expect-error the config will get initiated dynamically due to lack of control from TelegrafContext
-  scheduleDb: ScheduleRepo;
-  // @ts-expect-error the config will get initiated dynamically due to lack of control from TelegrafContext
-  config: Config;
-  // @ts-expect-error the config will get initiated dynamically due to lack of control from TelegrafContext
-  scheduleService: ScheduleService;
+  @InjectValue('config') config!: Config;
+  @Inject() wakatimeDb!: LeaderboardRepo;
+  @Inject() scheduleDb!: ScheduleRepo;
+  @Inject() groupScheduleService!: GroupScheduleService;
+  @Inject() puppeteerService!: PuppeteerService;
 
   schedule: Schedule | null = null;
   getLeaderboardImage() {
-    return getScreenshot({
+    return this.puppeteerService.getScreenshot({
       url: this.config.webpageUrl,
       puppeteerExecutablePath: this.config.puppeteerExecutablePath,
       encoding: 'binary',
@@ -31,8 +29,8 @@ export class WakatimeContext extends Context {
     });
   }
 
-  getLeaderboard() {
-    return createLeaderboard(this.config, this.wakatimeDb);
+  getLeaderboard(): Promise<Leaderboard> {
+    return new LeaderboardUseCase().execute();
   }
 
   messages = {

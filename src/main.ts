@@ -1,19 +1,7 @@
-import { createServer } from './api/createServer.js';
-import { createBot } from './bot/createBot.js';
-import { getConfig } from './getConfig.js';
-import { ScheduleRepo } from './ScheduleRepo.js';
-import { WakatimeRepo } from './WakatimeRepo.js';
+import { Container } from 'typescript-ioc';
+import { App } from './App.js';
+import { container } from './config/IocConfig.js';
 
-const config = getConfig();
+Container.configure(...container);
 
-const wakatimeDb = await new WakatimeRepo(config.wakatimeDbFilePath).init();
-const scheduleDb = await new ScheduleRepo(config.scheduleDbFilePath).init();
-
-const runServer = createServer(config, wakatimeDb);
-const bot = await createBot(config, wakatimeDb, scheduleDb);
-
-runServer();
-bot.start();
-
-process.once('SIGINT', () => bot.stop());
-process.once('SIGTERM', () => bot.stop());
+new App().start();

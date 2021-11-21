@@ -2,7 +2,8 @@
   "extends": "@fullstacksjs/tsconfig/esm",
   "compilerOptions": {
     "esModuleInterop": true,
-    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "lib": ["DOM", "ESNext"],
     "allowJs": true
   }

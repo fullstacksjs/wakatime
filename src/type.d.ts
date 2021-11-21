@@ -11,16 +11,12 @@ interface Config {
 
 type Week = string;
 
-interface WeekReport {
-  reports: UserReport[];
-}
-
 interface LanguageReport {
   name: string;
   total_seconds: number;
 }
 
-interface WakatimeUser {
+interface WakatimeDto {
   rank: number;
   running_total: {
     daily_average: number;
@@ -45,47 +41,12 @@ interface WakatimeUser {
   };
 }
 
-interface User {
-  id: string;
-  name: string;
-  avatar: string;
-  username: string | null;
-  lastTotalSeconds: number | null;
-  lastDailyAverage: number | null;
-  lastRank: number;
-  diff: number;
-}
-
-interface UserReport {
-  rank: number;
-  dailyAverage: number;
-  totalSeconds: number;
-  userId: string;
-}
-
-interface ReportAndUser {
-  report: UserReport;
-  user: User;
-}
-
 type Day = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 type Hour = number;
 type Minute = number;
 
 type Schedule = [Day, Hour, Minute];
 type GroupId = string;
-
-interface WakatimeDb {
-  users: { [key: string]: User };
-  weeks: {
-    [key: Week]: WeekReport | null;
-  };
-}
-interface ScheduleDb {
-  schedules: {
-    [key: GroupId]: Schedule;
-  };
-}
 
 interface Leaderboard {
   image: Buffer | string;
