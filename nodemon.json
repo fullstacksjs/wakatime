@@ -1,3 +1,6 @@
 {
-  "ignore": ["*.db.json"]
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/nodemon.json",
+  "ignore": ["*.db.json"],
+  "watch": ["src/**/*"],
+  "verbose": true
 }

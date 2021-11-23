@@ -1,8 +1,7 @@
 import { toInteger } from '@fullstacksjs/toolbox';
 import { Request, Response } from 'express';
-import { Container } from 'typescript-ioc';
 
-import { LeaderboardRepo } from '../repos/LeaderboardRepo';
+import { container } from '../config/container';
 
 interface QueryType {
   size?: string;
@@ -12,8 +11,15 @@ export const renderLeaderboard = async (
   req: Request<unknown, unknown, unknown, QueryType>,
   res: Response,
 ) => {
-  const wakatimeRepo = Container.get(LeaderboardRepo);
   const size = toInteger(req.query.size ?? '3');
-  const winners = await wakatimeRepo.getTopUsers(size);
-  return res.render('index.ejs', { winners });
+  const contactList = [
+    { name: 'Telegram', url: 'kutt.it/fsk-tg' },
+    { name: 'Youtube', url: 'kutt.it/fsk-yt' },
+    { name: 'Discord', url: 'kutt.it/fsk-discord' },
+    { name: 'Instagram', url: 'kutt.it/fsk-insta' },
+    { name: 'Twitter', url: 'kutt.it/fsk-twitter' },
+    { name: 'Twitch', url: 'kutt.it/fsk-twitch' },
+  ];
+  const leaderboard = await container.cradle.leaderboardService.getLeaderboard(size);
+  return res.render('index.ejs', { leaderboard, contactList });
 };

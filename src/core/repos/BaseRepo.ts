@@ -2,13 +2,12 @@ import { isNull } from '@fullstacksjs/toolbox';
 import fs from 'fs/promises';
 import { JSONFile, Low } from 'lowdb';
 import path from 'path';
-import { InjectValue } from 'typescript-ioc';
 
 export class BaseRepo<T> {
-  @InjectValue('config') private config!: Config;
   db: Low<T> | undefined;
+  protected initialState: T | undefined;
 
-  constructor(private filePath: string, private initialState: T) {}
+  constructor(private filePath: string) {}
 
   async initiate() {
     await fs.mkdir(path.dirname(this.filePath), { recursive: true });
@@ -23,6 +22,8 @@ export class BaseRepo<T> {
 
     await this.db.read();
     if (!isNull(this.db.data)) return;
+
+    if (isNull(this.initialState)) throw Error('initialState is undefined');
     this.db.data ??= this.initialState;
     await this.db.write();
   }

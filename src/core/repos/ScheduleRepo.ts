@@ -9,6 +9,12 @@ interface ScheduleDb {
 }
 
 export class ScheduleRepo extends BaseRepo<ScheduleDb> {
+  protected override initialState: ScheduleDb | undefined = { schedules: {} };
+
+  constructor(opts: Container) {
+    super(opts.config.scheduleDbFilePath);
+  }
+
   async getSchedules() {
     if (isNull(this.db)) throw Error('You need to init db before use');
 

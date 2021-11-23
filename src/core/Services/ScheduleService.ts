@@ -1,6 +1,5 @@
 import { isNull } from '@fullstacksjs/toolbox';
 import { CronJob } from 'cron';
-import { Inject } from 'typescript-ioc';
 
 import { ScheduleRepo } from '../repos/ScheduleRepo';
 
@@ -11,8 +10,12 @@ interface ScheduleJob {
 type GroupCommand = (id: GroupId) => void;
 
 export class GroupScheduleService {
-  @Inject() private scheduleRepo!: ScheduleRepo;
+  private scheduleRepo!: ScheduleRepo;
   private jobs: ScheduleJob = {};
+
+  constructor(opts: Container) {
+    this.scheduleRepo = opts.scheduleRepo;
+  }
 
   public async loadJobs(command: GroupCommand) {
     const schedules = await this.scheduleRepo.getSchedules();

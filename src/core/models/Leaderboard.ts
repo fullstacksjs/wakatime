@@ -1,6 +1,6 @@
-import { getWeekOfYear } from 'src/utils/date';
-import dedent from 'ts-dedent';
+import { dedent } from 'ts-dedent';
 
+import { getWeekOfYear } from '../../utils/date';
 import { Report, ReportModel } from './Report';
 import { User, UserModel } from './User';
 
@@ -14,6 +14,10 @@ export class LeaderboardModel {
 
   public getReports(): ReportModel[] {
     return this.userReports.map(({ report }) => report);
+  }
+
+  public getUsers(): UserModel[] {
+    return this.userReports.map(({ user }) => user);
   }
 
   public static fromDto(dtos: WakatimeDto[]): LeaderboardModel {

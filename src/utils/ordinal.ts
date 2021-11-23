@@ -7,7 +7,7 @@ const suffixes = new Map([
   ['other', 'th'],
 ]);
 
-export function formatOrdinals(n) {
+export function formatOrdinals(n: number) {
   const rule = pr.select(n);
   const suffix = suffixes.get(rule);
   return `${n}${suffix}`;

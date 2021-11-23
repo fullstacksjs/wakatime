@@ -1,25 +1,30 @@
-import { Bot as Grammy, BotConfig } from 'grammy';
-import { Inject } from 'typescript-ioc';
+import awilix from 'awilix';
+import { Bot as Grammy, InputFile } from 'grammy';
 
-import { GroupScheduleService } from '../Services/ScheduleService.js';
+import { container } from '../config/container.js';
+import { LeaderboardService } from '../core/Services/LeaderboardService.js';
+import { GroupScheduleService } from '../core/Services/ScheduleService.js';
 import { helpCommand } from './commands/help.js';
 import { listWeekly } from './commands/listWeekly.js';
 import { schedule } from './commands/schedule.js';
 import { startCommand } from './commands/start.js';
 import { WakatimeContext } from './Context.js';
-import { parseSchedule } from './middlewares/parseSchedule.js';
-import { SendWeeklyUsecase } from './useCases/SendWeeklyUsecase';
+import { parseSchedule } from './middleware/parseSchedule.js';
+import { sendLeaderboard } from './sendLeaderboard.js';
 
 export class Bot extends Grammy<WakatimeContext> {
-  @Inject() private groupScheduleService!: GroupScheduleService;
+  private groupScheduleService: GroupScheduleService;
+  private leaderboardService: LeaderboardService;
 
-  constructor(token: string, config: BotConfig<WakatimeContext> = {}) {
-    super(token, { ContextConstructor: WakatimeContext, ...config });
+  constructor(opts: Container) {
+    super(opts.config.botToken, { ContextConstructor: WakatimeContext });
+    this.groupScheduleService = opts.groupScheduleService;
+    this.leaderboardService = opts.leaderboardService;
+    container.register({ api: awilix.asValue(this.api) });
   }
 
   async initiate() {
-    const sendWeekly = new SendWeeklyUsecase(this.api);
-    await this.groupScheduleService.loadJobs(sendWeekly.execuet);
+    await this.groupScheduleService.loadJobs(sendLeaderboard);
 
     await this.api.setMyCommands([
       { command: 'start', description: 'Start the bot' },
@@ -37,7 +42,5 @@ export class Bot extends Grammy<WakatimeContext> {
     this.command('list_weekly', listWeekly);
     this.hears(/\/schedule ([1-7]) ([0-1]?[0-9]|2[0-3]):([0-5][0-9])/, parseSchedule, schedule);
     this.hears(/\/schedule/, ctx => ctx.reply(ctx.messages.badSchedulePattern));
-
-    return this;
   }
 }

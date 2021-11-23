@@ -72,6 +72,7 @@ body {
 }
 
 .winner-avatar {
+  background-color: #fff;
   border-radius: 200px;
   max-width: 100%;
   width: 44px;

@@ -1,3 +1,6 @@
+import { toHumanHM } from '../../utils/date';
+import { formatOrdinals } from '../../utils/ordinal';
+
 export interface Report {
   rank: number;
   dailyAverage: number;
@@ -10,6 +13,18 @@ export class ReportModel implements Report {
   dailyAverage: number;
   totalSeconds: number;
   userId: string;
+
+  get ordinalRank() {
+    return formatOrdinals(this.rank);
+  }
+
+  get humanReadableDailyAverage() {
+    return toHumanHM(this.dailyAverage);
+  }
+
+  get humanReadableTotalSeconds() {
+    return toHumanHM(this.totalSeconds);
+  }
 
   public static fromPersistance(report: Report): ReportModel {
     return new ReportModel(report);

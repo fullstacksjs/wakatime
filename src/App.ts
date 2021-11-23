@@ -1,25 +1,35 @@
-import { Inject, InjectValue } from 'typescript-ioc';
-
-import { Api } from './api/Api';
-import { Bot } from './bot/Bot';
-import { ScheduleRepo, LeaderboardRepo } from './repos';
+import { Api } from './api/Api.js';
+import { Bot } from './bot/Bot.js';
+import { container } from './config/container.js';
 
 export class App {
-  @Inject() private wakatimeRepo!: LeaderboardRepo;
-  @Inject() private scheduleRepo!: ScheduleRepo;
-  @InjectValue('config') private config!: Config;
+  private bot: Bot;
+  private api: Api;
+
+  async initiate() {
+    await container.cradle.reportRepo.initiate();
+    await container.cradle.scheduleRepo.initiate();
+    await container.cradle.userRepo.initiate();
+  }
+
+  constructor() {
+    this.api = new Api(container.cradle);
+    this.bot = new Bot(container.cradle);
+    process.once('SIGINT', () => {
+      this.bot.stop();
+    });
+    process.once('SIGTERM', () => {
+      this.bot.stop();
+    });
+  }
 
   async start() {
-    await this.wakatimeRepo.initiate();
-    await this.scheduleRepo.initiate();
+    await this.bot.initiate();
+    await this.api.listen();
+    await this.bot.start();
+  }
 
-    const api = new Api();
-    const bot = await new Bot(this.config.botToken).initiate();
-
-    await api.listen();
-    await bot.start();
-
-    process.once('SIGINT', bot.stop);
-    process.once('SIGTERM', bot.stop);
+  stop() {
+    this.bot.stop();
   }
 }

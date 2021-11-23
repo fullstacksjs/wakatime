@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { InjectValue } from 'typescript-ioc';
 
 import { LeaderboardModel } from '../models/Leaderboard';
 
@@ -8,7 +7,11 @@ interface GetWakatimeUserResponse {
 }
 
 export class WakatimeService {
-  @InjectValue('config') private config!: Config;
+  private config: Config;
+
+  constructor(opts: Container) {
+    this.config = opts.config;
+  }
 
   async getLeaderboard(): Promise<LeaderboardModel> {
     const res = await axios.get<GetWakatimeUserResponse>(this.config.leaderboardUrl, {

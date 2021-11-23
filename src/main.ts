@@ -1,7 +1,9 @@
-import { Container } from 'typescript-ioc';
 import { App } from './App.js';
-import { container } from './config/IocConfig.js';
+import { container } from './config/container.js';
+import { initContainer } from './config/initContainer.js';
 
-Container.configure(...container);
+initContainer(container);
 
-new App().start();
+const app = new App();
+await app.initiate();
+app.start();

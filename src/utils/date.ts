@@ -11,3 +11,11 @@ export function secondsToHours(sec: number) {
 }
 
 export const toEnglishDay = (day: Day) => (day === 1 ? 7 : day - 1);
+
+export const addLeadingZero = (num: number) => num.toString().padStart(2, '0');
+
+export function toHumanHM(seconds: number) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  return `${addLeadingZero(hours)}:${addLeadingZero(minutes)}`;
+}

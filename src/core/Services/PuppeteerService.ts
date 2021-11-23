@@ -2,28 +2,32 @@ import puppeteer from 'puppeteer-core';
 
 export type Encoding = 'base64' | 'binary';
 export type ImageType = 'jpeg' | 'png' | 'webp';
-interface Options {
+export type EncodingResult<T extends Encoding> = T extends 'base64' ? Buffer : string;
+
+interface Options<T extends Encoding> {
   url: string;
   puppeteerExecutablePath: string;
-  encoding: Encoding;
-  type: ImageType;
+  encoding?: T;
+  type?: ImageType;
   width: number;
   height: number;
   deviceScaleFactor: number;
-  timeout: number;
+  timeout?: number;
 }
 
 export class PuppeteerService {
-  async getScreenshot({
+  async getScreenshot(opts: Options<'binary'>): Promise<Buffer>;
+  async getScreenshot(opts: Options<'base64'>): Promise<string>;
+  async getScreenshot<T extends Encoding = 'binary'>({
     url,
     puppeteerExecutablePath,
-    type,
-    encoding,
     width,
     height,
     deviceScaleFactor,
-    timeout,
-  }: Options) {
+    type = 'png',
+    encoding = 'binary' as T,
+    timeout = 2000,
+  }: Options<T>) {
     const browser = await puppeteer.launch({
       executablePath: puppeteerExecutablePath,
       args: [
@@ -44,6 +48,6 @@ export class PuppeteerService {
     await page.setViewport({ width, height, deviceScaleFactor });
     const screenshot = await page.screenshot({ fullPage: true, encoding, type });
     await browser.close();
-    return screenshot as unknown as Promise<Buffer | string>;
+    return screenshot;
   }
 }

@@ -5,8 +5,9 @@ interface Config {
   puppeteerExecutablePath: string;
   leaderboardUrl: string;
   webpageUrl: string;
-  wakatimeDbFilePath: string;
+  leaderboardDbFilePath: string;
   scheduleDbFilePath: string;
+  userDbFilePath: string;
 }
 
 type Week = string;
@@ -48,7 +49,19 @@ type Minute = number;
 type Schedule = [Day, Hour, Minute];
 type GroupId = string;
 
-interface Leaderboard {
+interface LeaderboardDto {
   image: Buffer | string;
   caption: string;
+}
+
+interface Container {
+  config: Config;
+  scheduleRepo: import('./core/repos/ScheduleRepo').ScheduleRepo;
+  reportRepo: import('./core/repos/ReportRepo').ReportRepo;
+  userRepo: import('./core/repos/UserRepository').UserRepo;
+  groupScheduleService: import('./core/Services/ScheduleService').GroupScheduleService;
+  leaderboardService: import('./core/Services/LeaderboardService').LeaderboardService;
+  puppeteerService: import('./core/Services/PuppeteerService').PuppeteerService;
+  wakatimeService: import('./core/Services/WakatimeService').WakatimeService;
+  api: import('grammy').Api<import('grammy').RawApi>;
 }

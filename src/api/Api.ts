@@ -1,16 +1,17 @@
 import express, { Express } from 'express';
-import { InjectValue } from 'typescript-ioc';
 
 import { toAbsolutePath } from '../utils/path';
 import { renderLeaderboard } from './renderLeaderboard.js';
 
 export class Api {
-  @InjectValue('config') private config!: Config;
+  private config: Config;
   private app: Express;
 
-  constructor() {
+  constructor(opts: Container) {
+    this.config = opts.config;
     this.app = express();
-    const viewPath = toAbsolutePath('./web');
+    const viewPath = toAbsolutePath('/api/web');
+
     this.app.set('view engine', 'ejs');
     this.app.set('views', viewPath);
 
