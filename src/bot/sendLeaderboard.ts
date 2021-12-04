@@ -1,6 +1,6 @@
 import { InputFile } from 'grammy';
 
-import { container } from '../config/container';
+import { container } from '../config/container.js';
 
 export async function sendLeaderboard(groupId: GroupId) {
   try {

@@ -1,5 +1,5 @@
-import { toHumanHM } from '../../utils/date';
-import { formatOrdinals } from '../../utils/ordinal';
+import { toHumanHM } from '../../utils/date.js';
+import { formatOrdinals } from '../../utils/ordinal.js';
 
 export interface Report {
   rank: number;

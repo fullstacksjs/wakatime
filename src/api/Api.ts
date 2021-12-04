@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 
-import { toAbsolutePath } from '../utils/path';
+import { toAbsolutePath } from '../utils/path.js';
 import { renderLeaderboard } from './renderLeaderboard.js';
 
 export class Api {

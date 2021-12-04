@@ -1,7 +1,7 @@
 import { isNull } from '@fullstacksjs/toolbox';
 import { CronJob } from 'cron';
 
-import { ScheduleRepo } from '../repos/ScheduleRepo';
+import { ScheduleRepo } from '../repos/ScheduleRepo.js';
 
 interface ScheduleJob {
   [key: GroupId]: CronJob;

@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer';
 
 export type Encoding = 'base64' | 'binary';
 export type ImageType = 'jpeg' | 'png' | 'webp';

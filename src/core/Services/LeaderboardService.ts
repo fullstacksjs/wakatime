@@ -1,11 +1,11 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
-import { LeaderboardModel } from '../models/Leaderboard';
-import { User } from '../models/User';
-import type { ReportRepo } from '../repos/ReportRepo';
-import { UserRepo } from '../repos/UserRepository';
-import type { PuppeteerService } from './PuppeteerService';
-import { WakatimeService } from './WakatimeService';
+import { LeaderboardModel } from '../models/Leaderboard.js';
+import { User } from '../models/User.js';
+import type { ReportRepo } from '../repos/ReportRepo.js';
+import { UserRepo } from '../repos/UserRepository.js';
+import type { PuppeteerService } from './PuppeteerService.js';
+import { WakatimeService } from './WakatimeService.js';
 
 export class LeaderboardService {
   private config: Config;
@@ -29,8 +29,13 @@ export class LeaderboardService {
   }
 
   async getLeaderboard(size: number = 3): Promise<LeaderboardModel> {
-    // await this.sync();
     const reports = await this.reportRepo.getTopReports(size);
+
+    if (isNull(reports)) {
+      await this.sync();
+      return this.getLeaderboard(size);
+    }
+
     const users = await Promise.all(reports.map(report => this.userRepo.get(report.userId)));
     if (users.some(isNull)) throw Error('User not found');
 

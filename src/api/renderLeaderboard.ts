@@ -1,7 +1,7 @@
 import { toInteger } from '@fullstacksjs/toolbox';
 import { Request, Response } from 'express';
 
-import { container } from '../config/container';
+import { container } from '../config/container.js';
 
 interface QueryType {
   size?: string;

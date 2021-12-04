@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "build": "tsc && shx cp -r src/api/web/ dist/api/",
     "dev": "nodemon --exec tsm ./src/main.ts --ignore src/data/",
-    "start": "tsm ./src/main.ts",
+    "start": "node dist/main.js",
     "prepare": "husky install",
     "lint": "npm-run-all -p lint:*",
     "lint:style": "stylelint \"packages/web/src/css/*.css\"",
@@ -24,6 +25,7 @@
     "nodemon": "2.0.15",
     "npm-run-all": "4.1.5",
     "prettier": "2.4.1",
+    "shx": "0.3.3",
     "stylelint": "13.13.1",
     "stylelint-config-standard": "22.0.0",
     "ts-node": "10.4.0",
@@ -39,7 +41,7 @@
     "express": "4.17.1",
     "grammy": "1.4.2",
     "lowdb": "3.0.0",
-    "puppeteer-core": "11.0.0",
+    "puppeteer": "12.0.1",
     "ts-dedent": "2.2.0"
   },
   "volta": {

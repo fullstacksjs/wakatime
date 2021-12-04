@@ -5,6 +5,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "lib": ["DOM", "ESNext"],
+    "outDir": "./dist",
     "allowJs": true
   }
 }

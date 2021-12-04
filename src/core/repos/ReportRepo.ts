@@ -1,11 +1,11 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
 import { getWeekOfYear } from '../../utils/date.js';
-import { LeaderboardModel } from '../models/Leaderboard';
-import { Report, ReportModel } from '../models/Report';
+import { LeaderboardModel } from '../models/Leaderboard.js';
+import { Report, ReportModel } from '../models/Report.js';
 import { User } from '../models/User.js';
 import { WakatimeService } from '../Services/WakatimeService.js';
-import { BaseRepo } from './BaseRepo';
+import { BaseRepo } from './BaseRepo.js';
 import { UserRepo } from './UserRepository.js';
 
 interface WakatimeDb {
@@ -32,13 +32,13 @@ export class ReportRepo extends BaseRepo<WakatimeDb> {
     await this.db.write();
   }
 
-  async getTopReports(count: number): Promise<Report[]> {
+  async getTopReports(count: number): Promise<Report[] | undefined> {
     if (isNull(this.db)) throw Error('You need to init db before use');
 
     await this.db.read();
 
     const currentYear = new Date().getFullYear();
     const currentWeek = getWeekOfYear(new Date());
-    return this.db.data!.weeks[`${currentYear}:${currentWeek}`]!.slice(0, count);
+    return this.db.data!.weeks[`${currentYear}:${currentWeek}`]?.slice(0, count);
   }
 }

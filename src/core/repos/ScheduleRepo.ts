@@ -1,6 +1,6 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
-import { BaseRepo } from './BaseRepo';
+import { BaseRepo } from './BaseRepo.js';
 
 interface ScheduleDb {
   schedules: {

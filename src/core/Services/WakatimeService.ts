@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LeaderboardModel } from '../models/Leaderboard';
+import { LeaderboardModel } from '../models/Leaderboard.js';
 
 interface GetWakatimeUserResponse {
   data: WakatimeDto[];
