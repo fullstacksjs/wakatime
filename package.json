@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc && shx cp -r src/api/web/ dist/api/",
     "dev": "nodemon --exec tsm ./src/main.ts --ignore src/data/",
+    "prestart": "npm run build",
     "start": "node dist/main.js",
     "prepare": "husky install",
     "lint": "npm-run-all -p lint:*",
