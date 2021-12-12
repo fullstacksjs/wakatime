@@ -9,12 +9,12 @@ export function getConfig(): Config {
   return {
     botToken: getRequiredEnv('BOT_TOKEN'),
     apiKey: getRequiredEnv('API_KEY'),
-    puppeteerExecutablePath: getRequiredEnv('PUPPETEER_EXECUTABLE_PATH'),
     leaderboardUrl: getRequiredEnv('LEADERBOARD_URL'),
     webpageUrl: getRequiredEnv('WEBPAGE_URL'),
     port: toInteger(getEnv('PORT', '3000')),
-    leaderboardDbFilePath: toAbsolutePath('../../data/leaderboard.db.json'),
-    scheduleDbFilePath: toAbsolutePath('../../data/schedule.db.json'),
-    userDbFilePath: toAbsolutePath('../../data/user.db.json'),
+    leaderboardDbFilePath: toAbsolutePath('../data/leaderboard.db.json'),
+    scheduleDbFilePath: toAbsolutePath('../data/schedule.db.json'),
+    userDbFilePath: toAbsolutePath('../data/user.db.json'),
   };
 }
+console.log(getConfig());

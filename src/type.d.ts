@@ -2,7 +2,6 @@ interface Config {
   botToken: string;
   apiKey: string;
   port: number;
-  puppeteerExecutablePath: string;
   leaderboardUrl: string;
   webpageUrl: string;
   leaderboardDbFilePath: string;

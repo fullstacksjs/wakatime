@@ -6,7 +6,6 @@ export type EncodingResult<T extends Encoding> = T extends 'base64' ? Buffer : s
 
 interface Options<T extends Encoding> {
   url: string;
-  puppeteerExecutablePath: string;
   encoding?: T;
   type?: ImageType;
   width: number;
@@ -20,7 +19,6 @@ export class PuppeteerService {
   async getScreenshot(opts: Options<'base64'>): Promise<string>;
   async getScreenshot<T extends Encoding = 'binary'>({
     url,
-    puppeteerExecutablePath,
     width,
     height,
     deviceScaleFactor,
@@ -29,7 +27,6 @@ export class PuppeteerService {
     timeout = 2000,
   }: Options<T>) {
     const browser = await puppeteer.launch({
-      executablePath: puppeteerExecutablePath,
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',

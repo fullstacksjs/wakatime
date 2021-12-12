@@ -7,7 +7,6 @@ export async function sendLeaderboard(groupId: GroupId) {
     const leaderboard = await container.cradle.leaderboardService.getLeaderboard();
     const image = await container.cradle.puppeteerService.getScreenshot({
       url: container.cradle.config.webpageUrl,
-      puppeteerExecutablePath: container.cradle.config.puppeteerExecutablePath,
       width: 815,
       height: 700,
       deviceScaleFactor: 2,

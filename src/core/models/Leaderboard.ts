@@ -12,6 +12,12 @@ interface UserReport {
 export class LeaderboardModel {
   public userReports: UserReport[];
 
+  public get title(): string {
+    const year = new Date().getFullYear();
+    const week = getWeekOfYear(new Date());
+    return `${year} - Week ${week}`;
+  }
+
   public getReports(): ReportModel[] {
     return this.userReports.map(({ report }) => report);
   }
@@ -39,12 +45,9 @@ export class LeaderboardModel {
   }
 
   public getCaption() {
-    const year = new Date().getFullYear();
-    const week = getWeekOfYear(new Date());
-
     return dedent`
       <b>Wakatime Report</b>
-      <i>${year} - Week ${week} </i>
+      <i>${this.title}</i>
       ${this.userReports.map(({ user }, rank) => user.getRankCaption(rank)).join('\n')}
 
       #wakatime_report

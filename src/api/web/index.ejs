@@ -15,7 +15,7 @@
   <div class="container">
     <div class="logo-container">
       <%- include('partials/logo.ejs'); %>
-      <p id="date" class="date">Error</p>
+      <p id="date" class="date"><%= leaderboard.title %></p>
     </div>
     <div class="winners">
       <% leaderboard.userReports.forEach(function (userReport) { %>
