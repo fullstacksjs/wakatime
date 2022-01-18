@@ -1,23 +1,18 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
+import { assertNotIncludeNulls } from '../../utils/guards.js';
 import { LeaderboardModel } from '../models/Leaderboard.js';
-import { User } from '../models/User.js';
 import type { ReportRepo } from '../repos/ReportRepo.js';
 import { UserRepo } from '../repos/UserRepository.js';
-import type { PuppeteerService } from './PuppeteerService.js';
 import { WakatimeService } from './WakatimeService.js';
 
 export class LeaderboardService {
-  private config: Config;
   private reportRepo: ReportRepo;
-  private puppeteerService: PuppeteerService;
   private wakatimeService: WakatimeService;
   private userRepo: UserRepo;
 
   constructor(opts: Container) {
-    this.config = opts.config;
     this.reportRepo = opts.reportRepo;
-    this.puppeteerService = opts.puppeteerService;
     this.wakatimeService = opts.wakatimeService;
     this.userRepo = opts.userRepo;
   }
@@ -37,11 +32,8 @@ export class LeaderboardService {
     }
 
     const users = await Promise.all(reports.map(report => this.userRepo.get(report.userId)));
-    if (users.some(isNull)) throw Error('User not found');
+    assertNotIncludeNulls(users);
 
-    return LeaderboardModel.fromPersistance({
-      reports,
-      users: users as User[],
-    });
+    return LeaderboardModel.fromPersistance({ reports, users });
   }
 }

@@ -2,7 +2,6 @@ import awilix from 'awilix';
 import { Bot as Grammy, InputFile } from 'grammy';
 
 import { container } from '../config/container.js';
-import { LeaderboardService } from '../core/Services/LeaderboardService.js';
 import { GroupScheduleService } from '../core/Services/ScheduleService.js';
 import { helpCommand } from './commands/help.js';
 import { listWeekly } from './commands/listWeekly.js';
@@ -14,12 +13,10 @@ import { sendLeaderboard } from './sendLeaderboard.js';
 
 export class Bot extends Grammy<WakatimeContext> {
   private groupScheduleService: GroupScheduleService;
-  private leaderboardService: LeaderboardService;
 
   constructor(opts: Container) {
     super(opts.config.botToken, { ContextConstructor: WakatimeContext });
     this.groupScheduleService = opts.groupScheduleService;
-    this.leaderboardService = opts.leaderboardService;
     container.register({ api: awilix.asValue(this.api) });
   }
 
@@ -42,5 +39,8 @@ export class Bot extends Grammy<WakatimeContext> {
     this.command('list_weekly', listWeekly);
     this.hears(/\/schedule ([1-7]) ([0-1]?[0-9]|2[0-3]):([0-5][0-9])/, parseSchedule, schedule);
     this.hears(/\/schedule/, ctx => ctx.reply(ctx.messages.badSchedulePattern));
+    this.catch(e => {
+      console.error(e);
+    });
   }
 }

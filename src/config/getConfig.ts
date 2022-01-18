@@ -17,4 +17,3 @@ export function getConfig(): Config {
     userDbFilePath: toAbsolutePath('../data/user.db.json'),
   };
 }
-console.log(getConfig());

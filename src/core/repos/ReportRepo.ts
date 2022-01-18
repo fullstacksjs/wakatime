@@ -1,24 +1,18 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
 import { getWeekOfYear } from '../../utils/date.js';
-import { LeaderboardModel } from '../models/Leaderboard.js';
 import { Report, ReportModel } from '../models/Report.js';
-import { User } from '../models/User.js';
-import { WakatimeService } from '../Services/WakatimeService.js';
 import { BaseRepo } from './BaseRepo.js';
-import { UserRepo } from './UserRepository.js';
 
 interface WakatimeDb {
   weeks: { [key: Week]: Report[] };
 }
 
 export class ReportRepo extends BaseRepo<WakatimeDb> {
-  private userRepo: UserRepo;
   protected override initialState: WakatimeDb | undefined = { weeks: {} };
 
   constructor(opts: Container) {
     super(opts.config.leaderboardDbFilePath);
-    this.userRepo = opts.userRepo;
   }
 
   async saveReports(reports: ReportModel[]) {
