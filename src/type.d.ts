@@ -1,3 +1,4 @@
+type EnvType = 'development' | 'production';
 interface Config {
   botToken: string;
   apiKey: string;
@@ -7,6 +8,8 @@ interface Config {
   leaderboardDbFilePath: string;
   scheduleDbFilePath: string;
   userDbFilePath: string;
+  isProd: boolean;
+  puppeteerExecPath: string | null;
 }
 
 type Week = string;

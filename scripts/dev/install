@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export PUPPETEER_SKIP_DOWNLOAD=true
+npm i puppeteer
