@@ -7,7 +7,6 @@ interface Config {
   leaderboardDbFilePath: string;
   scheduleDbFilePath: string;
   userDbFilePath: string;
-  isProd: boolean;
   puppeteerExecPath?: string;
 }
 
