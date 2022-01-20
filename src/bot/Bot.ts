@@ -1,5 +1,5 @@
 import awilix from 'awilix';
-import { Bot as Grammy, InputFile } from 'grammy';
+import { Bot as Grammy } from 'grammy';
 
 import { container } from '../config/container.js';
 import { GroupScheduleService } from '../core/Services/ScheduleService.js';

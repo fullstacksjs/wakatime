@@ -5,7 +5,6 @@ import { toAbsolutePath } from '../utils/path.js';
 
 export function getConfig(): Config {
   dotenv.config();
-  const isProd = getEnv('NODE_ENV', 'development') === 'production';
   return {
     botToken: getRequiredEnv('BOT_TOKEN'),
     apiKey: getRequiredEnv('API_KEY'),
@@ -15,7 +14,6 @@ export function getConfig(): Config {
     leaderboardDbFilePath: toAbsolutePath('../data/leaderboard.db.json'),
     scheduleDbFilePath: toAbsolutePath('../data/schedule.db.json'),
     userDbFilePath: toAbsolutePath('../data/user.db.json'),
-    puppeteerExecPath: !isProd ? getRequiredEnv('PUPPETEER_EXECUTABLE_PATH') : undefined,
-    isProd,
+    puppeteerExecPath: getRequiredEnv('PUPPETEER_EXECUTABLE_PATH'),
   };
 }
