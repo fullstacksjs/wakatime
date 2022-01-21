@@ -1,5 +1,5 @@
 import awilix from 'awilix';
-import { Bot as Grammy } from 'grammy';
+import { Bot as Grammy, webhookCallback } from 'grammy';
 
 import { container } from '../config/container.js';
 import { GroupScheduleService } from '../core/Services/ScheduleService.js';
@@ -33,14 +33,14 @@ export class Bot extends Grammy<WakatimeContext> {
           'schedule leaderboard to be send each week on DD at HH:MM (days start from 1 (saturday) to 7(friday))',
       },
     ]);
-
     this.command('start', startCommand);
     this.command('help', helpCommand);
     this.command('list_weekly', listWeekly);
     this.hears(/\/schedule ([1-7]) ([0-1]?[0-9]|2[0-3]):([0-5][0-9])/, parseSchedule, schedule);
     this.hears(/\/schedule/, ctx => ctx.reply(ctx.messages.badSchedulePattern));
-    this.catch(e => {
-      console.error(e);
-    });
+  }
+
+  createExpressWebhookCallback() {
+    return webhookCallback(this, 'express', 'return', 50_000);
   }
 }

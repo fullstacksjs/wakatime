@@ -10,26 +10,14 @@ export class App {
     await container.cradle.reportRepo.initiate();
     await container.cradle.scheduleRepo.initiate();
     await container.cradle.userRepo.initiate();
+    await container.cradle.bot.initiate();
   }
 
   constructor() {
     this.api = new Api(container.cradle);
-    this.bot = new Bot(container.cradle);
-    process.once('SIGINT', () => {
-      this.bot.stop();
-    });
-    process.once('SIGTERM', () => {
-      this.bot.stop();
-    });
   }
 
   async start() {
-    await this.bot.initiate();
     await this.api.listen();
-    await this.bot.start();
-  }
-
-  stop() {
-    this.bot.stop();
   }
 }

@@ -64,4 +64,5 @@ interface Container {
   puppeteerService: import('./core/Services/PuppeteerService').PuppeteerService;
   wakatimeService: import('./core/Services/WakatimeService').WakatimeService;
   api: import('grammy').Api<import('grammy').RawApi>;
+  bot: import('./bot/Bot').Bot;
 }

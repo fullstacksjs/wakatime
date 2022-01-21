@@ -1,5 +1,6 @@
 import awilix, { AwilixContainer } from 'awilix';
 
+import { Bot } from '../bot/Bot.js';
 import { ReportRepo } from '../core/repos/ReportRepo.js';
 import { ScheduleRepo } from '../core/repos/ScheduleRepo.js';
 import { UserRepo } from '../core/repos/UserRepository.js';
@@ -12,6 +13,7 @@ import { getConfig } from './getConfig.js';
 export function initContainer(container: AwilixContainer<Container>) {
   container.register({
     config: awilix.asValue(getConfig()),
+    bot: awilix.asClass(Bot).singleton(),
 
     // Services
     groupScheduleService: awilix.asClass(GroupScheduleService).singleton(),
