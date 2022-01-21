@@ -22,6 +22,7 @@ export class Api {
     this.app.use(express.static(viewPath));
 
     this.app.get('/', renderLeaderboard);
+    this.app.get('/bail', (_, res) => res.status(200).end(''));
     this.app.post('/webhook', this.bot.createExpressWebhookCallback());
   }
 
