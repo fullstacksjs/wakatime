@@ -4,6 +4,5 @@ import { initContainer } from './config/initContainer.js';
 
 initContainer(container);
 
-const app = new App();
-await app.initiate();
+const app = await App.initiate();
 app.start();
