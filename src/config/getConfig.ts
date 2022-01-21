@@ -14,6 +14,6 @@ export function getConfig(): Config {
     leaderboardDbFilePath: toAbsolutePath('../data/leaderboard.db.json'),
     scheduleDbFilePath: toAbsolutePath('../data/schedule.db.json'),
     userDbFilePath: toAbsolutePath('../data/user.db.json'),
-    puppeteerExecPath: getRequiredEnv('PUPPETEER_EXECUTABLE_PATH'),
+    puppeteerExecPath: getEnv('PUPPETEER_EXECUTABLE_PATH'),
   };
 }
