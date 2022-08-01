@@ -1,6 +1,5 @@
 import awilix from 'awilix';
 import { Bot as Grammy, webhookCallback } from 'grammy';
-import Redis from "ioredis";
 import { limit } from "@grammyjs/ratelimiter";
 
 import { container } from '../config/container.js';
@@ -15,7 +14,7 @@ import { sendLeaderboard } from './sendLeaderboard.js';
 
 // config Limit Request Users
 
-const redis = new Redis();
+
 
 Bot.use(
   limit({
@@ -25,7 +24,7 @@ Bot.use(
     limit: 3,
 
     // "MEMORY_STORE" is the default value. If you do not want to use Redis, do not pass storageClient at all.
-    storageClient: redis,
+    storageClient: 'MEMORY_STORE',
 
     // This is called when the limit is exceeded.
     onLimitExceeded: async (ctx) => {
