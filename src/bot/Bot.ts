@@ -1,6 +1,6 @@
+import { limit } from '@grammyjs/ratelimiter';
 import awilix from 'awilix';
 import { Bot as Grammy, webhookCallback } from 'grammy';
-import { limit } from "@grammyjs/ratelimiter";
 
 import { container } from '../config/container.js';
 import { GroupScheduleService } from '../core/Services/ScheduleService.js';
@@ -12,31 +12,6 @@ import { WakatimeContext } from './Context.js';
 import { parseSchedule } from './middleware/parseSchedule.js';
 import { sendLeaderboard } from './sendLeaderboard.js';
 
-// config Limit Request Users
-
-
-
-Bot.use(
-  limit({
-    // Allow only 3 messages to be handled every 2 seconds.
-    timeFrame: 2000,
-
-    limit: 3,
-
-    // "MEMORY_STORE" is the default value. If you do not want to use Redis, do not pass storageClient at all.
-    storageClient: 'MEMORY_STORE',
-
-    // This is called when the limit is exceeded.
-    onLimitExceeded: async ctx => {
-      await ctx.reply('Please refrain from sending too many requests!');
-    },
-
-    // Note that the key should be a number in string format such as "123456789".
-    keyGenerator: ctx => {
-      return ctx.from?.id.toString();
-    },
-  })
-);
 export class Bot extends Grammy<WakatimeContext> {
   private groupScheduleService: GroupScheduleService;
 
@@ -59,6 +34,15 @@ export class Bot extends Grammy<WakatimeContext> {
           'schedule leaderboard to be send each week on DD at HH:MM (days start from 1 (saturday) to 7(friday))',
       },
     ]);
+    this.use(
+      limit({
+        timeFrame: 60_000,
+        limit: 10,
+        onLimitExceeded: async ctx => {
+          await ctx.reply('⚠️ Please refrain from sending too many requests!');
+        },
+      }),
+    );
     this.command('start', startCommand);
     this.command('help', helpCommand);
     this.command('list_weekly', listWeekly);

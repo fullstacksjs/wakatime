@@ -2,6 +2,15 @@
   "version": "0.2",
   "language": "en",
   "ignorePaths": ["**/node_modules/**"],
-  "words": ["wakatime", "leaderboard", "fullstacks", "fullstacksjs"],
+  "words": [
+    "awilix",
+    "fullstacks",
+    "fullstacksjs",
+    "grammyjs",
+    "leaderboard",
+    "ratelimiter",
+    "stylelint",
+    "wakatime"
+  ],
   "dictionaries": ["node", "libs", "keywords"]
 }
