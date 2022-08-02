@@ -1,3 +1,4 @@
+import { limit } from '@grammyjs/ratelimiter';
 import awilix from 'awilix';
 import { Bot as Grammy, webhookCallback } from 'grammy';
 
@@ -33,6 +34,15 @@ export class Bot extends Grammy<WakatimeContext> {
           'schedule leaderboard to be send each week on DD at HH:MM (days start from 1 (saturday) to 7(friday))',
       },
     ]);
+    this.use(
+      limit({
+        timeFrame: 60_000,
+        limit: 10,
+        onLimitExceeded: async ctx => {
+          await ctx.reply('⚠️ Please refrain from sending too many requests!');
+        },
+      }),
+    );
     this.command('start', startCommand);
     this.command('help', helpCommand);
     this.command('list_weekly', listWeekly);
