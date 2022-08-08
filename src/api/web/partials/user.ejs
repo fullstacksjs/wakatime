@@ -12,14 +12,12 @@
         <p class="user-chart-detail">Total:</p>
         <p class="user-chart-time">
           <span><%= userReport.report.humanReadableTotalSeconds %></span>
-          <img class="user-chart-status" src="assets/images/<%= userReport.user.diff > 0 ? 'UpIcon.svg' : 'DownIcon.svg' %>" alt="Status" />
         </p>
       </div>
       <div class="user-chart-item">
         <p class="user-chart-detail">Daily:</p>
         <p class="user-chart-time">
           <span><%= userReport.report.humanReadableDailyAverage %></span>
-          <img class="user-chart-status" src="assets/images/<%= userReport.user.diff > 0 ? 'UpIcon.svg' : 'DownIcon.svg' %>" alt="Status" />
         </p>
       </div>
     </div>
