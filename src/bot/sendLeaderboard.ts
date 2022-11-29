@@ -4,7 +4,7 @@ import { container } from '../config/container.js';
 
 const cache = new Map<string, Buffer>();
 
-export async function sendLeaderboard(groupId: GroupId) {
+export async function sendLeaderboard(groupId: GroupId, threadId?: number) {
   try {
     const leaderboard = await container.cradle.leaderboardService.getLeaderboard();
 
@@ -26,6 +26,7 @@ export async function sendLeaderboard(groupId: GroupId) {
     return container.cradle.api.sendPhoto(groupId, new InputFile(image), {
       caption: leaderboard.getCaption(),
       parse_mode: 'HTML',
+      message_thread_id: threadId,
     });
   } catch (error) {
     console.error(error);

@@ -3,11 +3,11 @@ import awilix from 'awilix';
 import { Bot as Grammy, webhookCallback } from 'grammy';
 
 import { container } from '../config/container.js';
-import { GroupScheduleService } from '../core/Services/ScheduleService.js';
+import type { GroupScheduleService } from '../core/Services/ScheduleService.js';
 import { helpCommand } from './commands/help.js';
-import { listWeekly } from './commands/listWeekly.js';
 import { schedule } from './commands/schedule.js';
 import { startCommand } from './commands/start.js';
+import { week } from './commands/week.js';
 import { WakatimeContext } from './Context.js';
 import { parseSchedule } from './middleware/parseSchedule.js';
 import { sendLeaderboard } from './sendLeaderboard.js';
@@ -27,7 +27,7 @@ export class Bot extends Grammy<WakatimeContext> {
     await this.api.setMyCommands([
       { command: 'start', description: 'Start the bot' },
       { command: 'help', description: 'Show help text' },
-      { command: 'list_weekly', description: 'list the current week leaderboard' },
+      { command: 'list', description: 'list the current week leaderboard' },
       {
         command: 'schedule',
         description:
@@ -45,7 +45,7 @@ export class Bot extends Grammy<WakatimeContext> {
     );
     this.command('start', startCommand);
     this.command('help', helpCommand);
-    this.command('list_weekly', listWeekly);
+    this.command('week', week);
     this.hears(/\/schedule ([1-7]) ([0-1]?[0-9]|2[0-3]):([0-5][0-9])/, parseSchedule, schedule);
     this.hears(/\/schedule/, ctx => ctx.reply(ctx.messages.badSchedulePattern));
   }

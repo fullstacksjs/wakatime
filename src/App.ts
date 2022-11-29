@@ -1,7 +1,8 @@
-import express, { Express } from 'express';
+import type { Express } from 'express';
+import express from 'express';
 
 import { renderLeaderboard } from './api/renderLeaderboard.js';
-import { Bot } from './bot/Bot.js';
+import type { Bot } from './bot/Bot.js';
 import { container } from './config/container.js';
 import { toAbsolutePath } from './utils/path.js';
 
