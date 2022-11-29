@@ -1,7 +1,7 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
 import { getWeekOfYear } from '../../utils/date.js';
-import { Report, ReportModel } from '../models/Report.js';
+import type { Report, ReportModel } from '../models/Report.js';
 import { BaseRepo } from './BaseRepo.js';
 
 interface WakatimeDb {

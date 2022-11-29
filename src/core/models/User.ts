@@ -1,5 +1,4 @@
 import { secondsToHours } from '../../utils/date.js';
-import { formatOrdinals } from '../../utils/ordinal.js';
 
 export interface User {
   id: string;

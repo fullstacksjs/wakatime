@@ -1,8 +1,10 @@
 import { dedent } from 'ts-dedent';
 
 import { getWeekOfYear } from '../../utils/date.js';
-import { Report, ReportModel } from './Report.js';
-import { User, UserModel } from './User.js';
+import type { Report } from './Report.js';
+import { ReportModel } from './Report.js';
+import type { User } from './User.js';
+import { UserModel } from './User.js';
 
 interface UserReport {
   report: ReportModel;

@@ -3,8 +3,8 @@ import { isNull } from '@fullstacksjs/toolbox';
 import { assertNotIncludeNulls } from '../../utils/guards.js';
 import { LeaderboardModel } from '../models/Leaderboard.js';
 import type { ReportRepo } from '../repos/ReportRepo.js';
-import { UserRepo } from '../repos/UserRepository.js';
-import { WakatimeService } from './WakatimeService.js';
+import type { UserRepo } from '../repos/UserRepository.js';
+import type { WakatimeService } from './WakatimeService.js';
 
 export class LeaderboardService {
   private reportRepo: ReportRepo;

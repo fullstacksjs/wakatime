@@ -1,5 +1,5 @@
 import { container } from '../../config/container.js';
-import { WakatimeContext } from '../Context.js';
+import type { WakatimeContext } from '../Context.js';
 import { sendLeaderboard } from '../sendLeaderboard.js';
 
 export const schedule = async (ctx: WakatimeContext) => {

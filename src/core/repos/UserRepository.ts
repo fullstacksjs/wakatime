@@ -1,6 +1,6 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
-import { User, UserModel } from '../models/User.js';
+import type { User, UserModel } from '../models/User.js';
 import { BaseRepo } from './BaseRepo.js';
 
 interface UserDb {

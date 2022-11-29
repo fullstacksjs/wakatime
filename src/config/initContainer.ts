@@ -1,4 +1,5 @@
-import awilix, { AwilixContainer } from 'awilix';
+import type { AwilixContainer } from 'awilix';
+import awilix from 'awilix';
 
 import { Bot } from '../bot/Bot.js';
 import { ReportRepo } from '../core/repos/ReportRepo.js';

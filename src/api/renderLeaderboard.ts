@@ -1,5 +1,5 @@
 import { toInteger } from '@fullstacksjs/toolbox';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 
 import { container } from '../config/container.js';
 
