@@ -8,6 +8,7 @@ interface Config {
   scheduleDbFilePath: string;
   userDbFilePath: string;
   puppeteerExecPath?: string;
+  admin: number;
 }
 
 type Week = string;

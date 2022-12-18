@@ -15,5 +15,6 @@ export function getConfig(): Config {
     scheduleDbFilePath: toAbsolutePath('../data/schedule.db.json'),
     userDbFilePath: toAbsolutePath('../data/user.db.json'),
     puppeteerExecPath: getEnv('PUPPETEER_EXECUTABLE_PATH'),
+    admin: toInteger(getRequiredEnv('ADMIN')),
   };
 }

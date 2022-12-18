@@ -1,10 +1,9 @@
-import { isNull } from '@fullstacksjs/toolbox';
-
-import type { User, UserModel } from '../models/User.js';
+import type { User } from '../models/User.js';
+import { UserModel } from '../models/User.js';
 import { BaseRepo } from './BaseRepo.js';
 
 interface UserDb {
-  users: { [key: string]: User };
+  users: Record<string, User>;
 }
 
 export class UserRepo extends BaseRepo<UserDb> {
@@ -15,7 +14,7 @@ export class UserRepo extends BaseRepo<UserDb> {
   }
 
   async save(user: UserModel) {
-    if (isNull(this.db)) throw Error('You need to init db before use');
+    this.assertInitialized();
 
     this.db!.data!.users[user.id] = {
       ...user,
@@ -25,8 +24,17 @@ export class UserRepo extends BaseRepo<UserDb> {
     await this.db.write();
   }
 
+  public async setTelegramUsername(id: string, username: string) {
+    await this.db.read();
+
+    if (this.db.data?.users[id] != null) {
+      this.db.data.users[id]!.telegramUsername = username;
+      await this.db.write();
+    }
+  }
+
   saveUsers(users: UserModel[]) {
-    if (isNull(this.db)) throw Error('You need to init db before use');
+    this.assertInitialized();
 
     users.forEach(user => {
       this.db!.data!.users[user.id] = {
@@ -39,9 +47,16 @@ export class UserRepo extends BaseRepo<UserDb> {
   }
 
   async get(id: string) {
-    if (isNull(this.db)) throw Error('You need to init db before use');
+    this.assertInitialized();
 
     await this.db.read();
     return this.db.data?.users?.[id];
+  }
+
+  async list(): Promise<UserModel[]> {
+    this.assertInitialized();
+
+    await this.db.read();
+    return Object.values(this.db.data?.users ?? {}).map(UserModel.fromPersistance);
   }
 }

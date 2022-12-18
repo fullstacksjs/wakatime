@@ -25,12 +25,21 @@ export class UserModel implements User {
   diff: number;
   telegramUsername?: string;
 
+  get publicName() {
+    return `${this.name} | ${this.username ?? 'N/A'}`;
+  }
+
   public getRankCaption(rank: number) {
     const medal = medals[rank];
     const name = this.telegramUsername ? `@${this.telegramUsername}` : this.name;
 
     const hours = secondsToHours(this.lastTotalSeconds);
     return `${medal} <b>${name}</b>: <i>~${hours}hrs</i>`;
+  }
+
+  public dumpInfo() {
+    const name = this.telegramUsername ? `@${this.telegramUsername}` : '';
+    return `<code>${this.id}</code>\n${this.publicName} ${name}`;
   }
 
   public static fromPersistance(user: User): UserModel {

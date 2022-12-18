@@ -6,9 +6,12 @@ import { container } from '../config/container.js';
 import type { GroupScheduleService } from '../core/Services/ScheduleService.js';
 import { helpCommand } from './commands/help.js';
 import { schedule } from './commands/schedule.js';
+import { setCommand } from './commands/set.js';
 import { startCommand } from './commands/start.js';
+import { usersCommand } from './commands/users.js';
 import { week } from './commands/week.js';
 import { WakatimeContext } from './Context.js';
+import { authMiddleware } from './middleware/auth.js';
 import { parseSchedule } from './middleware/parseSchedule.js';
 import { sendLeaderboard } from './sendLeaderboard.js';
 
@@ -46,6 +49,8 @@ export class Bot extends Grammy<WakatimeContext> {
     this.command('start', startCommand);
     this.command('help', helpCommand);
     this.command('week', week);
+    this.command('set', authMiddleware, setCommand);
+    this.command('users', authMiddleware, usersCommand);
     this.hears(/\/schedule ([1-7]) ([0-1]?[0-9]|2[0-3]):([0-5][0-9])/, parseSchedule, schedule);
     this.hears(/\/schedule/, ctx => ctx.reply(ctx.messages.badSchedulePattern));
   }
