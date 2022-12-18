@@ -19,3 +19,9 @@ export function toHumanHM(seconds: number) {
   const minutes = Math.floor((seconds % 3600) / 60);
   return `${addLeadingZero(hours)}:${addLeadingZero(minutes)}`;
 }
+
+export function getThisWeekId(date: Date) {
+  const currentYear = date.getFullYear();
+  const currentWeek = getWeekOfYear(date);
+  return `${currentYear}:${currentWeek}`;
+}

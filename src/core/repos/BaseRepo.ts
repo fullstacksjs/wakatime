@@ -1,11 +1,16 @@
+import type { RequiredBy } from '@fullstacksjs/toolbox';
 import { isNull } from '@fullstacksjs/toolbox';
 import fs from 'fs/promises';
 import { JSONFile, Low } from 'lowdb';
 import path from 'path';
 
 export class BaseRepo<T> {
-  db: Low<T> | undefined;
+  db!: Low<T>;
   protected initialState: T | undefined;
+
+  protected assertInitialized(this: BaseRepo<T>): asserts this is RequiredBy<this, 'db'> {
+    if (isNull(this.db)) throw Error('You need to init db before use');
+  }
 
   constructor(private filePath: string) {}
 
@@ -18,7 +23,7 @@ export class BaseRepo<T> {
   }
 
   async seedDb() {
-    if (isNull(this.db)) throw Error('You need to init db before use');
+    this.assertInitialized();
 
     await this.db.read();
     if (!isNull(this.db.data)) return;

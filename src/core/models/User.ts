@@ -9,6 +9,7 @@ export interface User {
   lastDailyAverage: number | null;
   lastRank: number;
   diff: number;
+  telegramUsername?: string;
 }
 
 const medals = ['🥇', '🥈', '🥉'];
@@ -22,10 +23,12 @@ export class UserModel implements User {
   lastDailyAverage: number;
   lastRank: number;
   diff: number;
+  telegramUsername?: string;
 
   public getRankCaption(rank: number) {
     const medal = medals[rank];
-    const name = this.name;
+    const name = this.telegramUsername ? `@${this.telegramUsername}` : this.name;
+
     const hours = secondsToHours(this.lastTotalSeconds);
     return `${medal} <b>${name}</b>: <i>~${hours}hrs</i>`;
   }
@@ -55,6 +58,7 @@ export class UserModel implements User {
     this.lastTotalSeconds = user.lastTotalSeconds ?? 0;
     this.lastDailyAverage = user.lastDailyAverage ?? 0;
     this.lastRank = user.lastRank;
+    this.telegramUsername = user.telegramUsername;
     this.diff = user.diff;
   }
 }

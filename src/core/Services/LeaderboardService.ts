@@ -1,7 +1,7 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
-import { assertNotIncludeNulls } from '../../utils/guards.js';
 import { LeaderboardModel } from '../models/Leaderboard.js';
+import type { User } from '../models/User.js';
 import type { ReportRepo } from '../repos/ReportRepo.js';
 import type { UserRepo } from '../repos/UserRepository.js';
 import type { WakatimeService } from './WakatimeService.js';
@@ -32,8 +32,12 @@ export class LeaderboardService {
     }
 
     const users = await Promise.all(reports.map(report => this.userRepo.get(report.userId)));
-    assertNotIncludeNulls(users);
 
-    return LeaderboardModel.fromPersistance({ reports, users });
+    if (users.some(isNull)) {
+      await this.sync();
+      return this.getLeaderboard(size);
+    }
+
+    return LeaderboardModel.fromPersistance({ reports, users: users as User[] });
   }
 }

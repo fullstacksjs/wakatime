@@ -8,8 +8,6 @@ export async function sendLeaderboard(groupId: GroupId, threadId?: number) {
   try {
     const leaderboard = await container.cradle.leaderboardService.getLeaderboard();
 
-    console.log(leaderboard.title);
-
     if (!cache.has(leaderboard.title))
       cache.set(
         leaderboard.title,

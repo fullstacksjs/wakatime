@@ -1,38 +1,31 @@
-import { isNull } from '@fullstacksjs/toolbox';
-
-import { getWeekOfYear } from '../../utils/date.js';
+import { getThisWeekId } from '../../utils/date.js';
 import type { Report, ReportModel } from '../models/Report.js';
 import { BaseRepo } from './BaseRepo.js';
 
 interface WakatimeDb {
-  weeks: { [key: Week]: Report[] };
+  weeks: Record<Week, Report[]>;
 }
 
 export class ReportRepo extends BaseRepo<WakatimeDb> {
-  protected override initialState: WakatimeDb | undefined = { weeks: {} };
+  protected override initialState: WakatimeDb = { weeks: {} };
 
   constructor(opts: Container) {
     super(opts.config.leaderboardDbFilePath);
   }
 
   async saveReports(reports: ReportModel[]) {
-    if (isNull(this.db)) throw Error('You need to init db before use');
+    this.assertInitialized();
 
-    const currentYear = new Date().getFullYear();
-    const currentWeek = getWeekOfYear(new Date());
-
-    this.db.data!.weeks[`${currentYear}:${currentWeek}`] = reports;
-
+    const weekId = getThisWeekId(new Date());
+    this.db.data!.weeks[weekId] = reports;
     await this.db.write();
   }
 
   async getTopReports(count: number): Promise<Report[] | undefined> {
-    if (isNull(this.db)) throw Error('You need to init db before use');
+    this.assertInitialized();
 
     await this.db.read();
-
-    const currentYear = new Date().getFullYear();
-    const currentWeek = getWeekOfYear(new Date());
-    return this.db.data!.weeks[`${currentYear}:${currentWeek}`]?.slice(0, count);
+    const weekId = getThisWeekId(new Date());
+    return this.db.data!.weeks[weekId]?.slice(0, count);
   }
 }
