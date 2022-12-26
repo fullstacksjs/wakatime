@@ -118,4 +118,4 @@ dist
 .pnp.*
 
 # data
-*.db.json
+data/*.json

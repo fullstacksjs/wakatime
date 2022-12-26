@@ -4,14 +4,10 @@ interface Config {
   port: number;
   leaderboardUrl: string;
   webpageUrl: string;
-  leaderboardDbFilePath: string;
-  scheduleDbFilePath: string;
-  userDbFilePath: string;
+  dbFilePath: string;
   puppeteerExecPath?: string;
   admin: number;
 }
-
-type Week = string;
 
 interface LanguageReport {
   name: string;
@@ -55,15 +51,7 @@ interface LeaderboardDto {
   caption: string;
 }
 
-interface Container {
-  config: Config;
-  scheduleRepo: import('./core/repos/ScheduleRepo').ScheduleRepo;
-  reportRepo: import('./core/repos/ReportRepo').ReportRepo;
-  userRepo: import('./core/repos/UserRepository').UserRepo;
-  groupScheduleService: import('./core/Services/ScheduleService').GroupScheduleService;
-  leaderboardService: import('./core/Services/LeaderboardService').LeaderboardService;
-  puppeteerService: import('./core/Services/PuppeteerService').PuppeteerService;
-  wakatimeService: import('./core/Services/WakatimeService').WakatimeService;
-  api: import('grammy').Api<import('grammy').RawApi>;
-  bot: import('./bot/Bot').Bot;
+interface WakatimeUserResponse {
+  data: WakatimeDto[];
+  modified_at: string;
 }

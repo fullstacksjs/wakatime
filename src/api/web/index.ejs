@@ -15,11 +15,11 @@
   <div class="container">
     <div class="logo-container">
       <%- include('partials/logo.ejs'); %>
-      <p id="date" class="date"><%= leaderboard.title %></p>
+      <p id="date" class="date"><%= title %></p>
     </div>
     <div class="winners">
-      <% leaderboard.userReports.forEach(function (userReport) { %>
-      <%- include('partials/user.ejs', { userReport }); %>
+      <% usages.forEach(function (usage) { %>
+      <%- include('partials/user.ejs', { usage }); %>
       <% }); %>
     </div>
 

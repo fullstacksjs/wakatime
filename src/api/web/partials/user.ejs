@@ -1,23 +1,23 @@
 <div id="winner-box" class="winner-box">
-  <p class="winner-rank"><%= userReport.report.ordinalRank %></p>
+  <p class="winner-rank"><%= usage.ordinalRank %></p>
   <div class="separator">
-    <img src="<%= userReport.user.avatar %>?s=420" alt="Winner-Avatar"
+    <img src="<%= usage.user.avatar %>?s=420" alt="Winner-Avatar"
       class="winner-avatar" />
     <div class="user-data">
-      <p class="user-name"><%= userReport.user.name %></p>
-      <p class="user-id"><%= userReport.user.username %></p>
+      <p class="user-name"><%= usage.user.name %></p>
+      <p class="user-id"><%= usage.user.username %></p>
     </div>
     <div class="user-chart">
       <div class="user-chart-item">
         <p class="user-chart-detail">Total:</p>
         <p class="user-chart-time">
-          <span><%= userReport.report.humanReadableTotalSeconds %></span>
+          <span><%= usage.humanReadableTotalSeconds %></span>
         </p>
       </div>
       <div class="user-chart-item">
         <p class="user-chart-detail">Daily:</p>
         <p class="user-chart-time">
-          <span><%= userReport.report.humanReadableDailyAverage %></span>
+          <span><%= usage.humanReadableDailyAverage %></span>
         </p>
       </div>
     </div>

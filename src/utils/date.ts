@@ -20,8 +20,17 @@ export function toHumanHM(seconds: number) {
   return `${addLeadingZero(hours)}:${addLeadingZero(minutes)}`;
 }
 
+export const getDayOfYear = (date: Date) =>
+  Math.floor((date.valueOf() - new Date(date.getFullYear(), 0, 0).valueOf()) / 1000 / 60 / 60 / 24);
+
 export function getThisWeekId(date: Date) {
   const currentYear = date.getFullYear();
   const currentWeek = getWeekOfYear(date);
   return `${currentYear}:${currentWeek}`;
+}
+
+export function getDayId(date: Date) {
+  const currentYear = date.getFullYear();
+  const currentDay = getDayOfYear(date);
+  return `${currentYear}:${currentDay}`;
 }

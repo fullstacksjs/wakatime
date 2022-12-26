@@ -1,26 +1,29 @@
 import { dedent } from 'ts-dedent';
 
 import { container } from '../../config/container.js';
+import type { UserFilter } from '../../core/repos/Repo.js';
 import type { WakatimeContext } from '../Context.js';
 
+const getFilter = (message: string | undefined): UserFilter => {
+  const flag = message?.split(' ')[1];
+  if (flag === 'false') return 'WithoutUsername';
+  if (flag === 'true') return 'WithUsername';
+  return undefined;
+};
+
 export const usersCommand = async (ctx: WakatimeContext) => {
-  const flag = ctx.message?.text?.split(' ')[1];
-  const userRepo = container.cradle.userRepo;
-  const users = await userRepo.list();
-  const filteredUser =
-    flag === 'true'
-      ? users.filter(u => !u.telegramUsername)
-      : flag === 'false'
-      ? users.filter(u => u.telegramUsername)
-      : users;
-  const usersList = filteredUser
+  const repo = container.cradle.repo;
+  const filter = getFilter(ctx.message?.text);
+  const users = await repo.getUserList(filter);
+
+  const usersList = users
     .sort((a, b) => a.publicName.localeCompare(b.publicName ?? 'Z') ?? -1)
     .reduce((a, u) => `${a}${u.dumpInfo()}\n\n`, '');
 
   return ctx.replyToMessage(
     dedent`
-  <b>Users:</b>
+      <b>Users:</b>
 
-  ${usersList}`,
+      ${usersList}`,
   );
 };

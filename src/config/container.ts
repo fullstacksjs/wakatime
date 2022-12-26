@@ -1,5 +1,7 @@
-import awilix from 'awilix';
+import { createContainer, InjectionMode } from 'awilix';
 
-export const container = awilix.createContainer<Container>({
-  injectionMode: awilix.InjectionMode.PROXY,
+import type { Container } from './initContainer';
+
+export const container = createContainer<Container>({
+  injectionMode: InjectionMode.PROXY,
 });

@@ -1,30 +1,34 @@
-import type { AwilixContainer } from 'awilix';
 import awilix from 'awilix';
+import type { Api, RawApi } from 'grammy';
 
 import { Bot } from '../bot/Bot.js';
-import { ReportRepo } from '../core/repos/ReportRepo.js';
-import { ScheduleRepo } from '../core/repos/ScheduleRepo.js';
-import { UserRepo } from '../core/repos/UserRepository.js';
+import type { Repo } from '../core/repos/Repo.js';
+import { createRepo } from '../core/repos/Repo.js';
 import { LeaderboardService } from '../core/Services/LeaderboardService.js';
-import { PuppeteerService } from '../core/Services/PuppeteerService.js';
-import { GroupScheduleService } from '../core/Services/ScheduleService.js';
-import { WakatimeService } from '../core/Services/WakatimeService.js';
+import { container } from './container.js';
 import { getConfig } from './getConfig.js';
 
-export function initContainer(container: AwilixContainer<Container>) {
+export interface Container {
+  config: Config;
+  repo: Repo;
+  leaderboardService: LeaderboardService;
+  api: Api<RawApi>;
+  bot: Bot;
+}
+
+export async function initContainer() {
+  const config = getConfig();
+  const repo = await createRepo(config.dbFilePath);
+
   container.register({
-    config: awilix.asValue(getConfig()),
+    config: awilix.asValue(config),
     bot: awilix.asClass(Bot).singleton(),
+    repo: awilix.asValue(repo),
 
     // Services
-    groupScheduleService: awilix.asClass(GroupScheduleService).singleton(),
-    wakatimeService: awilix.asClass(WakatimeService).singleton(),
-    puppeteerService: awilix.asClass(PuppeteerService).singleton(),
     leaderboardService: awilix.asClass(LeaderboardService).singleton(),
-
-    // Repos
-    reportRepo: awilix.asClass(ReportRepo).singleton(),
-    scheduleRepo: awilix.asClass(ScheduleRepo).singleton(),
-    userRepo: awilix.asClass(UserRepo).singleton(),
   });
+
+  await container.cradle.bot.initiate();
+  return container.cradle;
 }

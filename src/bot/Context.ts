@@ -1,4 +1,4 @@
-import { Context } from 'grammy';
+import { Context, InputFile } from 'grammy';
 import { dedent } from 'ts-dedent';
 
 import { container } from '../config/container';
@@ -8,37 +8,31 @@ export class WakatimeContext extends Context {
 
   messages = {
     help: dedent`
-      You can control me by sending these commands:
+      Commands:
       /help - to see this help.
-      /list_weekly - see list of best coder during current week
+      /week - see list of best coder during current week
+      /day - see list of best coder during current day
+      /set - set username for an id
 
-
-
-      Report <b>Bugs</b>: @Hoseinprd
+      Report <b>Bugs</b>: @Fullstacksjs
     `,
 
     welcome: dedent`
       👋 Hello, Welcome <b>${this.from?.first_name}</b>!
       🎯 This bot will give you latest stats of wakatime per weeks.
       Press /help to get the list of available commands.
-      `,
+    `,
 
     usernameSet: dedent`
-    ✅ Done
+      ✅ Done
     `,
-
-    badSchedulePattern: dedent`
-    bad pattern
-    an accepted pattern is in this format:
-    <code>\\schedule DD HH:MM</code>
-    note: days start from 1 (saturday) to 7 (friday)`,
 
     notAGroup: dedent`
-    this command is only available in group chats
+      this command is only available in group chats
     `,
 
-    scheduleSaved: dedent`
-    schedule saved successfully
+    unAuthorized: dedent`
+      Why are you gay?
     `,
   };
 
@@ -52,6 +46,22 @@ export class WakatimeContext extends Context {
 
   public isAdmin() {
     return this.update.message?.from?.id === container.cradle.config.admin;
+  }
+
+  public sendLeaderboard(image: Buffer, title: string) {
+    const groupId = this.chat!.id.toString();
+    const threadId = this.message?.message_thread_id;
+
+    try {
+      return container.cradle.api.sendPhoto(groupId, new InputFile(image), {
+        caption: title,
+        parse_mode: 'HTML',
+        message_thread_id: threadId,
+      });
+    } catch (error) {
+      console.error(error);
+      return container.cradle.api.sendMessage(groupId, 'Oops! try again');
+    }
   }
 
   isGroup() {

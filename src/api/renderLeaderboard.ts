@@ -20,6 +20,11 @@ export const renderLeaderboard = async (
     { name: 'Twitter', url: 'kutt.it/fsk-twitter' },
     { name: 'Twitch', url: 'kutt.it/fsk-twitch' },
   ];
-  const leaderboard = await container.cradle.leaderboardService.getLeaderboard(size);
-  return res.render('index.ejs', { leaderboard, contactList });
+  const leaderboard = await container.cradle.leaderboardService.getWeek(size);
+
+  return res.render('index.ejs', {
+    title: leaderboard.dayTitle,
+    usages: leaderboard.report.usages,
+    contactList,
+  });
 };
