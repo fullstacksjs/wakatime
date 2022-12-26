@@ -3,7 +3,7 @@ import express from 'express';
 
 import { renderLeaderboard } from './api/renderLeaderboard.js';
 import type { Bot } from './bot/Bot.js';
-import { container } from './config/container.js';
+import type { Container } from './config/initContainer.js';
 import { toAbsolutePath } from './utils/path.js';
 
 export class App {
@@ -11,15 +11,7 @@ export class App {
   private app: Express;
   private bot: Bot;
 
-  public static async initiate(): Promise<App> {
-    await container.cradle.reportRepo.initiate();
-    await container.cradle.scheduleRepo.initiate();
-    await container.cradle.userRepo.initiate();
-    await container.cradle.bot.initiate();
-    return new App(container.cradle);
-  }
-
-  private constructor(opts: Container) {
+  constructor(opts: Container) {
     this.config = opts.config;
     this.bot = opts.bot;
 

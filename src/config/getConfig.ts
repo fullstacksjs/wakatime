@@ -11,9 +11,7 @@ export function getConfig(): Config {
     leaderboardUrl: getRequiredEnv('LEADERBOARD_URL'),
     webpageUrl: getRequiredEnv('WEBPAGE_URL'),
     port: toInteger(getEnv('PORT', '3000')),
-    leaderboardDbFilePath: toAbsolutePath('../data/leaderboard.db.json'),
-    scheduleDbFilePath: toAbsolutePath('../data/schedule.db.json'),
-    userDbFilePath: toAbsolutePath('../data/user.db.json'),
+    dbFilePath: toAbsolutePath('../data/db.json'),
     puppeteerExecPath: getEnv('PUPPETEER_EXECUTABLE_PATH'),
     admin: toInteger(getRequiredEnv('ADMIN')),
   };

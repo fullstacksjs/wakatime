@@ -1,20 +1,9 @@
 import { secondsToHours } from '../../utils/date.js';
-
-export interface User {
-  id: string;
-  name: string;
-  avatar: string;
-  username: string | null;
-  lastTotalSeconds: number | null;
-  lastDailyAverage: number | null;
-  lastRank: number;
-  diff: number;
-  telegramUsername?: string;
-}
+import type { UserModel } from '../repos/UserModel.js';
 
 const medals = ['🥇', '🥈', '🥉'];
 
-export class UserModel implements User {
+export class User {
   id: string;
   name: string;
   avatar: string;
@@ -42,24 +31,11 @@ export class UserModel implements User {
     return `<code>${this.id}</code>\n${this.publicName} ${name}`;
   }
 
-  public static fromPersistance(user: User): UserModel {
-    return new UserModel(user);
+  public static fromModel(user: UserModel): User {
+    return new User(user);
   }
 
-  public static fromDto(dto: WakatimeDto): UserModel {
-    return new UserModel({
-      id: dto.user.id,
-      name: dto.user.display_name,
-      avatar: dto.user.photo,
-      username: dto.user.username,
-      lastTotalSeconds: dto.running_total.total_seconds,
-      lastDailyAverage: dto.running_total.daily_average,
-      lastRank: dto.rank,
-      diff: 0,
-    });
-  }
-
-  private constructor(user: User) {
+  private constructor(user: UserModel) {
     this.id = user.id;
     this.name = user.name;
     this.avatar = user.avatar;
@@ -68,6 +44,6 @@ export class UserModel implements User {
     this.lastDailyAverage = user.lastDailyAverage ?? 0;
     this.lastRank = user.lastRank;
     this.telegramUsername = user.telegramUsername;
-    this.diff = user.diff;
+    this.diff = user.diff ?? 0;
   }
 }

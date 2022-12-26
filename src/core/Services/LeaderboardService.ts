@@ -1,43 +1,50 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
-import { LeaderboardModel } from '../models/Leaderboard.js';
-import type { User } from '../models/User.js';
-import type { ReportRepo } from '../repos/ReportRepo.js';
-import type { UserRepo } from '../repos/UserRepository.js';
-import type { WakatimeService } from './WakatimeService.js';
+import type { Container } from '../../config/initContainer.js';
+import { Leaderboard } from '../models/Leaderboard.js';
+import type { Repo } from '../repos/Repo.js';
+import { toReportModel } from '../repos/ReportModel.js';
+import { toUserModel } from '../repos/UserModel.js';
+import { getLeaderboard } from './getLeaderboard.js';
 
 export class LeaderboardService {
-  private reportRepo: ReportRepo;
-  private wakatimeService: WakatimeService;
-  private userRepo: UserRepo;
+  private reportRepo: Repo;
 
   constructor(opts: Container) {
-    this.reportRepo = opts.reportRepo;
-    this.wakatimeService = opts.wakatimeService;
-    this.userRepo = opts.userRepo;
+    this.reportRepo = opts.repo;
   }
 
-  async sync() {
-    const leaderboard = await this.wakatimeService.getLeaderboard();
-    await this.userRepo.saveUsers(leaderboard.getUsers());
-    await this.reportRepo.saveReports(leaderboard.getReports());
+  async syncWeek() {
+    const leaderboard = await getLeaderboard();
+    await this.reportRepo.saveUsers(leaderboard.data.map(toUserModel));
+    await this.reportRepo.saveWeek(toReportModel(leaderboard));
   }
 
-  async getLeaderboard(size: number = 3): Promise<LeaderboardModel> {
-    const reports = await this.reportRepo.getTopReports(size);
+  async syncDay() {
+    const leaderboard = await getLeaderboard();
+    await this.reportRepo.saveUsers(leaderboard.data.map(toUserModel));
+    await this.reportRepo.saveDay(toReportModel(leaderboard));
+  }
 
-    if (isNull(reports)) {
-      await this.sync();
-      return this.getLeaderboard(size);
+  async getWeek(size = 3): Promise<Leaderboard> {
+    const report = await this.reportRepo.getTopWeekReports(size);
+
+    if (isNull(report) || report.usages.some(u => isNull(u.user))) {
+      await this.syncWeek();
+      return this.getWeek(size);
     }
 
-    const users = await Promise.all(reports.map(report => this.userRepo.get(report.userId)));
+    return Leaderboard.fromReport(report);
+  }
 
-    if (users.some(isNull)) {
-      await this.sync();
-      return this.getLeaderboard(size);
+  async getDay(size = 3): Promise<Leaderboard> {
+    const report = await this.reportRepo.getTopWeekReports(size);
+
+    if (isNull(report) || report.usages.some(u => isNull(u.user))) {
+      await this.syncDay();
+      return this.getDay(size);
     }
 
-    return LeaderboardModel.fromPersistance({ reports, users: users as User[] });
+    return Leaderboard.fromReport(report);
   }
 }
