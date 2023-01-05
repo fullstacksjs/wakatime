@@ -9,7 +9,7 @@ export async function week(ctx: WakatimeContext) {
 
   const leaderboard = await container.cradle.leaderboardService.getWeek();
   const screenshot = await getScreenshot();
-  const title = leaderboard.weekTitle;
+  const title = leaderboard.getWeekCaption();
 
   if (!cache.has(title)) cache.set(title, screenshot);
   const image = cache.get(title)!;

@@ -9,7 +9,7 @@ export async function day(ctx: WakatimeContext) {
 
   const leaderboard = await container.cradle.leaderboardService.getDay();
   const screenshot = await getScreenshot();
-  const title = leaderboard.dayTitle;
+  const title = leaderboard.getDayCaption();
 
   if (!cache.has(title)) cache.set(title, screenshot);
   const image = cache.get(title)!;
