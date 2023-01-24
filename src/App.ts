@@ -1,7 +1,8 @@
+import { Env } from '@fullstacksjs/toolbox';
 import type { Express } from 'express';
 import express from 'express';
 
-import { renderLeaderboard } from './api/renderLeaderboard.js';
+import { renderDayLeaderboard, renderWeekLeaderboard } from './api/renderLeaderboard.js';
 import type { Bot } from './bot/Bot.js';
 import type { Container } from './config/initContainer.js';
 import { toAbsolutePath } from './utils/path.js';
@@ -23,9 +24,12 @@ export class App {
     this.app.use(express.json());
     this.app.use(express.static(viewPath));
 
-    this.app.get('/', renderLeaderboard);
+    this.app.get('/week', renderWeekLeaderboard);
+    this.app.get('/day', renderDayLeaderboard);
     this.app.get('/bail', (_, res) => res.status(200).end(''));
     this.app.post('/webhook', this.bot.createExpressWebhookCallback());
+
+    if (Env.isDev) this.bot.start();
   }
 
   public start() {

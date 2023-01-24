@@ -8,7 +8,7 @@ export async function day(ctx: WakatimeContext) {
   if (!ctx.chat) return ctx.reply('Why are you gay?');
 
   const leaderboard = await container.cradle.leaderboardService.getDay();
-  const screenshot = await getScreenshot();
+  const screenshot = await getScreenshot('day');
   const title = leaderboard.getDayCaption();
 
   if (!cache.has(title)) cache.set(title, screenshot);
