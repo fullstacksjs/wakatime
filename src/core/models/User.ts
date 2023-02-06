@@ -1,4 +1,5 @@
 import { secondsToHours } from '../../utils/date.js';
+import { formatOrdinals } from '../../utils/ordinal.js';
 import type { UserModel } from '../repos/UserModel.js';
 
 const medals = ['🥇', '🥈', '🥉'];
@@ -19,7 +20,7 @@ export class User {
   }
 
   public getRankCaption(rank: number) {
-    const medal = medals[rank];
+    const medal = medals[rank] ?? formatOrdinals(rank + 1);
     const name = this.telegramUsername ? `@${this.telegramUsername}` : this.name;
 
     const hours = secondsToHours(this.lastTotalSeconds);
