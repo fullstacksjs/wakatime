@@ -35,7 +35,7 @@ export class Leaderboard {
 
       #wakatime_report
 
-      @fullstacks
+      @fullstacksjs
     `;
   }
 
@@ -47,7 +47,7 @@ export class Leaderboard {
 
       #wakatime_report
 
-      @fullstacks
+      @fullstacksjs
     `;
   }
 

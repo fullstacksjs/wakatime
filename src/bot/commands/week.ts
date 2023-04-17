@@ -7,7 +7,7 @@ const cache = new Map<string, Buffer>();
 export async function week(ctx: WakatimeContext) {
   if (!ctx.chat) return ctx.reply('Why are you gay?');
 
-  const leaderboard = await container.cradle.leaderboardService.getWeek();
+  const leaderboard = await container.cradle.leaderboardService.getWeek(10);
   const screenshot = await getScreenshot('week');
   const title = leaderboard.getWeekCaption();
 
