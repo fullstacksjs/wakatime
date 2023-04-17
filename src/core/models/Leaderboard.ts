@@ -27,15 +27,19 @@ export class Leaderboard {
     return new Leaderboard(Report.fromModel(report));
   }
 
+  private footer = dedent`
+
+      #wakatime_report
+
+      👉 fullstacksjs.com
+  `;
+
   public getDayCaption() {
     return dedent`
       <b>Wakatime Report</b>
       <i>${this.dayTitle}</i>
       ${this.report.usages.map(({ user }, rank) => user?.getRankCaption(rank)).join('\n')}
-
-      #wakatime_report
-
-      @fullstacksjs
+      ${this.footer}
     `;
   }
 
@@ -44,10 +48,7 @@ export class Leaderboard {
       <b>Wakatime Report</b>
       <i>${this.weekTitle}</i>
       ${this.report.usages.map(({ user }, rank) => user?.getRankCaption(rank)).join('\n')}
-
-      #wakatime_report
-
-      @fullstacksjs
+      ${this.footer}
     `;
   }
 

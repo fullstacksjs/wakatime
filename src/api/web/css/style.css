@@ -1,5 +1,6 @@
 :root {
   --tint-1: #d4dded;
+  --primary: #f39f47;
 }
 
 body {
@@ -137,6 +138,9 @@ body {
   display: grid;
   grid-template-columns: repeat(3, auto);
   margin-top: 43px;
+  font-size: 1.3em;
+  color: var(--primary);
+  font-weight: 600;
 }
 
 .social-media-item {
