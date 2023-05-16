@@ -1,25 +1,55 @@
-<div id="winner-box" class="winner-box">
-  <p class="winner-rank"><%= usage.ordinalRank %></p>
-  <div class="separator">
-    <img src="<%= usage.user.avatar %>?s=420" alt="Winner-Avatar"
-      class="winner-avatar" />
+<div class="user-box">
+  <p class="user-rank">
+    <%= usage.ordinalRank %>
+  </p>
+  <div class="report-separator report-separator--user"></div>
+  <div class="user-info">
+    <img src="<%= usage.user.avatar %>?s=420" alt="Avatar" class="user-avatar" />
     <div class="user-data">
-      <p class="user-name"><%= usage.user.name %></p>
-      <p class="user-id"><%= usage.user.username %></p>
+      <p class="user-name">
+        <%= usage.user.name %>
+      </p>
+      <p class="user-id">@<%= usage.user.username %>
+      </p>
     </div>
-    <div class="user-chart">
-      <div class="user-chart-item">
-        <p class="user-chart-detail">Total:</p>
-        <p class="user-chart-time">
-          <span><%= usage.humanReadableTotalSeconds %></span>
-        </p>
-      </div>
-      <div class="user-chart-item">
-        <p class="user-chart-detail">Daily:</p>
-        <p class="user-chart-time">
-          <span><%= usage.humanReadableDailyAverage %></span>
-        </p>
-      </div>
+  </div>
+  <div class="report-separator report-separator--user"></div>
+  <div class="winner-report">
+    <div class="report-item report-item--user">
+      <p class="report-title">Total:</p>
+      <p class="report-value">
+        <span>
+          <%= usage.humanReadableTotalSeconds %>
+        </span>
+      </p>
     </div>
+    <div class="report-item">
+      <p class="report-title">Daily:</p>
+      <p class="report-value">
+        <span>
+          <%= usage.humanReadableDailyAverage %>
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="report-separator report-separator--user"></div>
+  <div class="user-diff">
+    <span class="diff-icon">
+      <% if (usage.user.diff > 3) { %>
+        <%- include('ranks/2up.svg'); %>
+      <% } else if (usage.user.diff > 0) { %>
+        <%- include('ranks/up.svg'); %>
+      <% } else if (!usage.user.diff) { %>
+        <%- include('ranks/zero.svg'); %>
+      <% } else if (usage.user.diff < -2) {%>
+        <%- include('ranks/2down.svg'); %>
+      <% } else { %>
+        <%- include('ranks/down.svg'); %>
+      <% } %>
+
+    </span>
+    <span class="diff-text">
+      <%= usage.user.diff ?? 10 %>
+    </span>
   </div>
 </div>

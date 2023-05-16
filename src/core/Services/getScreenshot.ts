@@ -22,7 +22,7 @@ export async function getScreenshot(type: 'day' | 'week'): Promise<Buffer> {
   const page = await browser.newPage();
   await page.goto(joinPath(config.webpageUrl, type));
   await page.waitForTimeout(2000);
-  await page.setViewport({ width: 815, height: 700, deviceScaleFactor: 2 });
+  await page.setViewport({ width: 1000, height: 1280, deviceScaleFactor: 2 });
   const screenshot = await page.screenshot({ fullPage: true, encoding: 'binary', type: 'png' });
   await browser.close();
 

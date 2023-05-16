@@ -12,20 +12,11 @@ export const renderWeekLeaderboard = async (
   res: Response,
 ) => {
   const size = toInteger(req.query.size ?? '3');
-  const contactList = [
-    { name: 'Telegram', url: 'kutt.it/fsk-tg' },
-    { name: 'Youtube', url: 'kutt.it/fsk-yt' },
-    { name: 'Discord', url: 'kutt.it/fsk-discord' },
-    { name: 'Instagram', url: 'kutt.it/fsk-insta' },
-    { name: 'Twitter', url: 'kutt.it/fsk-twitter' },
-    { name: 'Twitch', url: 'kutt.it/fsk-twitch' },
-  ];
   const leaderboard = await container.cradle.leaderboardService.getWeek(size);
 
   return res.render('index.ejs', {
     title: leaderboard.weekTitle,
     usages: leaderboard.report.usages,
-    contactList,
   });
 };
 
@@ -33,20 +24,12 @@ export const renderDayLeaderboard = async (
   req: Request<unknown, unknown, unknown, QueryType>,
   res: Response,
 ) => {
-  const size = toInteger(req.query.size ?? '3');
-  const contactList = [
-    { name: 'Telegram', url: 'kutt.it/fsk-tg' },
-    { name: 'Youtube', url: 'kutt.it/fsk-yt' },
-    { name: 'Discord', url: 'kutt.it/fsk-discord' },
-    { name: 'Instagram', url: 'kutt.it/fsk-insta' },
-    { name: 'Twitter', url: 'kutt.it/fsk-twitter' },
-    { name: 'Twitch', url: 'kutt.it/fsk-twitch' },
-  ];
+  const size = toInteger(req.query.size ?? '7');
   const leaderboard = await container.cradle.leaderboardService.getDay(size);
 
   return res.render('index.ejs', {
     title: leaderboard.dayTitle,
-    usages: leaderboard.report.usages,
-    contactList,
+    winners: leaderboard.report.usages.slice(0, 3),
+    usages: leaderboard.report.usages.slice(3),
   });
 };
