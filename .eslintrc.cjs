@@ -7,5 +7,4 @@ module.exports = init({
       resolverProject: './tsconfig.json',
     },
   },
-  rules: {},
 });
