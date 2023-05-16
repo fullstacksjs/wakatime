@@ -1,12 +1,11 @@
-module.exports = {
-  extends: ['@fullstacksjs', '@fullstacksjs/eslint-config/esm.js'],
-  rules: {
-    'import/no-extraneous-dependencies': 'off',
-    'import/no-unresolved': 'off',
-  },
-  settings: {
-    'import/resolver': {
-      typescript: {},
+const { init } = require('@fullstacksjs/eslint-config/init');
+
+module.exports = init({
+  modules: {
+    typescript: {
+      parserProject: './tsconfig.json',
+      resolverProject: './tsconfig.json',
     },
   },
-};
+  rules: {},
+});

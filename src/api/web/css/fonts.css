@@ -1,17 +1,17 @@
 @font-face {
-  font-family: 'Rajdhani';
+  font-family: Rajdhani;
   src: url('../assets/fonts/Rajdhani/Rajdhani-Regular.ttf') format('truetype');
   font-weight: 400;
 }
 
 @font-face {
-  font-family: 'Rajdhani';
+  font-family: Rajdhani;
   src: url('../assets/fonts/Rajdhani/Rajdhani-SemiBold.ttf') format('truetype');
   font-weight: 600;
 }
 
 @font-face {
-  font-family: 'Rajdhani';
+  font-family: Rajdhani;
   src: url('../assets/fonts/Rajdhani/Rajdhani-Bold.ttf') format('truetype');
   font-weight: 700;
 }

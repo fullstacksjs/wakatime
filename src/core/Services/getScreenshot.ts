@@ -18,6 +18,7 @@ export async function getScreenshot(type: 'day' | 'week'): Promise<Buffer> {
       '--disable-gpu',
     ],
     executablePath: config.puppeteerExecPath,
+    headless: 'new',
   });
   const page = await browser.newPage();
   await page.goto(joinPath(config.webpageUrl, type));
@@ -26,5 +27,5 @@ export async function getScreenshot(type: 'day' | 'week'): Promise<Buffer> {
   const screenshot = await page.screenshot({ fullPage: true, encoding: 'binary', type: 'png' });
   await browser.close();
 
-  return screenshot as Buffer;
+  return screenshot;
 }

@@ -17,7 +17,7 @@ export const usersCommand = async (ctx: WakatimeContext) => {
   const users = await repo.getUserList(filter);
 
   const usersList = users
-    .sort((a, b) => a.publicName.localeCompare(b.publicName ?? 'Z') ?? -1)
+    .sort((a, b) => a.publicName.localeCompare(b.publicName))
     .reduce((a, u) => `${a}${u.dumpInfo()}\n\n`, '');
 
   return ctx.replyToMessage(

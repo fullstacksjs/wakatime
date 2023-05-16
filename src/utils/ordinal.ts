@@ -9,6 +9,6 @@ const suffixes = new Map([
 
 export function formatOrdinals(n: number) {
   const rule = pr.select(n);
-  const suffix = suffixes.get(rule);
+  const suffix = suffixes.get(rule) ?? 'th';
   return `${n}${suffix}`;
 }

@@ -1,7 +1,7 @@
-import { isNull } from '@fullstacksjs/toolbox';
 import { deepmerge } from 'deepmerge-ts';
 import fs from 'fs/promises';
-import { JSONFile, Low } from 'lowdb';
+import { Low } from 'lowdb';
+import { JSONFile } from 'lowdb/node';
 import path from 'path';
 
 import { getDayId, getThisWeekId as getWeekId } from '../../utils/date.js';
@@ -67,7 +67,7 @@ export class Repo {
 
   public async getUserList(filter?: UserFilter): Promise<User[]> {
     await this.db.read();
-    const users = Object.values(this.db.data.users ?? {}).map(User.fromModel);
+    const users = Object.values(this.db.data.users).map(User.fromModel);
 
     switch (filter) {
       case 'WithUsername':
@@ -111,7 +111,7 @@ export class Repo {
   public async getTopWeekReports(count: number): Promise<Report | undefined> {
     await this.db.read();
     const weekId = getWeekId(new Date());
-    const report = this.db.data!.weeks[weekId];
+    const report = this.db.data.weeks[weekId];
 
     if (!report) return;
 
@@ -127,13 +127,8 @@ export class Repo {
 export async function createRepo(filePath: string) {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
   const adapter = new JSONFile<DB>(filePath);
-  const db = new Low<DB>(adapter);
+  const db = new Low<DB>(adapter, { days: {}, users: {}, weeks: {} });
   await db.read();
-
-  if (!isNull(db.data)) {
-    db.data ??= { days: {}, users: {}, weeks: {} };
-    await db.write();
-  }
 
   return new Repo(db as unknown as InitializedLow<DB>);
 }

@@ -1,5 +1,5 @@
 import awilix from 'awilix';
-import type { Api, RawApi } from 'grammy';
+import type { Api } from 'grammy';
 
 import { Bot } from '../bot/Bot.js';
 import type { Repo } from '../core/repos/Repo.js';
@@ -12,7 +12,7 @@ export interface Container {
   config: Config;
   repo: Repo;
   leaderboardService: LeaderboardService;
-  api: Api<RawApi>;
+  api: Api;
   bot: Bot;
 }
 

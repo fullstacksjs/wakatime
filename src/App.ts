@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Env } from '@fullstacksjs/toolbox';
 import type { Express } from 'express';
 import express from 'express';
@@ -29,7 +30,7 @@ export class App {
     this.app.get('/bail', (_, res) => res.status(200).end(''));
     this.app.post('/webhook', this.bot.createExpressWebhookCallback());
 
-    if (Env.isDev) this.bot.start();
+    if (Env.isDev) void this.bot.start();
   }
 
   public start() {
