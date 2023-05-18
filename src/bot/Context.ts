@@ -1,7 +1,7 @@
 import { Context, InputFile } from 'grammy';
 import { dedent } from 'ts-dedent';
 
-import { container } from '../config/container';
+import { container } from '../config/container.js';
 
 export class WakatimeContext extends Context {
   schedule: Schedule | null = null;

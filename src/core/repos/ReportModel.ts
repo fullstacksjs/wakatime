@@ -1,5 +1,5 @@
-import type { UsageModel } from './UsageModel';
-import { toUsageModel } from './UsageModel';
+import type { UsageModel } from './UsageModel.js';
+import { toUsageModel } from './UsageModel.js';
 
 export interface ReportModel {
   date: Date;

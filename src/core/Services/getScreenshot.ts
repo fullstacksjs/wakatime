@@ -1,7 +1,7 @@
 import { joinPath } from '@fullstacksjs/toolbox';
 import puppeteer from 'puppeteer';
 
-import { container } from '../../config/container';
+import { container } from '../../config/container.js';
 
 export async function getScreenshot(type: 'day' | 'week'): Promise<Buffer> {
   const config = container.cradle.config;

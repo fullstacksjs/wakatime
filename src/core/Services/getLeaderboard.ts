@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { container } from '../../config/container';
+import { container } from '../../config/container.js';
 
 export async function getLeaderboard(): Promise<WakatimeUserResponse> {
   const config = container.cradle.config;

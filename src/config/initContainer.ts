@@ -24,8 +24,6 @@ export async function initContainer() {
     config: awilix.asValue(config),
     bot: awilix.asClass(Bot).singleton(),
     repo: awilix.asValue(repo),
-
-    // Services
     leaderboardService: awilix.asClass(LeaderboardService).singleton(),
   });
 
