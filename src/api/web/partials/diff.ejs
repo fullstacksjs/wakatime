@@ -1,0 +1,18 @@
+<div class="user-diff">
+  <span class="diff-icon">
+    <% if (usage.user.diff > 3) { %>
+      <%- include('ranks/2up.svg'); %>
+    <% } else if (usage.user.diff > 0) { %>
+      <%- include('ranks/up.svg'); %>
+    <% } else if (!usage.user.diff) { %>
+      <%- include('ranks/zero.svg'); %>
+    <% } else if (usage.user.diff < -2) {%>
+      <%- include('ranks/2down.svg'); %>
+    <% } else { %>
+      <%- include('ranks/down.svg'); %>
+    <% } %>
+  </span>
+  <span class="diff-text">
+    <%= usage.user.diff ?? 10 %>
+  </span>
+</div>
