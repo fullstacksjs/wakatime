@@ -7,14 +7,15 @@
     "build": "tsc && shx cp -r src/api/web/ dist/api/",
     "dev": "node --watch --loader tsm ./src/main.ts",
     "postinstall": "npm run build",
-    "start": "node dist/main.js",
+    "api": "node dist/main.js api",
+    "bot": "node dist/main.js bot",
     "prepare": "husky install",
     "lint": "npm-run-all -p lint:*",
     "lint:style": "stylelint \"src/api/web/css/*.css\"",
     "lint:es": "eslint . --fix"
   },
   "dependencies": {
-    "@fullstacksjs/eslint-config": "9.3.1",
+    "@fullstacksjs/eslint-config": "9.8.0",
     "@fullstacksjs/toolbox": "3.0.2",
     "@fullstacksjs/tsconfig": "1.1.0",
     "@grammyjs/ratelimiter": "1.1.6",
@@ -28,7 +29,7 @@
     "dotenv": "16.0.3",
     "dotenv-cli": "7.2.1",
     "ejs": "3.1.9",
-    "eslint": "8.40.0",
+    "eslint": "8.44.0",
     "express": "4.18.2",
     "grammy": "1.12.0",
     "husky": "8.0.3",
@@ -42,7 +43,7 @@
     "stylelint-config-standard": "33.0.0",
     "ts-dedent": "2.2.0",
     "tsm": "2.3.0",
-    "typescript": "5.0.4"
+    "typescript": "5.1.6"
   },
   "volta": {
     "node": "18.16.0",

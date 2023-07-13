@@ -1,7 +1,8 @@
 interface Config {
   botToken: string;
   apiKey: string;
-  port: number;
+  botPort: number;
+  apiPort: number;
   leaderboardUrl: string;
   webpageUrl: string;
   dbFilePath: string;

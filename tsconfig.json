@@ -7,5 +7,6 @@
     "lib": ["DOM", "ESNext"],
     "outDir": "./dist",
     "allowJs": true
-  }
+  },
+  "exclude": ["node_modules"]
 }
