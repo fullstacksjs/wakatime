@@ -1,15 +1,19 @@
 import { Env } from '@fullstacksjs/toolbox';
 
-import { container } from '../../config/container.js';
+import axios from 'axios';
 import { getScreenshot } from '../../core/Services/getScreenshot.js';
 import type { WakatimeContext } from '../Context.js';
+import { Leaderboard } from '../../core/models/Leaderboard.js';
+import type { Report } from '../../core/models/Report.js';
 
 const cache = new Map<string, Buffer>();
 
 export async function day(ctx: WakatimeContext) {
   if (!ctx.chat) return ctx.reply('Why are you gay?');
 
-  const leaderboard = await container.cradle.leaderboardService.getDay(10);
+  const reports: Report = (await axios.get('https://wakatime.fullstacksjs.com/api/day?size=10'))
+    .data;
+  const leaderboard = Leaderboard.fromReport(reports);
   const screenshot = await getScreenshot('day');
   const title = leaderboard.getDayCaption();
 
