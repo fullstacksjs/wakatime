@@ -6,7 +6,6 @@
   "scripts": {
     "build": "tsc && shx cp -r src/api/web/ dist/api/",
     "dev": "node --watch --loader tsm ./src/main.ts",
-    "postinstall": "npm run build",
     "api": "node dist/main.js api",
     "bot": "node dist/main.js bot",
     "prepare": "husky install",
