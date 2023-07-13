@@ -16,14 +16,25 @@ export interface Container {
   bot: Bot;
 }
 
-export async function initContainer() {
+export async function registerApiContainer() {
   const config = getConfig();
   const repo = await createRepo(config.dbFilePath);
 
   container.register({
     config: awilix.asValue(config),
-    bot: awilix.asClass(Bot).singleton(),
     repo: awilix.asValue(repo),
+    leaderboardService: awilix.asClass(LeaderboardService).singleton(),
+  });
+
+  return container.cradle;
+}
+
+export async function registerBotContainer() {
+  const config = getConfig();
+
+  container.register({
+    config: awilix.asValue(config),
+    bot: awilix.asClass(Bot).singleton(),
     leaderboardService: awilix.asClass(LeaderboardService).singleton(),
   });
 
