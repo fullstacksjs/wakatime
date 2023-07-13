@@ -4,7 +4,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "shx rm -rf dist/ && tsc",
     "dev": "node --watch --loader tsm ./src/main.ts",
     "api": "node dist/main.js api",
     "bot": "node dist/main.js bot",
@@ -39,5 +39,8 @@
   "volta": {
     "node": "18.16.0",
     "npm": "9.6.7"
+  },
+  "devDependencies": {
+    "shx": "0.3.4"
   }
 }
