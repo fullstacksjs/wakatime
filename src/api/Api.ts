@@ -16,7 +16,6 @@ export class Api {
     this.app.use(express.json());
 
     this.app.get('/api/day', getReport);
-    this.app.get('/bail', (_, res) => res.status(200).end(''));
   }
 
   public start() {
