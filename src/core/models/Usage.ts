@@ -1,7 +1,5 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
-import { toHumanHM } from '../../utils/date.js';
-import { formatOrdinals } from '../../utils/ordinal.js';
 import type { UsageModel } from '../repos/UsageModel.js';
 import { User } from './User.js';
 
@@ -10,18 +8,6 @@ export class Usage {
   dailyAverage: number;
   totalSeconds: number;
   user: User;
-
-  get ordinalRank() {
-    return formatOrdinals(this.rank);
-  }
-
-  get humanReadableDailyAverage() {
-    return toHumanHM(this.dailyAverage);
-  }
-
-  get humanReadableTotalSeconds() {
-    return toHumanHM(this.totalSeconds);
-  }
 
   public static fromModel(usage: UsageModel): Usage {
     if (isNull(usage.user)) throw Error(`User ${usage.userId} does not exist for`);
