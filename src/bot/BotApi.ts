@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Env } from '@fullstacksjs/toolbox';
 import type { Express } from 'express';
 import express from 'express';
 
-import type { Bot } from './Bot.js';
 import type { Container } from '../config/initContainer.js';
+import type { Bot } from './Bot.js';
 
 export class BotApi {
   private config: Config;
@@ -18,9 +17,8 @@ export class BotApi {
     this.app = express();
     this.app.use(express.json());
     this.app.get('/bail', (_, res) => res.status(200).end(''));
-
     this.app.post('/webhook', this.bot.createExpressWebhookCallback());
-    if (Env.isDev) void this.bot.start();
+    void this.bot.start();
   }
 
   public start() {

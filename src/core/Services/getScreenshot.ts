@@ -1,9 +1,8 @@
-import { joinPath } from '@fullstacksjs/toolbox';
 import puppeteer from 'puppeteer';
 
 import { container } from '../../config/container.js';
 
-export async function getScreenshot(type: 'day' | 'week'): Promise<Buffer> {
+export async function getScreenshot(): Promise<Buffer> {
   const config = container.cradle.config;
 
   const browser = await puppeteer.launch({
@@ -21,7 +20,7 @@ export async function getScreenshot(type: 'day' | 'week'): Promise<Buffer> {
     headless: 'new',
   });
   const page = await browser.newPage();
-  await page.goto(joinPath(config.webpageUrl, type));
+  await page.goto(config.webpageUrl);
   await page.waitForSelector('#social-media');
   await page.setViewport({ width: 1000, height: 1280, deviceScaleFactor: 2 });
   const screenshot = await page.screenshot({ fullPage: true, encoding: 'binary', type: 'png' });
