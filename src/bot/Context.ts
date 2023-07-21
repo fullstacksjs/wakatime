@@ -45,7 +45,7 @@ export class WakatimeContext extends Context {
   }
 
   public isAdmin() {
-    return this.update.message?.from?.id === container.cradle.config.admin;
+    return this.update.message?.from.id === container.cradle.config.admin;
   }
 
   public sendLeaderboard(image: Buffer, title: string) {
