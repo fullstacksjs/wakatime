@@ -1,16 +1,21 @@
 import puppeteer from 'puppeteer';
 
 import { container } from '../../config/container.js';
+import { Env } from '@fullstacksjs/toolbox';
 
 async function waitForAllImages() {
   document.body.scrollIntoView(false);
+  const images = document.getElementsByTagName('img');
 
   await Promise.all(
-    Array.from(document.getElementsByTagName('img'), image => {
+    Array.from(images, image => {
       if (image.complete) return Promise.resolve(true);
 
       return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(true), 5000);
+        if (Env.isDev)
+          setTimeout(() => {
+            resolve(true);
+          }, 5000);
         image.addEventListener('load', resolve);
         image.addEventListener('error', reject);
       });
@@ -36,7 +41,7 @@ export async function getScreenshot(): Promise<Buffer> {
     headless: 'new',
   });
   const page = await browser.newPage();
-  await page.goto(config.webpageUrl);
+  await page.goto(config.webpageUrl, { waitUntil: 'networkidle2' });
   await page.evaluate(waitForAllImages);
   await page.setViewport({ width: 1000, height: 1280, deviceScaleFactor: 2 });
   const screenshot = await page.screenshot({ fullPage: true, encoding: 'binary', type: 'png' });
