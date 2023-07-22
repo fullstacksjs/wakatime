@@ -1,7 +1,6 @@
 import puppeteer from 'puppeteer';
 
 import { container } from '../../config/container.js';
-import { Env } from '@fullstacksjs/toolbox';
 
 async function waitForAllImages() {
   document.body.scrollIntoView(false);
@@ -12,10 +11,9 @@ async function waitForAllImages() {
       if (image.complete) return Promise.resolve(true);
 
       return new Promise((resolve, reject) => {
-        if (Env.isDev)
-          setTimeout(() => {
-            resolve(true);
-          }, 5000);
+        setTimeout(() => {
+          resolve(true);
+        }, 5000);
         image.addEventListener('load', resolve);
         image.addEventListener('error', reject);
       });
