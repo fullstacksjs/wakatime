@@ -10,7 +10,8 @@
     "leaderboard",
     "ratelimiter",
     "stylelint",
-    "wakatime"
+    "wakatime",
+    "networkidle"
   ],
   "dictionaries": ["node", "libs", "keywords"]
 }
