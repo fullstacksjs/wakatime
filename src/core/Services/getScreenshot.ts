@@ -10,7 +10,7 @@ async function waitForAllImages() {
       if (image.complete) return Promise.resolve(true);
 
       return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(true), 3000);
+        setTimeout(() => resolve(true), 5000);
         image.addEventListener('load', resolve);
         image.addEventListener('error', reject);
       });
