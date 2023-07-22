@@ -34,6 +34,10 @@ export class Bot extends Grammy<WakatimeContext> {
     this.command('day', day);
     this.command('set', authMiddleware, setCommand);
     this.command('users', authMiddleware, usersCommand);
+
+    this.catch = function handleError(e) {
+      console.error(e);
+    };
   }
 
   createExpressWebhookCallback() {

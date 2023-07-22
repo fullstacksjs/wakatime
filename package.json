@@ -31,7 +31,7 @@
     "lint-staged": "13.2.3",
     "lowdb": "6.0.1",
     "prettier": "3.0.0",
-    "puppeteer": "20.9.0",
+    "puppeteer": "20.2.1",
     "ts-dedent": "2.2.0",
     "tsm": "2.3.0",
     "typescript": "5.1.6"
