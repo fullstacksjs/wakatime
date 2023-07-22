@@ -18,10 +18,10 @@ export class BotApi {
     this.app.use(express.json());
     this.app.get('/bail', (_, res) => res.status(200).end(''));
     this.app.post('/webhook', this.bot.createExpressWebhookCallback());
-    void this.bot.start();
   }
 
   public start() {
+    void this.bot.start();
     return new Promise(resolve => {
       this.app.listen(this.config.botPort, () => {
         console.log(`listening on port ${this.config.botPort}`);
