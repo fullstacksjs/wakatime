@@ -33,15 +33,11 @@ export async function getScreenshot(): Promise<Buffer> {
       '--disable-gpu',
     ],
     executablePath: config.puppeteerExecPath,
-    headless: false,
+    headless: 'new',
   });
   const page = await browser.newPage();
   await page.goto(config.webpageUrl);
-
-  console.log('HERE');
-
   await page.evaluate(waitForAllImages);
-  console.log('HERE2');
   await page.setViewport({ width: 1000, height: 1280, deviceScaleFactor: 2 });
   const screenshot = await page.screenshot({ fullPage: true, encoding: 'binary', type: 'png' });
   await browser.close();
