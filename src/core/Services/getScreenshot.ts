@@ -3,8 +3,8 @@ import puppeteer from 'puppeteer';
 import { container } from '../../config/container.js';
 
 async function waitForAllImages() {
-  document.body.scrollIntoView(false);
   const images = document.getElementsByTagName('img');
+  console.log({ images });
 
   await Promise.all(
     Array.from(images, image => {
