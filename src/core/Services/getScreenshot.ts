@@ -8,10 +8,12 @@ async function waitForAllImages() {
 
   await Promise.all(
     Array.from(images, image => {
+      console.log(image.complete);
       if (image.complete) return Promise.resolve(true);
 
       return new Promise((resolve, reject) => {
         setTimeout(() => {
+          console.log('TIMED OUT');
           resolve(true);
         }, 5000);
         image.addEventListener('load', resolve);
