@@ -53,8 +53,8 @@ export async function getScreenshot(): Promise<Buffer> {
     console.log(`${message.type().substring(0, 3).toUpperCase()} ${message.text()}`),
   );
   await page.goto(config.webpageUrl, { waitUntil: 'networkidle0' });
-  await page.evaluate(waitForAllImages);
   await page.setViewport({ width: 1000, height: 1280, deviceScaleFactor: 2 });
+  await page.evaluate(waitForAllImages);
   const screenshot = await page.screenshot({ fullPage: true, encoding: 'binary', type: 'png' });
   await browser.close();
 
