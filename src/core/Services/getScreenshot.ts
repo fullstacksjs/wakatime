@@ -15,7 +15,7 @@ async function waitForAllImages() {
         const timeout = setTimeout(() => {
           console.log('TIMED OUT');
           resolve(true);
-        }, 10000);
+        }, 20000);
         image.addEventListener('load', () => {
           console.log('LOADED');
           clearTimeout(timeout);
