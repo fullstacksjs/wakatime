@@ -12,12 +12,20 @@ async function waitForAllImages() {
       if (image.complete) return Promise.resolve(true);
 
       return new Promise((resolve, reject) => {
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
           console.log('TIMED OUT');
           resolve(true);
-        }, 5000);
-        image.addEventListener('load', resolve);
-        image.addEventListener('error', reject);
+        }, 10000);
+        image.addEventListener('load', () => {
+          console.log('LOADED');
+          clearTimeout(timeout);
+          resolve(true);
+        });
+        image.addEventListener('error', () => {
+          console.log('ERROR');
+          clearTimeout(timeout);
+          reject();
+        });
       });
     }),
   );
