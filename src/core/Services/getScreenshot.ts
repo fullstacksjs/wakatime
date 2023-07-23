@@ -41,6 +41,9 @@ export async function getScreenshot(): Promise<Buffer> {
     headless: 'new',
   });
   const page = await browser.newPage();
+  page.on('console', message =>
+    console.log(`${message.type().substring(0, 3).toUpperCase()} ${message.text()}`),
+  );
   await page.goto(config.webpageUrl, { waitUntil: 'networkidle0' });
   await page.evaluate(waitForAllImages);
   await page.setViewport({ width: 1000, height: 1280, deviceScaleFactor: 2 });
