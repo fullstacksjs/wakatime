@@ -11,8 +11,12 @@ export const getReport = async (
   req: Request<unknown, unknown, unknown, QueryType>,
   res: Response,
 ) => {
-  const size = toInteger(req.query.size?.toString() ?? '3', 3);
-  const day = await container.cradle.leaderboardService.getDay(size);
-
-  res.json(day.report);
+  try {
+    const size = toInteger(req.query.size?.toString() ?? '3', 3);
+    const day = await container.cradle.leaderboardService.getDay(size);
+    return res.json(day.report);
+  } catch (e) {
+    if (e instanceof Error) return res.status(500).json({ message: e.message });
+    return res.status(500).json({ message: e });
+  }
 };

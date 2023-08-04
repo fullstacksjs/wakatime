@@ -23,7 +23,7 @@ export class Api {
   public start() {
     return new Promise(resolve => {
       this.app.listen(this.config.apiPort, () => {
-        console.log(`listening on port ${this.config.apiPort}`);
+        console.log(`Api is listening on port ${this.config.apiPort}`);
         resolve(this.config);
       });
     });

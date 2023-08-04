@@ -10,7 +10,6 @@ export class WakatimeSDK {
   constructor(opts: Container) {
     this.config = opts.config;
     this.client = axios.create({
-      baseURL: this.config.leaderboardUrl,
       timeout: 10000,
       params: { api_key: this.config.apiKey },
     });
@@ -18,7 +17,7 @@ export class WakatimeSDK {
 
   async getReports(): Promise<WakatimeUserResponse | undefined> {
     try {
-      const { data } = await this.client.get<WakatimeUserResponse>('/');
+      const { data } = await this.client.get<WakatimeUserResponse>(this.config.leaderboardUrl);
 
       return data;
     } catch (e) {

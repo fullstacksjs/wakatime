@@ -26,7 +26,7 @@ export class LeaderboardService {
 
   async syncDay() {
     const reports = await this.wakatime.getReports();
-    if (!reports) return;
+    if (!reports) throw Error('Cannot fetch reports');
 
     await this.reportRepo.saveUsers(reports.data.map(toUserModel));
     await this.reportRepo.saveDay(toReportModel(reports));
@@ -45,6 +45,7 @@ export class LeaderboardService {
 
   async getDay(size = 3): Promise<Leaderboard> {
     const report = await this.reportRepo.getTopDayReport(size);
+    console.log({ report });
 
     if (isNull(report) || report.usages.some(u => isNull(u.user))) {
       await this.syncDay();
