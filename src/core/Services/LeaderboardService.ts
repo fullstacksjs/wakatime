@@ -5,25 +5,31 @@ import { Leaderboard } from '../models/Leaderboard.js';
 import type { Repo } from '../repos/Repo.js';
 import { toReportModel } from '../repos/ReportModel.js';
 import { toUserModel } from '../repos/UserModel.js';
-import { getLeaderboard } from './getLeaderboard.js';
+import type { WakatimeSDK } from './WakatimeSDK.js';
 
 export class LeaderboardService {
   private reportRepo: Repo;
+  private wakatime: WakatimeSDK;
 
   constructor(opts: Container) {
     this.reportRepo = opts.repo;
+    this.wakatime = opts.wakatime;
   }
 
   async syncWeek() {
-    const leaderboard = await getLeaderboard();
-    await this.reportRepo.saveUsers(leaderboard.data.map(toUserModel));
-    await this.reportRepo.saveWeek(toReportModel(leaderboard));
+    const reports = await this.wakatime.getReports();
+    if (!reports) return;
+
+    await this.reportRepo.saveUsers(reports.data.map(toUserModel));
+    await this.reportRepo.saveWeek(toReportModel(reports));
   }
 
   async syncDay() {
-    const leaderboard = await getLeaderboard();
-    await this.reportRepo.saveUsers(leaderboard.data.map(toUserModel));
-    await this.reportRepo.saveDay(toReportModel(leaderboard));
+    const reports = await this.wakatime.getReports();
+    if (!reports) return;
+
+    await this.reportRepo.saveUsers(reports.data.map(toUserModel));
+    await this.reportRepo.saveDay(toReportModel(reports));
   }
 
   async getWeek(size = 3): Promise<Leaderboard> {

@@ -48,19 +48,29 @@ export class WakatimeContext extends Context {
     return this.update.message?.from.id === container.cradle.config.admin;
   }
 
+  public report(log: string) {
+    const reportId = container.cradle.config.reportId;
+    return container.cradle.grammy.sendMessage(reportId, `ℹ️\n${log}`);
+  }
+
+  public reportError(error: string) {
+    const reportId = container.cradle.config.reportId;
+    return container.cradle.grammy.sendMessage(reportId, `❗️\n${error}`);
+  }
+
   public sendLeaderboard(image: Buffer, title: string) {
     const groupId = this.chat!.id.toString();
     const threadId = this.message?.message_thread_id;
 
     try {
-      return container.cradle.api.sendPhoto(groupId, new InputFile(image), {
+      return container.cradle.grammy.sendPhoto(groupId, new InputFile(image), {
         caption: title,
         parse_mode: 'HTML',
         message_thread_id: threadId,
       });
     } catch (error) {
       console.error(error);
-      return container.cradle.api.sendMessage(groupId, 'Oops! try again');
+      return container.cradle.grammy.sendMessage(groupId, 'Oops! try again');
     }
   }
 

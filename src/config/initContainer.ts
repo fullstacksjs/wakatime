@@ -1,10 +1,12 @@
 import awilix from 'awilix';
-import type { Api } from 'grammy';
+import type { Api as GrammyApi } from 'grammy';
 
 import { Bot } from '../bot/Bot.js';
+import { ApiSDK } from '../core/Services/ApiSDK.js';
+import { LeaderboardService } from '../core/Services/LeaderboardService.js';
+import { WakatimeSDK } from '../core/Services/WakatimeSDK.js';
 import type { Repo } from '../core/repos/Repo.js';
 import { createRepo } from '../core/repos/Repo.js';
-import { LeaderboardService } from '../core/Services/LeaderboardService.js';
 import { container } from './container.js';
 import { getConfig } from './getConfig.js';
 
@@ -12,8 +14,10 @@ export interface Container {
   config: Config;
   repo: Repo;
   leaderboardService: LeaderboardService;
-  api: Api;
+  grammy: GrammyApi;
   bot: Bot;
+  api: ApiSDK;
+  wakatime: WakatimeSDK;
 }
 
 export async function registerApiContainer() {
@@ -24,6 +28,7 @@ export async function registerApiContainer() {
     config: awilix.asValue(config),
     repo: awilix.asValue(repo),
     leaderboardService: awilix.asClass(LeaderboardService).singleton(),
+    wakatime: awilix.asClass(WakatimeSDK).singleton(),
   });
 
   return container.cradle;
@@ -36,6 +41,8 @@ export async function registerBotContainer() {
     config: awilix.asValue(config),
     bot: awilix.asClass(Bot).singleton(),
     leaderboardService: awilix.asClass(LeaderboardService).singleton(),
+    api: awilix.asClass(ApiSDK).singleton(),
+    repo: awilix.asValue({} as Repo),
   });
 
   await container.cradle.bot.initiate();

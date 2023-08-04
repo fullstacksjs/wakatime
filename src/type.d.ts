@@ -1,4 +1,6 @@
 interface Config {
+  reportId: string;
+  apiEndpoint: string;
   botToken: string;
   apiKey: string;
   botPort: number;

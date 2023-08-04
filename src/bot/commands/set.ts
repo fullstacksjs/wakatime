@@ -7,14 +7,14 @@ const isValidId = (id: string | undefined): id is string =>
   Boolean(id?.length === 36 && id.split('-').length === 5);
 
 export const setCommand = async (ctx: WakatimeContext) => {
-  const repo = container.cradle.repo;
+  const { api } = container.cradle;
   const [id, rawUsername] = ctx.message?.text?.split(' ').slice(1) ?? [];
   const username = rawUsername?.replace('@', '');
 
   if (!isValidId(id)) return ctx.replyToMessage('<b>Wrong Input</b>\nInvalid id');
   if (isNull(username)) return ctx.replyToMessage('<b>Wrong Input</b>\nUsername is required');
 
-  await repo.setTelegramUsername(id, username);
+  await api.setUsername(id, username);
 
   return ctx.replyToMessage(ctx.messages.usernameSet);
 };

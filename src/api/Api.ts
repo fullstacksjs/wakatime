@@ -4,6 +4,7 @@ import express from 'express';
 
 import type { Container } from '../config/initContainer.js';
 import { getReport } from './getReport.js';
+import { setUsername } from './setUsername.js';
 
 export class Api {
   private config: Config;
@@ -16,6 +17,7 @@ export class Api {
     this.app.use(express.json());
 
     this.app.get('/api/day', getReport);
+    this.app.put('/api/user', setUsername);
   }
 
   public start() {

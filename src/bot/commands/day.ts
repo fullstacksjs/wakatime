@@ -1,32 +1,30 @@
-import { Env } from '@fullstacksjs/toolbox';
+import { isString } from '@fullstacksjs/toolbox';
 
-import axios from 'axios';
+import { container } from '../../config/container.js';
 import { getScreenshot } from '../../core/Services/getScreenshot.js';
-import { Leaderboard } from '../../core/models/Leaderboard.js';
-import { Report } from '../../core/models/Report.js';
-import type { ReportModel } from '../../core/repos/ReportModel.js';
 import type { WakatimeContext } from '../Context.js';
 
 const cache = new Map<string, Buffer>();
 
 export async function day(ctx: WakatimeContext) {
   if (!ctx.chat) return ctx.reply('Why are you gay?');
+  const api = container.cradle.api;
 
-  // FIXME: Refactor
-  const reportModel: ReportModel = (
-    await axios.get('https://wakatime.fullstacksjs.com/api/day?size=10')
-  ).data;
+  try {
+    const leaderboard = await api.getLeaderboard();
+    const screenshot = await getScreenshot();
+    const title = leaderboard.getDayCaption();
 
-  const report: Report = Report.fromModel(reportModel);
-  const leaderboard = Leaderboard.fromReport(report);
-  const screenshot = await getScreenshot();
-  const title = leaderboard.getDayCaption();
-  console.log(title);
+    await ctx.report(JSON.stringify(leaderboard.report.usages));
 
-  if (Env.isDev) console.log(leaderboard.report.usages);
+    if (!cache.has(title)) cache.set(title, screenshot);
+    const image = cache.get(title)!;
 
-  if (!cache.has(title)) cache.set(title, screenshot);
-  const image = cache.get(title)!;
+    return await ctx.sendLeaderboard(image, title);
+  } catch (e) {
+    if (e instanceof Error) return ctx.reportError(e.message);
+    if (isString(e)) return ctx.reportError(e);
 
-  return ctx.sendLeaderboard(image, title);
+    return ctx.reportError('Unknown Error');
+  }
 }

@@ -15,7 +15,7 @@ import { authMiddleware } from './middleware/auth.js';
 export class Bot extends Grammy<WakatimeContext> {
   constructor(opts: Container) {
     super(opts.config.botToken, { ContextConstructor: WakatimeContext });
-    container.register({ api: awilix.asValue(this.api) });
+    container.register({ grammy: awilix.asValue(this.api) });
   }
 
   async initiate() {

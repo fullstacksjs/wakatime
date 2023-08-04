@@ -39,7 +39,7 @@ export class Repo {
   public async setTelegramUsername(id: string, username: string) {
     await this.db.read();
 
-    if (this.db.data.users[id] == null) return;
+    if (this.db.data.users[id] == null) throw Error('User not found');
     this.db.data.users[id]!.telegramUsername = username;
 
     await this.db.write();
