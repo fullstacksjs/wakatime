@@ -15,7 +15,13 @@ export async function day(ctx: WakatimeContext) {
     const screenshot = await getScreenshot();
     const title = leaderboard.getDayCaption();
 
-    await ctx.report(JSON.stringify(leaderboard.report.usages));
+    await ctx.report(
+      leaderboard.report.usages.reduce(
+        (acc, u) =>
+          `${acc}\nID: ${u.user.id}, NAME: ${u.user.name}, UNAME: ${u.user.username ?? ''}`,
+        '',
+      ),
+    );
 
     if (!cache.has(title)) cache.set(title, screenshot);
     const image = cache.get(title)!;
