@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     command: npm run api
     ports:
-      - 4000:4000
+      - ${API_PORT}:${API_PORT}
     volumes:
       - ./data/:/usr/wakatime/data
 
@@ -17,4 +17,4 @@ services:
       dockerfile: Dockerfile
     command: npm run bot
     ports:
-      - 3000:3000
+      - ${BOT_PORT}:${BOT_PORT}
