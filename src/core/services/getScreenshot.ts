@@ -4,11 +4,9 @@ import { container } from '../../config/container.js';
 
 async function waitForAllImages() {
   const images = document.getElementsByTagName('img');
-  console.log({ images });
 
   await Promise.all(
     Array.from(images, image => {
-      console.log(image.complete);
       if (image.complete) return Promise.resolve(true);
 
       return new Promise((resolve, reject) => {

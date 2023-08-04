@@ -1,7 +1,7 @@
 import { isString } from '@fullstacksjs/toolbox';
 
 import { container } from '../../config/container.js';
-import { getScreenshot } from '../../core/Services/getScreenshot.js';
+import { getScreenshot } from '../../core/services/getScreenshot.js';
 import type { WakatimeContext } from '../Context.js';
 
 const cache = new Map<string, Buffer>();

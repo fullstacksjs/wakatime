@@ -2,9 +2,9 @@ import awilix from 'awilix';
 import type { Api as GrammyApi } from 'grammy';
 
 import { Bot } from '../bot/Bot.js';
-import { ApiSDK } from '../core/Services/ApiSDK.js';
-import { LeaderboardService } from '../core/Services/LeaderboardService.js';
-import { WakatimeSDK } from '../core/Services/WakatimeSDK.js';
+import { ApiSDK } from '../core/services/ApiSDK.js';
+import { LeaderboardService } from '../core/services/LeaderboardService.js';
+import { WakatimeSDK } from '../core/services/WakatimeSDK.js';
 import type { Repo } from '../core/repos/Repo.js';
 import { createRepo } from '../core/repos/Repo.js';
 import { container } from './container.js';

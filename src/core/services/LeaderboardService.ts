@@ -45,7 +45,6 @@ export class LeaderboardService {
 
   async getDay(size = 3): Promise<Leaderboard> {
     const report = await this.reportRepo.getTopDayReport(size);
-    console.log({ report });
 
     if (isNull(report) || report.usages.some(u => isNull(u.user))) {
       await this.syncDay();
