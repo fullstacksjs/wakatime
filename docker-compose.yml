@@ -12,9 +12,12 @@ services:
       - ./data/:/usr/wakatime/data
 
   bot:
+    platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile
     command: npm run bot
     ports:
       - ${BOT_PORT}:${BOT_PORT}
+    cap_add:
+      - SYS_ADMIN

@@ -36,14 +36,15 @@ export async function getScreenshot(): Promise<Buffer> {
 
   const browser = await puppeteer.launch({
     args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-accelerated-2d-canvas',
-      '--no-first-run',
-      '--no-zygote',
-      '--single-process', // <- This one doesn't works in Windows
       '--disable-gpu',
+      '--disable-dev-shm-usage',
+      '--disable-setuid-sandbox',
+      '--no-first-run',
+      '--no-sandbox',
+      '--no-zygote',
+      '--deterministic-fetch',
+      '--disable-features=IsolateOrigins',
+      '--disable-site-isolation-trials',
     ],
     executablePath: config.puppeteerExecPath,
     headless: 'new',
