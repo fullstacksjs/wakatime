@@ -50,12 +50,12 @@ export class WakatimeContext extends Context {
 
   public report(log: string) {
     const reportId = container.cradle.config.reportId;
-    return container.cradle.grammy.sendMessage(reportId, `ℹ️\n${log}`);
+    return container.cradle.grammy.sendMessage(reportId, `ℹ️\n${log}`, { parse_mode: 'HTML' });
   }
 
   public reportError(error: string) {
     const reportId = container.cradle.config.reportId;
-    return container.cradle.grammy.sendMessage(reportId, `❗️\n${error}`);
+    return container.cradle.grammy.sendMessage(reportId, `❗️\n${error}`, { parse_mode: 'HTML' });
   }
 
   public sendLeaderboard(image: Buffer, title: string) {
