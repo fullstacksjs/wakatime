@@ -3,6 +3,7 @@ import { isString } from '@fullstacksjs/toolbox';
 import { container } from '../../config/container.js';
 import { getScreenshot } from '../../core/services/getScreenshot.js';
 import type { WakatimeContext } from '../Context.js';
+import dedent from 'ts-dedent';
 
 const cache = new Map<string, Buffer>();
 
@@ -18,7 +19,13 @@ export async function day(ctx: WakatimeContext) {
     await ctx.report(
       leaderboard.report.usages.reduce(
         (acc, u) =>
-          `${acc}\nID: ${u.user.id}, NAME: ${u.user.name}, UNAME: ${u.user.username ?? ''}`,
+          dedent`
+          ${acc}
+          ${u.rank}:
+            ID: <code>${u.user.id}</code>
+            NAME: ${u.user.name}
+            UNAME: ${u.user.username ?? ''}
+          `,
         '',
       ),
     );
