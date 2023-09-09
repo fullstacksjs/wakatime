@@ -4,8 +4,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile
-    command: npm run api
+      dockerfile: Dockerfile.api
     ports:
       - ${API_PORT}:${API_PORT}
     volumes:
@@ -15,8 +14,7 @@ services:
     platform: linux/amd64
     build:
       context: .
-      dockerfile: Dockerfile
-    command: npm run bot
+      dockerfile: Dockerfile.bot
     ports:
       - ${BOT_PORT}:${BOT_PORT}
     cap_add:
