@@ -3,7 +3,7 @@ import { isString } from '@fullstacksjs/toolbox';
 import { container } from '../../config/container.js';
 import { getScreenshot } from '../../core/services/getScreenshot.js';
 import type { WakatimeContext } from '../Context.js';
-import dedent from 'ts-dedent';
+import { dedent } from 'ts-dedent';
 
 const cache = new Map<string, Buffer>();
 
