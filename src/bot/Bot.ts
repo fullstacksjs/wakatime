@@ -10,6 +10,7 @@ import { startCommand } from './commands/start.js';
 import { usersCommand } from './commands/users.js';
 import { WakatimeContext } from './Context.js';
 import { authMiddleware } from './middleware/auth.js';
+import { adventCommand } from './commands/advent.js';
 
 export class Bot extends Grammy<WakatimeContext> {
   constructor(opts: Container) {
@@ -30,6 +31,7 @@ export class Bot extends Grammy<WakatimeContext> {
     this.command('help', helpCommand);
     this.command('day', day);
     this.command('set', authMiddleware, setCommand);
+    this.command('advent', adventCommand);
     this.command('users', authMiddleware, usersCommand);
 
     this.catch = function handleError(e) {

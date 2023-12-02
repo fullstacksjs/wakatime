@@ -9,11 +9,13 @@ import type { Repo } from '../core/repos/Repo.js';
 import { createRepo } from '../core/repos/Repo.js';
 import { container } from './container.js';
 import { getConfig } from './getConfig.js';
+import { AdventService } from '../core/services/AdventService.js';
 
 export interface Container {
   config: Config;
   repo: Repo;
   leaderboardService: LeaderboardService;
+  adventService: AdventService;
   grammy: GrammyApi;
   bot: Bot;
   api: ApiSDK;
@@ -41,8 +43,10 @@ export async function registerBotContainer() {
     config: awilix.asValue(config),
     bot: awilix.asClass(Bot).singleton(),
     leaderboardService: awilix.asClass(LeaderboardService).singleton(),
+    adventService: awilix.asClass(AdventService).singleton(),
     api: awilix.asClass(ApiSDK).singleton(),
     repo: awilix.asValue({} as Repo),
+    wakatime: awilix.asClass(WakatimeSDK).singleton(),
   });
 
   await container.cradle.bot.initiate();

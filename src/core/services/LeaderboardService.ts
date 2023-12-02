@@ -6,14 +6,17 @@ import type { Repo } from '../repos/Repo.js';
 import { toReportModel } from '../repos/ReportModel.js';
 import { toUserModel } from '../repos/UserModel.js';
 import type { WakatimeSDK } from './WakatimeSDK.js';
+import { createBrowser, getScreenshot, openPage } from './puppeteer.js';
 
 export class LeaderboardService {
   private reportRepo: Repo;
   private wakatime: WakatimeSDK;
+  private config: Config;
 
   constructor(opts: Container) {
     this.reportRepo = opts.repo;
     this.wakatime = opts.wakatime;
+    this.config = opts.config;
   }
 
   async syncWeek() {
@@ -52,5 +55,14 @@ export class LeaderboardService {
     }
 
     return Leaderboard.fromReport(report);
+  }
+
+  async getScreenshot(): Promise<Buffer> {
+    const browser = await createBrowser();
+    const page = await openPage(browser, this.config.webpageUrl);
+    const screenshot = await getScreenshot(page);
+    await browser.close();
+
+    return screenshot;
   }
 }

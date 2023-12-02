@@ -1,3 +1,4 @@
+import type { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer';
 
 import { container } from '../../config/container.js';
@@ -29,10 +30,10 @@ async function waitForAllImages() {
   );
 }
 
-export async function getScreenshot(url: string): Promise<Buffer> {
+export async function createBrowser() {
   const config = container.cradle.config;
 
-  const browser = await puppeteer.launch({
+  return puppeteer.launch({
     args: [
       '--disable-gpu',
       '--disable-dev-shm-usage',
@@ -47,15 +48,20 @@ export async function getScreenshot(url: string): Promise<Buffer> {
     executablePath: config.puppeteerExecPath,
     headless: 'new',
   });
+}
+
+export async function openPage(browser: Browser, url: string) {
   const page = await browser.newPage();
   page.on('console', message =>
-    console.log(`${message.type().substring(0, 3).toUpperCase()} ${message.text()}`),
+    console.log(`Puppeteer ${message.type().substring(0, 3)}: ${message.text()}`),
   );
   await page.goto(url, { waitUntil: 'networkidle0' });
   await page.setViewport({ width: 1000, height: 1280, deviceScaleFactor: 2 });
   await page.evaluate(waitForAllImages);
-  const screenshot = await page.screenshot({ fullPage: true, encoding: 'binary', type: 'png' });
-  await browser.close();
 
-  return screenshot;
+  return page;
+}
+
+export function getScreenshot(page: Page) {
+  return page.screenshot({ fullPage: true, encoding: 'binary', type: 'png' });
 }

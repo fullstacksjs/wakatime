@@ -1,7 +1,6 @@
 import { isString } from '@fullstacksjs/toolbox';
 
 import { container } from '../../config/container.js';
-import { getScreenshot } from '../../core/services/getScreenshot.js';
 import type { WakatimeContext } from '../Context.js';
 import { dedent } from 'ts-dedent';
 
@@ -10,7 +9,7 @@ const cache = new Map<string, Buffer>();
 export async function day(ctx: WakatimeContext) {
   if (!ctx.chat) return ctx.reply('Why are you gay?');
   const api = container.cradle.api;
-  const config = container.cradle.config;
+  const leaderboardService = container.cradle.leaderboardService;
 
   try {
     const leaderboard = await api.getLeaderboard();
@@ -31,7 +30,7 @@ export async function day(ctx: WakatimeContext) {
     );
 
     if (!cache.has(title)) {
-      const screenshot = await getScreenshot(config.webpageUrl);
+      const screenshot = await leaderboardService.getScreenshot();
       cache.set(title, screenshot);
     }
 

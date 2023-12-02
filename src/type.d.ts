@@ -10,6 +10,7 @@ interface Config {
   dbFilePath: string;
   puppeteerExecPath?: string;
   admin: number;
+  adventUrl: string;
 }
 
 interface LanguageReport {
@@ -57,4 +58,11 @@ interface LeaderboardDto {
 interface WakatimeUserResponse {
   data: WakatimeDto[];
   modified_at: string;
+}
+
+type AdventLeaderboard = AdventUser[];
+interface AdventUser {
+  name: string;
+  score: number;
+  stars: { gold: number; silver: number };
 }
