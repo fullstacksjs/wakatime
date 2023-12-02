@@ -14,7 +14,6 @@ export async function adventCommand(ctx: WakatimeContext) {
   try {
     const screenshot = await advent.getScreenshot();
     const leaderboard = await advent.getLeaderboard();
-    console.log({ leaderboard });
 
     const day = new Date().getDate();
     const title = dedent`
