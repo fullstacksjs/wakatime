@@ -31,7 +31,7 @@ export class Leaderboard {
 
       #wakatime_report
 
-      👉 https://fullstacksjs.com/wakatime
+      👉 https://fullstacksjs.com/en/wakatime
   `;
 
   public getDayCaption() {
