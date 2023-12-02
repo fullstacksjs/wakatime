@@ -16,5 +16,6 @@ export function getConfig(): Config {
     puppeteerExecPath: getEnv('PUPPETEER_EXECUTABLE_PATH'),
     admin: toInteger(getRequiredEnv('ADMIN')),
     apiEndpoint: getRequiredEnv('API_ENDPOINT'),
+    adventApi: getRequiredEnv('ADVENT_API'),
   };
 }

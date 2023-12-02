@@ -12,7 +12,9 @@ export async function adventCommand(ctx: WakatimeContext) {
   const advent = container.cradle.adventService;
 
   try {
-    const { leaderboard, screenshot } = await advent.getLeaderboard();
+    const screenshot = await advent.getScreenshot();
+    const leaderboard = await advent.getLeaderboard();
+    console.log({ leaderboard });
 
     const day = new Date().getDate();
     const title = dedent`

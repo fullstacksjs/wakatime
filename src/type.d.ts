@@ -1,6 +1,7 @@
 interface Config {
   reportId: string;
   apiEndpoint: string;
+  adventApi: string;
   botToken: string;
   apiKey: string;
   botPort: number;
@@ -66,3 +67,21 @@ interface AdventUser {
   score: number;
   stars: { gold: number; silver: number };
 }
+
+interface Day {
+  get_star_ts: number;
+  star_index: number;
+}
+
+interface AdventOfCodeResponseUser {
+  owner_id?: number;
+  completion_day_level: Record<number, Record<number, Day>>;
+  global_score: number;
+  id: number;
+  last_star_ts: number;
+  local_score: number;
+  name: string | null;
+  stars: number;
+}
+
+type AdventOfCodeResponse = AdventOfCodeResponseUser[];
