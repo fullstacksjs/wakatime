@@ -21,19 +21,21 @@ export class AdventService {
   public async getLeaderboard(): Promise<AdventLeaderboard> {
     const { data: res } = await axios.get<AdventOfCodeResponse>(this.config.adventApi);
 
-    return res.map<AdventUser>(row => {
-      return {
-        name: row.name!,
-        score: row.local_score,
-        stars: Object.values(row.completion_day_level).reduce<AdventUser['stars']>(
-          (acc, star) => {
-            if (star[0]) acc.silver++;
-            if (star[1]) acc.gold++;
-            return acc;
-          },
-          { gold: 0, silver: 0 },
-        ),
-      };
-    });
+    return res
+      .sort((a, b) => b.local_score - a.local_score)
+      .map<AdventUser>(row => {
+        return {
+          name: row.name!,
+          score: row.local_score,
+          stars: Object.values(row.completion_day_level).reduce<AdventUser['stars']>(
+            (acc, star) => {
+              if (star[0]) acc.silver++;
+              if (star[1]) acc.gold++;
+              return acc;
+            },
+            { gold: 0, silver: 0 },
+          ),
+        };
+      });
   }
 }
