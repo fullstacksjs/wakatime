@@ -10,10 +10,10 @@ const cache = new Map<string, Buffer>();
 export async function day(ctx: WakatimeContext) {
   if (!ctx.chat) return ctx.reply('Why are you gay?');
   const api = container.cradle.api;
+  const config = container.cradle.config;
 
   try {
     const leaderboard = await api.getLeaderboard();
-    const screenshot = await getScreenshot();
     const title = leaderboard.getDayCaption();
 
     await ctx.report(
@@ -30,7 +30,11 @@ export async function day(ctx: WakatimeContext) {
       ),
     );
 
-    if (!cache.has(title)) cache.set(title, screenshot);
+    if (!cache.has(title)) {
+      const screenshot = await getScreenshot(config.webpageUrl);
+      cache.set(title, screenshot);
+    }
+
     const image = cache.get(title)!;
 
     return await ctx.sendLeaderboard(image, title);

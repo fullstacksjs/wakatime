@@ -29,7 +29,7 @@ async function waitForAllImages() {
   );
 }
 
-export async function getScreenshot(): Promise<Buffer> {
+export async function getScreenshot(url: string): Promise<Buffer> {
   const config = container.cradle.config;
 
   const browser = await puppeteer.launch({
@@ -51,7 +51,7 @@ export async function getScreenshot(): Promise<Buffer> {
   page.on('console', message =>
     console.log(`${message.type().substring(0, 3).toUpperCase()} ${message.text()}`),
   );
-  await page.goto(config.webpageUrl, { waitUntil: 'networkidle0' });
+  await page.goto(url, { waitUntil: 'networkidle0' });
   await page.setViewport({ width: 1000, height: 1280, deviceScaleFactor: 2 });
   await page.evaluate(waitForAllImages);
   const screenshot = await page.screenshot({ fullPage: true, encoding: 'binary', type: 'png' });
