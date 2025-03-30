@@ -9,7 +9,12 @@ if (process.argv[2] === 'bot') {
   const { BotApi } = await import('./bot/BotApi.ts');
   const { registerBotContainer } = await import('./config/initContainer.ts');
   const container = await registerBotContainer();
-  void new BotApi(container).start();
+  const bot = new BotApi(container);
+  if (container.config.botWebhookUrl) {
+    void bot.registerWebhook(container.config.botWebhookUrl);
+  } else {
+    void bot.start();
+  }
 }
 
 export {};

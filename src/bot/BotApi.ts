@@ -16,8 +16,12 @@ export class BotApi {
 
     this.app = express();
     this.app.use(express.json());
-    this.app.get('/bail', (_, res) => res.status(200).end(''));
-    this.app.post('/webhook', this.bot.createExpressWebhookCallback());
+  }
+
+  public async registerWebhook(webhookUrl: string) {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    this.app.use(this.bot.createExpressWebhookCallback());
+    await this.bot.api.setWebhook(webhookUrl);
   }
 
   public start() {

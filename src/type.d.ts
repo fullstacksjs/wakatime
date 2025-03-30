@@ -12,6 +12,7 @@ interface Config {
   puppeteerExecPath?: string;
   admin: number;
   adventUrl: string;
+  botWebhookUrl?: string;
 }
 
 interface LanguageReport {

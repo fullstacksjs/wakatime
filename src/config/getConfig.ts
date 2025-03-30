@@ -6,6 +6,7 @@ export function getConfig(): Config {
   return {
     reportId: getRequiredEnv('REPORT_ID'),
     botToken: getRequiredEnv('BOT_TOKEN'),
+    botWebhookUrl: getEnv('BOT_WEBHOOK_URL'),
     apiKey: getRequiredEnv('API_KEY'),
     leaderboardUrl: getRequiredEnv('LEADERBOARD_URL'),
     webpageUrl: getRequiredEnv('WAKATIME_PAGE_URL'),

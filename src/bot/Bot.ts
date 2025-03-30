@@ -1,10 +1,11 @@
 import awilix from 'awilix';
-import { Bot as Grammy, webhookCallback } from 'grammy';
+import { Composer, Bot as Grammy, webhookCallback } from 'grammy';
 
 import type { Container } from '../config/initContainer.ts';
 
 import { container } from '../config/container.ts';
 import { adventCommand } from './commands/advent.ts';
+import { boundaryHandler } from './commands/boundaryHandler.ts';
 import { day } from './commands/day.ts';
 import { helpCommand } from './commands/help.ts';
 import { setCommand } from './commands/set.ts';
@@ -31,13 +32,16 @@ export class Bot extends Grammy<WakatimeContext> {
       { command: 'users', description: 'list users' },
       { command: 'set', description: 'assign an username to a wakatime id' },
     ]);
+    const composer = new Composer<WakatimeContext>();
 
-    this.command('start', startCommand);
-    this.command('help', helpCommand);
-    this.command('day', day);
-    this.command('set', authMiddleware, setCommand);
-    this.command('advent', adventCommand);
-    this.command('users', authMiddleware, usersCommand);
+    composer.command('start', startCommand);
+    composer.command('help', helpCommand);
+    composer.command('day', day);
+    composer.command('set', authMiddleware, setCommand);
+    composer.command('advent', adventCommand);
+    composer.command('users', authMiddleware, usersCommand);
+    this.errorBoundary(boundaryHandler).use(composer);
+    this.use(composer);
 
     this.catch = function handleError(e) {
       console.error(e);
