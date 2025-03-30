@@ -24,7 +24,11 @@ const updateUser = (oldUser: UserModel | undefined, user: UserModel): UserModel 
     diff: oldUser?.lastRank != null ? oldUser.lastRank - user.lastRank : 0,
   }) as UserModel;
 
-export type UserFilter = 'WithoutUsername' | 'WithUsername' | undefined;
+export interface UserFilter {
+  type?: 'WithoutUsername' | 'WithUsername';
+  size: number;
+  page: number;
+}
 
 export class Repo {
   constructor(private db: InitializedLow<DB>) {}
@@ -68,11 +72,13 @@ export class Repo {
     return User.fromModel(user);
   }
 
-  public async getUserList(filter?: UserFilter): Promise<User[]> {
+  public async getUserList({ size, page, type }: UserFilter): Promise<User[]> {
     await this.db.read();
-    const users = Object.values(this.db.data.users).map(User.fromModel);
+    const users = Object.values(this.db.data.users)
+      .map(User.fromModel)
+      .slice(page * size, (page + 1) * size);
 
-    switch (filter) {
+    switch (type) {
       case 'WithUsername':
         return users.filter(u => u.telegramUsername);
       case 'WithoutUsername':

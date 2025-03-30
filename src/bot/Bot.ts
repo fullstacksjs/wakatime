@@ -1,5 +1,8 @@
+import type { H3Event } from 'h3';
+
 import * as awilix from 'awilix';
 import { Composer, Bot as Grammy, webhookCallback } from 'grammy';
+import { createError, readBody } from 'h3';
 
 import type { Container } from '../config/initContainer.ts';
 
@@ -20,8 +23,21 @@ export class Bot extends Grammy<WakatimeContext> {
     container.register({ grammy: awilix.asValue(this.api) });
   }
 
-  createExpressWebhookCallback() {
-    return webhookCallback(this, 'express', 'return', 50_000);
+  createH3WebhookCallback() {
+    return webhookCallback(
+      this,
+      (event: H3Event) => ({
+        update: readBody(event),
+        header: event.headers.get('X-Telegram-Bot-Api-Secret-Token') ?? '',
+        end: () => event.node.res.end(),
+        respond: json => json,
+        unauthorized: () => {
+          throw createError({ statusCode: 401, statusMessage: 'Secret token is wrong' });
+        },
+      }),
+      'return',
+      50_000,
+    );
   }
 
   async initiate() {

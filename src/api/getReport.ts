@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 import { container } from '../config/container.ts';
 
-const schema = v.object({ size: v.optional(v.number(), 3) });
+const schema = v.object({ size: v.optional(v.pipe(v.string(), v.transform(Number)), '3') });
 export const getReport = defineEventHandler(async event => {
   const leaderBoardService = container.cradle.leaderboardService;
 
@@ -13,7 +13,7 @@ export const getReport = defineEventHandler(async event => {
     return day.report;
   } catch (error) {
     if (error instanceof v.ValiError) {
-      throw createError({ statusCode: 400, statusMessage: 'bad.input' });
+      throw createError({ statusCode: 400, statusMessage: 'Bad Input' });
     }
 
     throw createError({ statusCode: 500, statusMessage: 'Internal Server Error' });

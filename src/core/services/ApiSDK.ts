@@ -7,9 +7,15 @@ import type { ReportModel } from '../repos/ReportModel.ts';
 
 import { Leaderboard } from '../models/Leaderboard.ts';
 import { Report } from '../models/Report.ts';
+import { User } from '../models/User.ts';
 
 function isReportModel(data: any): data is ReportModel {
   return 'usages' in data;
+}
+
+interface UserFilter {
+  size: number;
+  type?: 'WithoutUsername' | 'WithUsername';
 }
 
 export class ApiSDK {
@@ -32,6 +38,14 @@ export class ApiSDK {
     const leaderboard = Leaderboard.fromReport(report);
 
     return leaderboard;
+  }
+
+  async getUserList(filter: UserFilter) {
+    const { data } = await this.client.get('/users', { params: filter });
+
+    if (!Array.isArray(data)) throw Error(`Invalid data:\n${JSON.stringify(data)}`);
+
+    return data.map(user => User.fromModel(user));
   }
 
   async setUsername(id: string, username: string) {
