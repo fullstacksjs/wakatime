@@ -14,21 +14,6 @@ importers:
       '@fullstacksjs/toolbox':
         specifier: 3.0.2
         version: 3.0.2
-      '@fullstacksjs/tsconfig':
-        specifier: 1.1.0
-        version: 1.1.0(typescript@5.8.2)
-      '@grammyjs/ratelimiter':
-        specifier: 1.2.1
-        version: 1.2.1
-      '@types/cron':
-        specifier: 2.0.1
-        version: 2.0.1
-      '@types/express':
-        specifier: 5.0.1
-        version: 5.0.1
-      '@types/node':
-        specifier: 22.13.14
-        version: 22.13.14
       awilix:
         specifier: 8.0.1
         version: 8.0.1
@@ -41,33 +26,46 @@ importers:
       deepmerge-ts:
         specifier: 5.1.0
         version: 5.1.0
-      eslint:
-        specifier: 9.23.0
-        version: 9.23.0(jiti@1.21.7)
       express:
         specifier: ^5
         version: 5.0.1
       grammy:
         specifier: 1.35.1
         version: 1.35.1
-      husky:
-        specifier: 9.1.7
-        version: 9.1.7
-      lint-staged:
-        specifier: 15.5.0
-        version: 15.5.0
       lowdb:
         specifier: 6.0.1
         version: 6.0.1
-      prettier:
-        specifier: 3.5.3
-        version: 3.5.3
       puppeteer:
         specifier: 20.2.1
         version: 20.2.1(typescript@5.8.2)
       ts-dedent:
         specifier: 2.2.0
         version: 2.2.0
+    devDependencies:
+      '@fullstacksjs/tsconfig':
+        specifier: 1.1.0
+        version: 1.1.0(typescript@5.8.2)
+      '@types/cron':
+        specifier: 2.0.1
+        version: 2.0.1
+      '@types/express':
+        specifier: 5.0.1
+        version: 5.0.1
+      '@types/node':
+        specifier: 22.13.14
+        version: 22.13.14
+      eslint:
+        specifier: 9.23.0
+        version: 9.23.0(jiti@1.21.7)
+      husky:
+        specifier: 9.1.7
+        version: 9.1.7
+      lint-staged:
+        specifier: 15.5.0
+        version: 15.5.0
+      prettier:
+        specifier: 3.5.3
+        version: 3.5.3
       typescript:
         specifier: 5.8.2
         version: 5.8.2
@@ -193,9 +191,6 @@ packages:
     resolution: {integrity: sha512-HLkGwxnt+qba+Of0lvVO7DOckgfdmV+3xFNv/2jLhZ91DNV88g1Ro0YZOjH57Ix0Zvli66/0SJRfiEdpZcyjcw==}
     peerDependencies:
       typescript: '>=4'
-
-  '@grammyjs/ratelimiter@1.2.1':
-    resolution: {integrity: sha512-4bmVUBCBnIb2epbDiBLCvvnVjaYg7kDCPR1Ptt6gqoxm5vlD8BjainYv+yjF6221hu2KUv8QAckumDI+6xyGsQ==}
 
   '@grammyjs/types@3.19.0':
     resolution: {integrity: sha512-N0MS+RJG+AGSNuka1GWVj88oyK1oti4I0eQq6jGo4hic3P9MwFfnHjGQuIExZ3tlJUrZYwC/T7gk4Tu3+guJyg==}
@@ -2743,8 +2738,6 @@ snapshots:
   '@fullstacksjs/tsconfig@1.1.0(typescript@5.8.2)':
     dependencies:
       typescript: 5.8.2
-
-  '@grammyjs/ratelimiter@1.2.1': {}
 
   '@grammyjs/types@3.19.0': {}
 
