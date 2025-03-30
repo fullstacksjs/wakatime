@@ -1,11 +1,16 @@
-FROM ghcr.io/puppeteer/puppeteer:21.0.1
+FROM ghcr.io/puppeteer/puppeteer:24.4.0
 
-COPY package*.json ./
+USER root
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN npm install -g pnpm@latest-10
 
-RUN npm ci
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN npm pkg delete scripts.prepare
+RUN pnpm install --prod --frozen-lockfile
 
+USER pptruser
 COPY . .
 
-RUN npm run build
-
-CMD ["node", "dist/main.js", "bot"]
+ENV NODE_NO_WARNINGS=1
+CMD ["node", "--experimental-transform-types", "./src/main.ts", "bot"]

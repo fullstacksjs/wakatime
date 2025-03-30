@@ -6,8 +6,6 @@
   "scripts": {
     "dev:bot": "NODE_NO_WARNINGS=1 node --env-file=.env --experimental-transform-types --watch ./src/main.ts bot",
     "dev:api": "NODE_NO_WARNINGS=1 node --env-file=.env --experimental-transform-types --watch ./src/main.ts api",
-    "start:bot": "NODE_NO_WARNINGS=1 node --experimental-transform-types ./src/main.ts bot",
-    "start:api": "NODE_NO_WARNINGS=1 node --experimental-transform-types ./src/main.ts api",
     "lint": "eslint . --fix",
     "prepare": "husky"
   },
