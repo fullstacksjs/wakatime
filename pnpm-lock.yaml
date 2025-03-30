@@ -36,8 +36,8 @@ importers:
         specifier: 1.35.1
         version: 1.35.1
       lowdb:
-        specifier: 6.0.1
-        version: 6.0.1
+        specifier: 7.0.1
+        version: 7.0.1
       puppeteer:
         specifier: 20.2.1
         version: 20.2.1(typescript@5.8.2)
@@ -1694,9 +1694,9 @@ packages:
     resolution: {integrity: sha512-9ie8ItPR6tjY5uYJh8K/Zrv/RMZ5VOlOWvtZdEHYSTFKZfIBPQa9tOAEeAWhd+AnIneLJ22w5fjOYtoutpWq5w==}
     engines: {node: '>=18'}
 
-  lowdb@6.0.1:
-    resolution: {integrity: sha512-1ktuKYLlQzAWwl4/PQkIr8JzNXgcTM6rAhpXaQ6BR+VwI98Q8ZwMFhBOn9u0ldcW3K/WWzhYpS3xyGTshgVGzA==}
-    engines: {node: '>=16'}
+  lowdb@7.0.1:
+    resolution: {integrity: sha512-neJAj8GwF0e8EpycYIDFqEPcx9Qz4GUho20jWFR7YiFeXzF1YMLdxB36PypcTSPMA+4+LvgyMacYhlr18Zlymw==}
+    engines: {node: '>=18'}
 
   lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
@@ -2241,9 +2241,9 @@ packages:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
 
-  steno@3.2.0:
-    resolution: {integrity: sha512-zPKkv+LqoYffxrtD0GIVA08DvF6v1dW02qpP5XnERoobq9g3MKcTSBTi08gbGNFMNRo3TQV/6kBw811T1LUhKg==}
-    engines: {node: '>=16'}
+  steno@4.0.2:
+    resolution: {integrity: sha512-yhPIQXjrlt1xv7dyPQg2P17URmXbuM5pdGkpiMB3RenprfiBlvK415Lctfe0eshk90oA7/tNq7WEiMK8RSP39A==}
+    engines: {node: '>=18'}
 
   string-argv@0.3.2:
     resolution: {integrity: sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==}
@@ -4523,9 +4523,9 @@ snapshots:
       strip-ansi: 7.1.0
       wrap-ansi: 9.0.0
 
-  lowdb@6.0.1:
+  lowdb@7.0.1:
     dependencies:
-      steno: 3.2.0
+      steno: 4.0.2
 
   lower-case@2.0.2:
     dependencies:
@@ -5092,7 +5092,7 @@ snapshots:
 
   statuses@2.0.1: {}
 
-  steno@3.2.0: {}
+  steno@4.0.2: {}
 
   string-argv@0.3.2: {}
 

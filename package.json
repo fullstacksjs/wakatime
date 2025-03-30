@@ -17,12 +17,12 @@
     "awilix": "8.0.1",
     "axios": "1.4.0",
     "cron": "2.3.1",
+    "dedent": "1.5.3",
     "deepmerge-ts": "5.1.0",
     "express": "^5",
     "grammy": "1.35.1",
-    "lowdb": "6.0.1",
-    "puppeteer": "20.2.1",
-    "dedent": "1.5.3"
+    "lowdb": "7.0.1",
+    "puppeteer": "20.2.1"
   },
   "devDependencies": {
     "@fullstacksjs/tsconfig": "1.1.0",

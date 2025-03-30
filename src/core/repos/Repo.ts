@@ -83,45 +83,40 @@ export class Repo {
   }
 
   public async saveDay(report: ReportModel) {
-    const dayId = getDayId(new Date());
-    this.db.data.days[dayId] = report;
-
-    await this.db.write();
+    await this.db.update(({ days }) => {
+      const dayId = getDayId(new Date());
+      days[dayId] = report;
+    });
   }
 
   public async saveUser(user: UserModel) {
-    await this.db.read();
-    const oldUser = this.db.data.users[user.id];
-    this.db.data.users[user.id] = updateUser(oldUser, user);
-
-    await this.db.write();
+    await this.db.update(({ users }) => {
+      const oldUser = users[user.id];
+      users[user.id] = updateUser(oldUser, user);
+    });
   }
 
-  public async saveUsers(users: UserModel[]) {
-    await this.db.read();
-
-    users.forEach(user => {
-      const oldUser = this.db.data.users[user.id];
-      this.db.data.users[user.id] = updateUser(oldUser, user);
+  public async saveUsers(newUsers: UserModel[]) {
+    await this.db.update(({ users }) => {
+      newUsers.forEach(user => {
+        const oldUser = users[user.id];
+        users[user.id] = updateUser(oldUser, user);
+      });
     });
-
-    await this.db.write();
   }
 
   public async saveWeek(report: ReportModel) {
-    const weekId = getWeekId(new Date());
-    this.db.data.weeks[weekId] = report;
-
-    await this.db.write();
+    await this.db.update(({ weeks }) => {
+      const weekId = getWeekId(new Date());
+      weeks[weekId] = report;
+    });
   }
 
   public async setTelegramUsername(id: string, username: string) {
-    await this.db.read();
-
-    if (this.db.data.users[id] == null) throw Error('User not found');
-    this.db.data.users[id].telegramUsername = username;
-
-    await this.db.write();
+    await this.db.update(({ users }) => {
+      if (users[id] == null) throw Error('User not found');
+      users[id].telegramUsername = username;
+    });
   }
 }
 
