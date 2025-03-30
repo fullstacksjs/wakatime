@@ -40,7 +40,7 @@ const schema = v.object({
   advent: v.object({
     webpageUrl: v.string(),
   }),
-  puppeteerExecPath: v.string(),
+  puppeteerExecPath: v.optional(v.string()),
 });
 
 export function getConfig(): Config {
