@@ -56,7 +56,7 @@ export class WakatimeContext extends Context {
     const reportId = container.cradle.config.bot.reportId;
     if (!reportId) return;
 
-    return container.cradle.grammy.sendMessage(reportId, `ℹ️ ${log}`, { parse_mode: 'HTML' });
+    return container.cradle.grammy.sendMessage(reportId, `ℹ️\n${log}`, { parse_mode: 'HTML' });
   }
 
   public reportError(error: string) {

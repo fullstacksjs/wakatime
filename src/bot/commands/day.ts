@@ -20,10 +20,10 @@ export async function day(ctx: WakatimeContext) {
         dedent`
           ${acc}
           ${u.rank}:
-            ID: <code>${u.user.id}</code>
-            NAME: ${u.user.name}
-            UNAME: ${u.user.username ?? ''}
-          `,
+          ID: <code>${u.user.id}</code>
+          NAME: ${u.user.name}
+          UNAME: ${u.user.username ?? ''}
+        `,
       '',
     ),
   );
