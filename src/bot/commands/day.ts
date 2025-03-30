@@ -33,6 +33,12 @@ export async function day(ctx: WakatimeContext) {
     cache.set(title, screenshot);
   }
 
+  if (cache.size > 2) {
+    cache.keys().forEach(key => {
+      if (key !== title) cache.delete(key);
+    });
+  }
+
   const image = cache.get(title)!;
 
   return ctx.sendLeaderboard(image, title);

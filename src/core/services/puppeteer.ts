@@ -17,7 +17,6 @@ async function waitForAllImages() {
           resolve(true);
         }, 20000);
         image.addEventListener('load', () => {
-          console.log('LOADED');
           clearTimeout(timeout);
           resolve(true);
         });
@@ -47,7 +46,6 @@ export async function createBrowser() {
       '--disable-site-isolation-trials',
     ],
     executablePath: config.puppeteerExecPath,
-    headless: 'new',
   });
 }
 
