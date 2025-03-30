@@ -1,23 +1,21 @@
-import type { Request, Response } from 'express';
-
-import { toInteger } from '@fullstacksjs/toolbox';
+import { createError, defineEventHandler, getValidatedQuery } from 'h3';
+import * as v from 'valibot';
 
 import { container } from '../config/container.ts';
 
-interface QueryType {
-  size?: string;
-}
+const schema = v.object({ size: v.optional(v.number(), 3) });
+export const getReport = defineEventHandler(async event => {
+  const leaderBoardService = container.cradle.leaderboardService;
 
-export const getReport = async (
-  req: Request<unknown, unknown, unknown, QueryType>,
-  res: Response,
-) => {
   try {
-    const size = toInteger(req.query.size?.toString() ?? '3', 3);
-    const day = await container.cradle.leaderboardService.getDay(size);
-    return res.json(day.report);
-  } catch (e) {
-    if (e instanceof Error) return res.status(500).json({ message: e.message });
-    return res.status(500).json({ message: e });
+    const { size } = await getValidatedQuery(event, value => v.parse(schema, value));
+    const day = await leaderBoardService.getDay(size);
+    return day.report;
+  } catch (error) {
+    if (error instanceof v.ValiError) {
+      throw createError({ statusCode: 400, statusMessage: 'bad.input' });
+    }
+
+    throw createError({ statusCode: 500, statusMessage: 'Internal Server Error' });
   }
-};
+});

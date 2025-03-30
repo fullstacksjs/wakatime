@@ -1,4 +1,4 @@
-import awilix from 'awilix';
+import * as awilix from 'awilix';
 import { Composer, Bot as Grammy, webhookCallback } from 'grammy';
 
 import type { Container } from '../config/initContainer.ts';

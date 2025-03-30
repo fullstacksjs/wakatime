@@ -1,6 +1,6 @@
 import type { Api as GrammyApi } from 'grammy';
 
-import awilix from 'awilix';
+import * as awilix from 'awilix';
 
 import type { Repo } from '../core/repos/Repo.ts';
 

@@ -8,10 +8,12 @@
     "fullstacksjs",
     "grammyjs",
     "leaderboard",
+    "networkidle",
     "ratelimiter",
     "stylelint",
-    "wakatime",
-    "networkidle"
+    "Vali",
+    "valibot",
+    "wakatime"
   ],
   "dictionaries": ["node", "libs", "keywords"]
 }
