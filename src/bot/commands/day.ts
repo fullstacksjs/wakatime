@@ -1,5 +1,4 @@
-import { isString } from '@fullstacksjs/toolbox';
-import { dedent } from 'ts-dedent';
+import dedent from 'dedent';
 
 import type { WakatimeContext } from '../Context.ts';
 
@@ -12,36 +11,29 @@ export async function day(ctx: WakatimeContext) {
   const api = container.cradle.api;
   const leaderboardService = container.cradle.leaderboardService;
 
-  try {
-    const leaderboard = await api.getLeaderboard();
-    const title = leaderboard.getDayCaption();
+  const leaderboard = await api.getLeaderboard();
+  const title = leaderboard.getDayCaption();
 
-    await ctx.report(
-      leaderboard.report.usages.reduce(
-        (acc, u) =>
-          dedent`
+  await ctx.report(
+    leaderboard.report.usages.reduce(
+      (acc, u) =>
+        dedent`
           ${acc}
           ${u.rank}:
             ID: <code>${u.user.id}</code>
             NAME: ${u.user.name}
             UNAME: ${u.user.username ?? ''}
           `,
-        '',
-      ),
-    );
+      '',
+    ),
+  );
 
-    if (!cache.has(title)) {
-      const screenshot = await leaderboardService.getScreenshot();
-      cache.set(title, screenshot);
-    }
-
-    const image = cache.get(title)!;
-
-    return await ctx.sendLeaderboard(image, title);
-  } catch (e) {
-    if (e instanceof Error) return ctx.reportError(e.message);
-    if (isString(e)) return ctx.reportError(e);
-
-    return ctx.reportError('Unknown Error');
+  if (!cache.has(title)) {
+    const screenshot = await leaderboardService.getScreenshot();
+    cache.set(title, screenshot);
   }
+
+  const image = cache.get(title)!;
+
+  return ctx.sendLeaderboard(image, title);
 }

@@ -1,5 +1,4 @@
-import { isString } from '@fullstacksjs/toolbox';
-import { dedent } from 'ts-dedent';
+import dedent from 'dedent';
 
 import type { WakatimeContext } from '../Context.ts';
 
@@ -12,12 +11,11 @@ export async function adventCommand(ctx: WakatimeContext) {
   if (!ctx.chat) return ctx.reply('Why are you gay?');
   const advent = container.cradle.adventService;
 
-  try {
-    const screenshot = await advent.getScreenshot();
-    const leaderboard = await advent.getLeaderboard();
+  const screenshot = await advent.getScreenshot();
+  const leaderboard = await advent.getLeaderboard();
 
-    const day = new Date().getDate();
-    const title = dedent`
+  const day = new Date().getDate();
+  const title = dedent`
       <b>Advent of Code 2023</b>: Day ${day}
 
       ${leaderboard
@@ -34,13 +32,7 @@ export async function adventCommand(ctx: WakatimeContext) {
 
         👉 fullstacksjs.com/en/advent/board
     `;
-    return await ctx.sendLeaderboard(screenshot, title);
-  } catch (e) {
-    if (e instanceof Error) return ctx.reportError(e.message);
-    if (isString(e)) return ctx.reportError(e);
-
-    return ctx.reportError('Unknown Error');
-  }
+  return ctx.sendLeaderboard(screenshot, title);
 }
 
 function getRank(rank: number) {

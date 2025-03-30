@@ -1,5 +1,5 @@
+import dedent from 'dedent';
 import { Context, InputFile } from 'grammy';
-import { dedent } from 'ts-dedent';
 
 import { container } from '../config/container.ts';
 
@@ -54,12 +54,13 @@ export class WakatimeContext extends Context {
 
   public report(log: string) {
     const reportId = container.cradle.config.reportId;
-    return container.cradle.grammy.sendMessage(reportId, `ℹ️\n${log}`, { parse_mode: 'HTML' });
+    return container.cradle.grammy.sendMessage(reportId, `ℹ️ ${log}`, { parse_mode: 'HTML' });
   }
 
   public reportError(error: string) {
     const reportId = container.cradle.config.reportId;
-    return container.cradle.grammy.sendMessage(reportId, `❗️\n${error}`, { parse_mode: 'HTML' });
+    const grammy = container.cradle.grammy;
+    return grammy.sendMessage(reportId, `❗️ ${error}`, { parse_mode: 'HTML' });
   }
 
   public sendLeaderboard(image: Buffer, title: string) {

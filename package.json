@@ -22,7 +22,7 @@
     "grammy": "1.35.1",
     "lowdb": "6.0.1",
     "puppeteer": "20.2.1",
-    "ts-dedent": "2.2.0"
+    "dedent": "1.5.3"
   },
   "devDependencies": {
     "@fullstacksjs/tsconfig": "1.1.0",

@@ -1,4 +1,4 @@
-import { dedent } from 'ts-dedent';
+import dedent from 'dedent';
 
 import type { UserFilter } from '../../core/repos/Repo.ts';
 import type { WakatimeContext } from '../Context.ts';
