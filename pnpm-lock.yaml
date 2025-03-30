@@ -12,8 +12,8 @@ importers:
         specifier: 11.10.0
         version: 11.10.0(@typescript-eslint/eslint-plugin@8.27.0(@typescript-eslint/parser@8.27.0(eslint@9.23.0(jiti@1.21.7))(typescript@5.8.2))(eslint@9.23.0(jiti@1.21.7))(typescript@5.8.2))(eslint@9.23.0(jiti@1.21.7))(prettier@3.5.3)(tailwindcss@3.4.17)(ts-api-utils@2.1.0(typescript@5.8.2))(typescript@5.8.2)
       '@fullstacksjs/toolbox':
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 4.16.0
+        version: 4.16.0
       awilix:
         specifier: 12.0.5
         version: 12.0.5
@@ -184,8 +184,9 @@ packages:
       typescript:
         optional: true
 
-  '@fullstacksjs/toolbox@3.0.2':
-    resolution: {integrity: sha512-EgBKh7WSKFI/n+VxmT5gNwAkqkAzOyMzpZ4vEgxiBlJmoZqe/FAJhXSLiCO8Wp7w5XzZr+0+wQPChF748557QA==}
+  '@fullstacksjs/toolbox@4.16.0':
+    resolution: {integrity: sha512-vf1RZeBzs3FW4YanmOygH4/PUmYxvzUQGgO/rraEVg+uwrDl8zfcSct9YaS7tg8GF6hUM30DErwZc6izj02UYg==}
+    engines: {node: '>=16'}
 
   '@fullstacksjs/tsconfig@1.1.0':
     resolution: {integrity: sha512-HLkGwxnt+qba+Of0lvVO7DOckgfdmV+3xFNv/2jLhZ91DNV88g1Ro0YZOjH57Ix0Zvli66/0SJRfiEdpZcyjcw==}
@@ -2620,7 +2621,7 @@ snapshots:
       - ts-api-utils
       - vitest
 
-  '@fullstacksjs/toolbox@3.0.2': {}
+  '@fullstacksjs/toolbox@4.16.0': {}
 
   '@fullstacksjs/tsconfig@1.1.0(typescript@5.8.2)':
     dependencies:

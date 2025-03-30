@@ -4,7 +4,7 @@ import type { WakatimeContext } from '../Context.ts';
 
 import { container } from '../../config/container.ts';
 
-const cache = new Map<string, Buffer>();
+const cache = new Map<string, Uint8Array>();
 
 export async function day(ctx: WakatimeContext) {
   if (!ctx.chat) return ctx.reply('Why are you gay?');

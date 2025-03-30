@@ -26,7 +26,7 @@ export interface Container {
 
 export async function registerApiContainer() {
   const config = getConfig();
-  const repo = await createRepo(config.dbFilePath);
+  const repo = await createRepo(config.api.dbFilePath);
 
   container.register({
     config: awilix.asValue(config),

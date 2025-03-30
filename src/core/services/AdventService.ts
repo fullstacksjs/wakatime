@@ -12,7 +12,7 @@ export class AdventService {
   }
 
   public async getLeaderboard(): Promise<AdventLeaderboard> {
-    const { data: res } = await axios.get<AdventOfCodeResponse>(this.config.adventApi);
+    const { data: res } = await axios.get<AdventOfCodeResponse>(this.config.advent.webpageUrl);
 
     return res
       .sort((a, b) => b.local_score - a.local_score)
@@ -32,9 +32,9 @@ export class AdventService {
       });
   }
 
-  public async getScreenshot(): Promise<Buffer> {
+  public async getScreenshot(): Promise<Uint8Array> {
     const browser = await createBrowser();
-    const page = await openPage(browser, this.config.adventUrl);
+    const page = await openPage(browser, this.config.advent.webpageUrl);
     const screenshot = await getScreenshot(page);
     await browser.close();
 

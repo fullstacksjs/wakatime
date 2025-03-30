@@ -31,9 +31,9 @@ export class LeaderboardService {
     return Leaderboard.fromReport(report);
   }
 
-  async getScreenshot(): Promise<Buffer> {
+  async getScreenshot(): Promise<Uint8Array> {
     const browser = await createBrowser();
-    const page = await openPage(browser, this.config.webpageUrl);
+    const page = await openPage(browser, this.config.wakatime.webpageUrl);
     const screenshot = await getScreenshot(page);
     await browser.close();
 

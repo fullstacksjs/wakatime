@@ -19,7 +19,7 @@ import { authMiddleware } from './middleware/auth.ts';
 
 export class Bot extends Grammy<WakatimeContext> {
   constructor(opts: Container) {
-    super(opts.config.botToken, { ContextConstructor: WakatimeContext });
+    super(opts.config.bot.token, { ContextConstructor: WakatimeContext });
     container.register({ grammy: awilix.asValue(this.api) });
   }
 

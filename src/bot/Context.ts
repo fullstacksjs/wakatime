@@ -37,7 +37,7 @@ export class WakatimeContext extends Context {
   schedule: Schedule | null = null;
 
   public isAdmin() {
-    return this.update.message?.from.id === container.cradle.config.admin;
+    return this.update.message?.from.id === container.cradle.config.bot.adminId;
   }
 
   isGroup() {
@@ -53,17 +53,21 @@ export class WakatimeContext extends Context {
   }
 
   public report(log: string) {
-    const reportId = container.cradle.config.reportId;
+    const reportId = container.cradle.config.bot.reportId;
+    if (!reportId) return;
+
     return container.cradle.grammy.sendMessage(reportId, `ℹ️ ${log}`, { parse_mode: 'HTML' });
   }
 
   public reportError(error: string) {
-    const reportId = container.cradle.config.reportId;
+    const reportId = container.cradle.config.bot.reportId;
+    if (!reportId) return;
+
     const grammy = container.cradle.grammy;
     return grammy.sendMessage(reportId, `❗️ ${error}`, { parse_mode: 'HTML' });
   }
 
-  public sendLeaderboard(image: Buffer, title: string) {
+  public sendLeaderboard(image: Uint8Array, title: string) {
     const groupId = this.chat!.id.toString();
     const threadId = this.message?.message_thread_id;
 

@@ -12,13 +12,15 @@ export class WakatimeSDK {
     this.config = opts.config;
     this.client = axios.create({
       timeout: 10000,
-      params: { api_key: this.config.apiKey },
+      params: { api_key: this.config.wakatime.apiKey },
     });
   }
 
   async getReports(): Promise<WakatimeUserResponse | undefined> {
     try {
-      const { data } = await this.client.get<WakatimeUserResponse>(this.config.leaderboardUrl);
+      const { data } = await this.client.get<WakatimeUserResponse>(
+        this.config.wakatime.leaderboardUrl,
+      );
 
       return data;
     } catch {

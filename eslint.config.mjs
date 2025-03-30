@@ -5,5 +5,6 @@ export default defineConfig({
   rules: {
     '@typescript-eslint/switch-exhaustiveness-check': 'off',
     'no-empty-function': ['warn', { allow: ['constructors'] }],
+    '@typescript-eslint/dot-notation': 'off',
   },
 });

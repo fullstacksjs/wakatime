@@ -26,7 +26,7 @@ export class ApiSDK {
     private client: Axios,
   ) {
     this.config = opts.config;
-    this.client = axios.create({ baseURL: this.config.apiEndpoint });
+    this.client = axios.create({ baseURL: this.config.bot.api });
   }
 
   async getLeaderboard(): Promise<Leaderboard> {

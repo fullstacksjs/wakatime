@@ -28,8 +28,8 @@ export class BotApi {
     const server = createServer(toNodeListener(this.app));
 
     return new Promise(resolve => {
-      server.listen(this.config.botPort, () => {
-        console.log(`listening on port ${this.config.botPort}`);
+      server.listen(this.config.bot.port, () => {
+        console.log(`listening on port ${this.config.bot.port}`);
         resolve(this.config);
       });
     });

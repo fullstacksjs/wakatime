@@ -1,18 +1,25 @@
 interface Config {
-  reportId: string;
-  apiEndpoint: string;
-  adventApi: string;
-  botToken: string;
-  apiKey: string;
-  botPort: number;
-  apiPort: number;
-  leaderboardUrl: string;
-  webpageUrl: string;
-  dbFilePath: string;
+  bot: {
+    token: string;
+    webhookUrl?: string;
+    port: number;
+    reportId?: string;
+    adminId: number;
+    api: string;
+  };
+  api: {
+    port: number;
+    dbFilePath: string;
+  };
+  wakatime: {
+    apiKey: string;
+    leaderboardUrl: string;
+    webpageUrl: string;
+  };
+  advent: {
+    webpageUrl: string;
+  };
   puppeteerExecPath?: string;
-  admin: number;
-  adventUrl: string;
-  botWebhookUrl?: string;
 }
 
 interface LanguageReport {

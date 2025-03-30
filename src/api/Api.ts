@@ -30,8 +30,8 @@ export class Api {
     const server = createServer(toNodeListener(this.app));
 
     return new Promise(resolve => {
-      server.listen(this.config.apiPort, () => {
-        console.log(`Api is listening on port ${this.config.apiPort}`);
+      server.listen(this.config.api.port, () => {
+        console.log(`Api is listening on port ${this.config.api.port}`);
         resolve(this.config);
       });
     });
