@@ -1,8 +1,9 @@
 import { isString } from '@fullstacksjs/toolbox';
+import { dedent } from 'ts-dedent';
+
+import type { WakatimeContext } from '../Context.js';
 
 import { container } from '../../config/container.js';
-import type { WakatimeContext } from '../Context.js';
-import { dedent } from 'ts-dedent';
 
 const cache = new Map<string, Buffer>();
 

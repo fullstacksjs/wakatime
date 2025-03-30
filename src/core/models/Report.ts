@@ -1,9 +1,15 @@
 import type { ReportModel } from '../repos/ReportModel.js';
+
 import { Usage } from './Usage.js';
 
 export class Report {
   public date: Date;
   public usages: Usage[];
+
+  private constructor(report: { date: Date; usages: Usage[] }) {
+    this.usages = report.usages;
+    this.date = report.date;
+  }
 
   public static fromModel(report: ReportModel): Report {
     return new Report({
@@ -17,10 +23,5 @@ export class Report {
       date: this.date,
       usages: this.usages.map(x => x.toModel()),
     };
-  }
-
-  private constructor(report: { date: Date; usages: Usage[] }) {
-    this.usages = report.usages;
-    this.date = report.date;
   }
 }

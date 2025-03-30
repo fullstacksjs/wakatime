@@ -1,4 +1,5 @@
 import type { Browser, Page } from 'puppeteer';
+
 import puppeteer from 'puppeteer';
 
 import { container } from '../../config/container.js';
@@ -23,7 +24,7 @@ async function waitForAllImages() {
         image.addEventListener('error', () => {
           console.log('ERROR');
           clearTimeout(timeout);
-          reject();
+          reject(Error('Cannot load image'));
         });
       });
     }),

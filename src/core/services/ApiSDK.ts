@@ -1,10 +1,12 @@
 import type { Axios } from 'axios';
+
 import axios from 'axios';
 
 import type { Container } from '../../config/initContainer.js';
+import type { ReportModel } from '../repos/ReportModel.js';
+
 import { Leaderboard } from '../models/Leaderboard.js';
 import { Report } from '../models/Report.js';
-import type { ReportModel } from '../repos/ReportModel.js';
 
 function isReportModel(data: any): data is ReportModel {
   return 'usages' in data;

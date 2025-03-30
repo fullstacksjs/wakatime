@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import type { Container } from '../../config/initContainer.js';
+
 import { createBrowser, getScreenshot, openPage } from './puppeteer.js';
 
 export class AdventService {
@@ -7,15 +9,6 @@ export class AdventService {
 
   constructor(opts: Container) {
     this.config = opts.config;
-  }
-
-  public async getScreenshot(): Promise<Buffer> {
-    const browser = await createBrowser();
-    const page = await openPage(browser, this.config.adventUrl);
-    const screenshot = await getScreenshot(page);
-    await browser.close();
-
-    return screenshot;
   }
 
   public async getLeaderboard(): Promise<AdventLeaderboard> {
@@ -37,5 +30,14 @@ export class AdventService {
           ),
         };
       });
+  }
+
+  public async getScreenshot(): Promise<Buffer> {
+    const browser = await createBrowser();
+    const page = await openPage(browser, this.config.adventUrl);
+    const screenshot = await getScreenshot(page);
+    await browser.close();
+
+    return screenshot;
   }
 }

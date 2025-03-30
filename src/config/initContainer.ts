@@ -1,15 +1,17 @@
-import awilix from 'awilix';
 import type { Api as GrammyApi } from 'grammy';
 
+import awilix from 'awilix';
+
+import type { Repo } from '../core/repos/Repo.js';
+
 import { Bot } from '../bot/Bot.js';
+import { createRepo } from '../core/repos/Repo.js';
+import { AdventService } from '../core/services/AdventService.js';
 import { ApiSDK } from '../core/services/ApiSDK.js';
 import { LeaderboardService } from '../core/services/LeaderboardService.js';
 import { WakatimeSDK } from '../core/services/WakatimeSDK.js';
-import type { Repo } from '../core/repos/Repo.js';
-import { createRepo } from '../core/repos/Repo.js';
 import { container } from './container.js';
 import { getConfig } from './getConfig.js';
-import { AdventService } from '../core/services/AdventService.js';
 
 export interface Container {
   config: Config;

@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import type { Express } from 'express';
+
 import express from 'express';
 
 import type { Container } from '../config/initContainer.js';
+
 import { getReport } from './getReport.js';
 import { setUsername } from './setUsername.js';
 
 export class Api {
-  private config: Config;
   private app: Express;
+  private config: Config;
 
   constructor(opts: Container) {
     this.config = opts.config;

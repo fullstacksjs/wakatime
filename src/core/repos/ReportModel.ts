@@ -1,4 +1,5 @@
 import type { UsageModel } from './UsageModel.js';
+
 import { toUsageModel } from './UsageModel.js';
 
 export interface ReportModel {

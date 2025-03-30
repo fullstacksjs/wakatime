@@ -1,11 +1,12 @@
 import type { Axios } from 'axios';
+
 import axios from 'axios';
 
 import type { Container } from '../../config/initContainer.js';
 
 export class WakatimeSDK {
-  private config: Config;
   private client: Axios;
+  private config: Config;
 
   constructor(opts: Container) {
     this.config = opts.config;
@@ -20,7 +21,7 @@ export class WakatimeSDK {
       const { data } = await this.client.get<WakatimeUserResponse>(this.config.leaderboardUrl);
 
       return data;
-    } catch (e) {
+    } catch {
       return undefined;
     }
   }

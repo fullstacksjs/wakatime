@@ -4,8 +4,6 @@ import { dedent } from 'ts-dedent';
 import { container } from '../config/container.js';
 
 export class WakatimeContext extends Context {
-  schedule: Schedule | null = null;
-
   messages = {
     help: dedent`
       Commands:
@@ -36,16 +34,22 @@ export class WakatimeContext extends Context {
     `,
   };
 
+  schedule: Schedule | null = null;
+
+  public isAdmin() {
+    return this.update.message?.from.id === container.cradle.config.admin;
+  }
+
+  isGroup() {
+    return this.chat?.type === 'supergroup' || this.chat?.type === 'group';
+  }
+
   override reply(...args: Parameters<Context['reply']>): ReturnType<Context['reply']> {
     return super.reply(args[0], { ...args[1], parse_mode: 'HTML' });
   }
 
   public replyToMessage(...args: Parameters<Context['reply']>): ReturnType<Context['reply']> {
     return this.reply(args[0], { reply_to_message_id: this.update.message?.message_id });
-  }
-
-  public isAdmin() {
-    return this.update.message?.from.id === container.cradle.config.admin;
   }
 
   public report(log: string) {
@@ -72,9 +76,5 @@ export class WakatimeContext extends Context {
       console.error(error);
       return container.cradle.grammy.sendMessage(groupId, 'Oops! try again');
     }
-  }
-
-  isGroup() {
-    return this.chat?.type === 'supergroup' || this.chat?.type === 'group';
   }
 }

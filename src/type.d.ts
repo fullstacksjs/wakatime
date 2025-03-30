@@ -52,7 +52,7 @@ type Schedule = [Day, Hour, Minute];
 type GroupId = string;
 
 interface LeaderboardDto {
-  image: Buffer | string;
+  image: string | Buffer;
   caption: string;
 }
 

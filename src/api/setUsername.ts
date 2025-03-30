@@ -1,5 +1,7 @@
-import { isNull } from '@fullstacksjs/toolbox';
 import type { Request, Response } from 'express';
+
+import { isNull } from '@fullstacksjs/toolbox';
+
 import { container } from '../config/container.js';
 
 interface Body {
@@ -17,7 +19,7 @@ export const setUsername = async (req: Request<unknown, unknown, Body>, res: Res
   try {
     await repo.setTelegramUsername(id, username);
     return res.json({ status: 200 });
-  } catch (e) {
+  } catch {
     return res.status(404).json({ status: 404, message: 'not.found' });
   }
 };

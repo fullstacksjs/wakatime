@@ -1,39 +1,23 @@
+import type { UserModel } from '../repos/UserModel.js';
+
 import { secondsToHours } from '../../utils/date.js';
 import { formatOrdinals } from '../../utils/ordinal.js';
-import type { UserModel } from '../repos/UserModel.js';
 
 const medals = ['🥇', '🥈', '🥉'];
 
 export class User {
-  id: string;
-  name: string;
   avatar: string;
-  username: string | null;
-  lastTotalSeconds: number;
+  diff: number;
+  id: string;
   lastDailyAverage: number;
   lastRank: number;
-  diff: number;
+  lastTotalSeconds: number;
+  name: string;
   telegramUsername?: string;
+  username: string | null;
 
   get publicName() {
     return `${this.name} | ${this.username ?? 'N/A'}`;
-  }
-
-  public getRankCaption(rank: number) {
-    const medal = medals[rank] ?? formatOrdinals(rank + 1);
-    const name = this.telegramUsername ? `@${this.telegramUsername}` : this.name;
-
-    const hours = secondsToHours(this.lastTotalSeconds);
-    return `${medal} <b>${name}</b>: <i>~${hours}hrs</i>`;
-  }
-
-  public dumpInfo() {
-    const name = this.telegramUsername ? `@${this.telegramUsername}` : '';
-    return `<code>${this.id}</code>\n${this.publicName} ${name}`;
-  }
-
-  public static fromModel(user: UserModel): User {
-    return new User(user);
   }
 
   private constructor(user: UserModel) {
@@ -46,5 +30,22 @@ export class User {
     this.lastRank = user.lastRank;
     this.telegramUsername = user.telegramUsername;
     this.diff = user.diff ?? 0;
+  }
+
+  public static fromModel(user: UserModel): User {
+    return new User(user);
+  }
+
+  public dumpInfo() {
+    const name = this.telegramUsername ? `@${this.telegramUsername}` : '';
+    return `<code>${this.id}</code>\n${this.publicName} ${name}`;
+  }
+
+  public getRankCaption(rank: number) {
+    const medal = medals[rank] ?? formatOrdinals(rank + 1);
+    const name = this.telegramUsername ? `@${this.telegramUsername}` : this.name;
+
+    const hours = secondsToHours(this.lastTotalSeconds);
+    return `${medal} <b>${name}</b>: <i>~${hours}hrs</i>`;
   }
 }

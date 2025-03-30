@@ -1,8 +1,10 @@
 import awilix from 'awilix';
 import { Bot as Grammy, webhookCallback } from 'grammy';
 
-import { container } from '../config/container.js';
 import type { Container } from '../config/initContainer.js';
+
+import { container } from '../config/container.js';
+import { adventCommand } from './commands/advent.js';
 import { day } from './commands/day.js';
 import { helpCommand } from './commands/help.js';
 import { setCommand } from './commands/set.js';
@@ -10,12 +12,15 @@ import { startCommand } from './commands/start.js';
 import { usersCommand } from './commands/users.js';
 import { WakatimeContext } from './Context.js';
 import { authMiddleware } from './middleware/auth.js';
-import { adventCommand } from './commands/advent.js';
 
 export class Bot extends Grammy<WakatimeContext> {
   constructor(opts: Container) {
     super(opts.config.botToken, { ContextConstructor: WakatimeContext });
     container.register({ grammy: awilix.asValue(this.api) });
+  }
+
+  createExpressWebhookCallback() {
+    return webhookCallback(this, 'express', 'return', 50_000);
   }
 
   async initiate() {
@@ -37,9 +42,5 @@ export class Bot extends Grammy<WakatimeContext> {
     this.catch = function handleError(e) {
       console.error(e);
     };
-  }
-
-  createExpressWebhookCallback() {
-    return webhookCallback(this, 'express', 'return', 50_000);
   }
 }

@@ -1,14 +1,14 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import type { Express } from 'express';
+
 import express from 'express';
 
 import type { Container } from '../config/initContainer.js';
 import type { Bot } from './Bot.js';
 
 export class BotApi {
-  private config: Config;
   private app: Express;
   private bot: Bot;
+  private config: Config;
 
   constructor(opts: Container) {
     this.config = opts.config;

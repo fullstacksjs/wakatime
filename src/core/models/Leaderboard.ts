@@ -1,17 +1,12 @@
 import { dedent } from 'ts-dedent';
 
-import { getDayOfYear, getWeekOfYear } from '../../utils/date.js';
 import type { ReportModel } from '../repos/ReportModel.js';
+
+import { getDayOfYear, getWeekOfYear } from '../../utils/date.js';
 import { Report } from './Report.js';
 
 export class Leaderboard {
   public report: Report;
-
-  public get weekTitle(): string {
-    const year = new Date().getFullYear();
-    const week = getWeekOfYear(new Date());
-    return `${year} - Week ${week}`;
-  }
 
   public get dayTitle(): string {
     const year = new Date().getFullYear();
@@ -19,12 +14,10 @@ export class Leaderboard {
     return `${year} - Day ${day}`;
   }
 
-  public static fromReport(report: Report): Leaderboard {
-    return new Leaderboard(report);
-  }
-
-  public static fromModel(report: ReportModel): Leaderboard {
-    return new Leaderboard(Report.fromModel(report));
+  public get weekTitle(): string {
+    const year = new Date().getFullYear();
+    const week = getWeekOfYear(new Date());
+    return `${year} - Week ${week}`;
   }
 
   private footer = dedent`
@@ -33,6 +26,18 @@ export class Leaderboard {
 
       👉 https://fullstacksjs.com/en/wakatime
   `;
+
+  private constructor(report: Report) {
+    this.report = report;
+  }
+
+  public static fromModel(report: ReportModel): Leaderboard {
+    return new Leaderboard(Report.fromModel(report));
+  }
+
+  public static fromReport(report: Report): Leaderboard {
+    return new Leaderboard(report);
+  }
 
   public getDayCaption() {
     return dedent`
@@ -50,9 +55,5 @@ export class Leaderboard {
       ${this.report.usages.map(({ user }, rank) => user.getRankCaption(rank)).join('\n')}
       ${this.footer}
     `;
-  }
-
-  private constructor(report: Report) {
-    this.report = report;
   }
 }
