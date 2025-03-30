@@ -4,12 +4,12 @@ import { JSONFile } from 'lowdb/node';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import type { ReportModel } from './ReportModel.js';
-import type { UserModel } from './UserModel.js';
+import type { ReportModel } from './ReportModel.ts';
+import type { UserModel } from './UserModel.ts';
 
-import { getDayId, getThisWeekId as getWeekId } from '../../utils/date.js';
-import { Report } from '../models/Report.js';
-import { User } from '../models/User.js';
+import { getDayId, getThisWeekId as getWeekId } from '../../utils/date.ts';
+import { Report } from '../models/Report.ts';
+import { User } from '../models/User.ts';
 
 interface DB {
   weeks: Record<string, ReportModel>;

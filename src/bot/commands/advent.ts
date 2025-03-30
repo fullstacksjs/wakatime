@@ -1,10 +1,10 @@
 import { isString } from '@fullstacksjs/toolbox';
 import { dedent } from 'ts-dedent';
 
-import type { WakatimeContext } from '../Context.js';
+import type { WakatimeContext } from '../Context.ts';
 
-import { container } from '../../config/container.js';
-import { formatOrdinals } from '../../utils/ordinal.js';
+import { container } from '../../config/container.ts';
+import { formatOrdinals } from '../../utils/ordinal.ts';
 
 const medals = ['🥇', '🥈', '🥉'];
 

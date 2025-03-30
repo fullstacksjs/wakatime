@@ -2,7 +2,7 @@ import type { Axios } from 'axios';
 
 import axios from 'axios';
 
-import type { Container } from '../../config/initContainer.js';
+import type { Container } from '../../config/initContainer.ts';
 
 export class WakatimeSDK {
   private client: Axios;

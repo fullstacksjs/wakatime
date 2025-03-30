@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import type { Container } from '../../config/initContainer.js';
+import type { Container } from '../../config/initContainer.ts';
 
-import { createBrowser, getScreenshot, openPage } from './puppeteer.js';
+import { createBrowser, getScreenshot, openPage } from './puppeteer.ts';
 
 export class AdventService {
   config: Config;

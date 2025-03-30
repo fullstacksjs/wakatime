@@ -1,9 +1,9 @@
 import { dedent } from 'ts-dedent';
 
-import type { UserFilter } from '../../core/repos/Repo.js';
-import type { WakatimeContext } from '../Context.js';
+import type { UserFilter } from '../../core/repos/Repo.ts';
+import type { WakatimeContext } from '../Context.ts';
 
-import { container } from '../../config/container.js';
+import { container } from '../../config/container.ts';
 
 const getFilter = (message: string | undefined): UserFilter => {
   const flag = message?.split(' ')[1];

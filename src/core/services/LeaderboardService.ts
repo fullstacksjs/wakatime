@@ -1,13 +1,13 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
-import type { Container } from '../../config/initContainer.js';
-import type { Repo } from '../repos/Repo.js';
-import type { WakatimeSDK } from './WakatimeSDK.js';
+import type { Container } from '../../config/initContainer.ts';
+import type { Repo } from '../repos/Repo.ts';
+import type { WakatimeSDK } from './WakatimeSDK.ts';
 
-import { Leaderboard } from '../models/Leaderboard.js';
-import { toReportModel } from '../repos/ReportModel.js';
-import { toUserModel } from '../repos/UserModel.js';
-import { createBrowser, getScreenshot, openPage } from './puppeteer.js';
+import { Leaderboard } from '../models/Leaderboard.ts';
+import { toReportModel } from '../repos/ReportModel.ts';
+import { toUserModel } from '../repos/UserModel.ts';
+import { createBrowser, getScreenshot, openPage } from './puppeteer.ts';
 
 export class LeaderboardService {
   private config: Config;

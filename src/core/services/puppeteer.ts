@@ -2,7 +2,7 @@ import type { Browser, Page } from 'puppeteer';
 
 import puppeteer from 'puppeteer';
 
-import { container } from '../../config/container.js';
+import { container } from '../../config/container.ts';
 
 async function waitForAllImages() {
   const images = document.getElementsByTagName('img');

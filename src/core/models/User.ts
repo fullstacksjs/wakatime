@@ -1,7 +1,7 @@
-import type { UserModel } from '../repos/UserModel.js';
+import type { UserModel } from '../repos/UserModel.ts';
 
-import { secondsToHours } from '../../utils/date.js';
-import { formatOrdinals } from '../../utils/ordinal.js';
+import { secondsToHours } from '../../utils/date.ts';
+import { formatOrdinals } from '../../utils/ordinal.ts';
 
 const medals = ['🥇', '🥈', '🥉'];
 

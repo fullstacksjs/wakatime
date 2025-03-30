@@ -2,8 +2,8 @@ import type { Express } from 'express';
 
 import express from 'express';
 
-import type { Container } from '../config/initContainer.js';
-import type { Bot } from './Bot.js';
+import type { Container } from '../config/initContainer.ts';
+import type { Bot } from './Bot.ts';
 
 export class BotApi {
   private app: Express;

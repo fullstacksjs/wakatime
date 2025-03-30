@@ -1,6 +1,6 @@
 import { getEnv, getRequiredEnv, toInteger } from '@fullstacksjs/toolbox';
 
-import { toAbsolutePath } from '../utils/path.js';
+import { toAbsolutePath } from '../utils/path.ts';
 
 export function getConfig(): Config {
   return {

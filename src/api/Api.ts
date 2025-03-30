@@ -3,10 +3,10 @@ import type { Express } from 'express';
 
 import express from 'express';
 
-import type { Container } from '../config/initContainer.js';
+import type { Container } from '../config/initContainer.ts';
 
-import { getReport } from './getReport.js';
-import { setUsername } from './setUsername.js';
+import { getReport } from './getReport.ts';
+import { setUsername } from './setUsername.ts';
 
 export class Api {
   private app: Express;

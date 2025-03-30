@@ -1,6 +1,6 @@
-import type { ReportModel } from '../repos/ReportModel.js';
+import type { ReportModel } from '../repos/ReportModel.ts';
 
-import { Usage } from './Usage.js';
+import { Usage } from './Usage.ts';
 
 export class Report {
   public date: Date;

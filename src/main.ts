@@ -1,15 +1,15 @@
-import 'dotenv/config';
-
 if (process.argv[2] === 'api') {
-  const { Api } = await import('./api/Api.js');
-  const { registerApiContainer } = await import('./config/initContainer.js');
+  const { Api } = await import('./api/Api.ts');
+  const { registerApiContainer } = await import('./config/initContainer.ts');
   const container = await registerApiContainer();
   void new Api(container).start();
 }
 
 if (process.argv[2] === 'bot') {
-  const { BotApi } = await import('./bot/BotApi.js');
-  const { registerBotContainer } = await import('./config/initContainer.js');
+  const { BotApi } = await import('./bot/BotApi.ts');
+  const { registerBotContainer } = await import('./config/initContainer.ts');
   const container = await registerBotContainer();
   void new BotApi(container).start();
 }
+
+export {};

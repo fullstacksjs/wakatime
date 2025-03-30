@@ -1,8 +1,8 @@
 import { isNull, isString } from '@fullstacksjs/toolbox';
 
-import type { WakatimeContext } from '../Context.js';
+import type { WakatimeContext } from '../Context.ts';
 
-import { container } from '../../config/container.js';
+import { container } from '../../config/container.ts';
 
 const isValidId = (id: string | undefined): id is string =>
   Boolean(id?.length === 36 && id.split('-').length === 5);

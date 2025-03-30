@@ -1,7 +1,7 @@
 import { Context, InputFile } from 'grammy';
 import { dedent } from 'ts-dedent';
 
-import { container } from '../config/container.js';
+import { container } from '../config/container.ts';
 
 export class WakatimeContext extends Context {
   messages = {

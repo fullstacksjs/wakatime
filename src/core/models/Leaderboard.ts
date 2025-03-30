@@ -1,9 +1,9 @@
 import { dedent } from 'ts-dedent';
 
-import type { ReportModel } from '../repos/ReportModel.js';
+import type { ReportModel } from '../repos/ReportModel.ts';
 
-import { getDayOfYear, getWeekOfYear } from '../../utils/date.js';
-import { Report } from './Report.js';
+import { getDayOfYear, getWeekOfYear } from '../../utils/date.ts';
+import { Report } from './Report.ts';
 
 export class Leaderboard {
   public report: Report;

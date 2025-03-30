@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 
 import { isNull } from '@fullstacksjs/toolbox';
 
-import { container } from '../config/container.js';
+import { container } from '../config/container.ts';
 
 interface Body {
   id: string;

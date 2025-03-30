@@ -1,17 +1,17 @@
 import awilix from 'awilix';
 import { Bot as Grammy, webhookCallback } from 'grammy';
 
-import type { Container } from '../config/initContainer.js';
+import type { Container } from '../config/initContainer.ts';
 
-import { container } from '../config/container.js';
-import { adventCommand } from './commands/advent.js';
-import { day } from './commands/day.js';
-import { helpCommand } from './commands/help.js';
-import { setCommand } from './commands/set.js';
-import { startCommand } from './commands/start.js';
-import { usersCommand } from './commands/users.js';
-import { WakatimeContext } from './Context.js';
-import { authMiddleware } from './middleware/auth.js';
+import { container } from '../config/container.ts';
+import { adventCommand } from './commands/advent.ts';
+import { day } from './commands/day.ts';
+import { helpCommand } from './commands/help.ts';
+import { setCommand } from './commands/set.ts';
+import { startCommand } from './commands/start.ts';
+import { usersCommand } from './commands/users.ts';
+import { WakatimeContext } from './Context.ts';
+import { authMiddleware } from './middleware/auth.ts';
 
 export class Bot extends Grammy<WakatimeContext> {
   constructor(opts: Container) {

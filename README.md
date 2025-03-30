@@ -8,14 +8,15 @@ Fullstacks community Wakatime leaderboard API and tools.
 
 ## Contributing
 
-Development of this project happens in GitHub, and we appreciate contributions. Please read section bellow before start contributing.
+Development of this project happens in GitHub, and we appreciate contributions. Please read section
+bellow before start contributing.
 
 ### Prerequisite
 
 - [POSIX-compliant shell][shell]
 - [git][git] >= 2
 - [volta][volta]
-- [node][nodejs] >= 16
+- [node][nodejs] >= 22
 - [npm][npm] >= 7
 
 ### Branch Organization
@@ -25,15 +26,16 @@ Development of this project happens in GitHub, and we appreciate contributions. 
 
 ### Sending a Pull Request
 
-The Fullstacks-Dev team is monitoring for pull requests. We will review your pull request and either merge it, request changes to it, or close it with an explanation.
+The Fullstacks-Dev team is monitoring for pull requests. We will review your pull request and either
+merge it, request changes to it, or close it with an explanation.
 
 Before submitting a pull request, please make sure the following is done:
 
 - Fork the repository and create your feature branch from dev brach.
-- Install dependencies by running `npm run install`.
-- To start development run `npm run dev`.
+- Install dependencies by running `pnpm install`.
+- To start development run `pnpm run dev:bot` or `pnpm run dev:api`.
 - If you’ve fixed a bug or added code that should be tested, add tests please.
-- Ensure everything is ok by running `npm run verify`.
+- Ensure everything is ok by running `pnpm run lint`.
 
 ## Get in Touch
 

@@ -1,8 +1,8 @@
 import { isNull } from '@fullstacksjs/toolbox';
 
-import type { UsageModel } from '../repos/UsageModel.js';
+import type { UsageModel } from '../repos/UsageModel.ts';
 
-import { User } from './User.js';
+import { User } from './User.ts';
 
 export class Usage {
   dailyAverage: number;

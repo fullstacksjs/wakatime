@@ -1,6 +1,6 @@
-import type { UsageModel } from './UsageModel.js';
+import type { UsageModel } from './UsageModel.ts';
 
-import { toUsageModel } from './UsageModel.js';
+import { toUsageModel } from './UsageModel.ts';
 
 export interface ReportModel {
   date: Date;
