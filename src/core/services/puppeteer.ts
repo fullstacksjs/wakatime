@@ -55,6 +55,9 @@ export async function openPage(browser: Browser, url: string) {
     console.log(`Puppeteer ${message.type().substring(0, 3)}: ${message.text()}`),
   );
   await page.goto(url, { waitUntil: 'networkidle0' });
+  // Reload to ensure NextJS cache is cleared
+  await page.reload({ waitUntil: 'networkidle0' });
+
   await page.setViewport({ width: 1000, height: 1280, deviceScaleFactor: 2 });
   await page.evaluate(waitForAllImages);
 
