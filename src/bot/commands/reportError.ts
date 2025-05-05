@@ -1,6 +1,6 @@
 import type { BotError, NextFunction } from 'grammy';
 
-import { isObject } from '@fullstacksjs/toolbox';
+import { isObject, isPlainObject } from '@fullstacksjs/toolbox';
 import { AxiosError } from 'axios';
 
 import type { WakatimeContext } from '../Context';
@@ -32,7 +32,17 @@ export async function reportError(err: BotError<WakatimeContext>, next: NextFunc
     const url = error.request.res.responseUrl;
     const status = error.response.status;
 
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const message =
+      isPlainObject(error.response.data) && 'statusMessage' in error.response.data
+        ? error.response.data['statusMessage']
+        : undefined;
+
+    if (message) {
+      return err.ctx.reportError(
+        `Failed to ${method} "${url}" with status ${status}\nError: ${message}`,
+      );
+    }
+
     return err.ctx.reportError(`Failed to ${method} "${url}" with status ${status}`);
   } else if (isSendErrorPayload(error)) {
     const { chat_id: chatId, text } = error;

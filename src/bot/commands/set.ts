@@ -9,10 +9,12 @@ const isValidId = (id: string | undefined): id is string =>
 
 export const setCommand = async (ctx: WakatimeContext) => {
   const { api } = container.cradle;
-  const [id, rawUsername] = ctx.message?.text?.split(' ').slice(1) ?? [];
-  const username = rawUsername?.replace('@', '');
+  const message = ctx.update.channel_post?.text ?? ctx.update.message?.text;
+  const [id, rawUsername] = message?.split(' ').slice(1) ?? [];
 
   if (!isValidId(id)) return ctx.replyToMessage('<b>Wrong Input</b>\nInvalid id');
+
+  const username = rawUsername?.replace('@', '');
   if (isNull(username)) return ctx.replyToMessage('<b>Wrong Input</b>\nUsername is required');
 
   await api.setUsername(id, username);

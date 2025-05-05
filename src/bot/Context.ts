@@ -37,7 +37,14 @@ export class WakatimeContext extends Context {
   schedule: Schedule | null = null;
 
   public isAdmin() {
-    return this.update.message?.from.id === container.cradle.config.bot.adminId;
+    const hasReportId = container.cradle.config.bot.reportId;
+    const isReportChat =
+      this.update.channel_post?.sender_chat?.id === container.cradle.config.bot.reportId;
+    const hasMessageId = this.update.message?.message_id;
+    const isAdmin = this.update.message?.from.id === container.cradle.config.bot.adminId;
+
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    return (hasMessageId && isAdmin) || (hasReportId && isReportChat);
   }
 
   isGroup() {

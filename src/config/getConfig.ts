@@ -15,7 +15,12 @@ const schema = v.object({
       ),
       '3000',
     ),
-    reportId: v.optional(v.string()),
+    reportId: v.optional(
+      v.pipe(
+        v.string(),
+        v.transform(x => toDecimal(x)),
+      ),
+    ),
     adminId: v.pipe(
       v.string(),
       v.transform(x => toDecimal(x)),

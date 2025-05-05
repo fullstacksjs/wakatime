@@ -30,6 +30,12 @@ export interface UserFilter {
   page: number;
 }
 
+export class UserNotFoundError extends Error {
+  constructor(id: string) {
+    super(`User ${id} not found`);
+  }
+}
+
 export class Repo {
   constructor(private db: InitializedLow<DB>) {}
 
@@ -120,7 +126,7 @@ export class Repo {
 
   public async setTelegramUsername(id: string, username: string) {
     await this.db.update(({ users }) => {
-      if (users[id] == null) throw Error('User not found');
+      if (users[id] == null) throw new UserNotFoundError(id);
       users[id].telegramUsername = username;
     });
   }

@@ -3,6 +3,7 @@ import { createError, defineEventHandler, readValidatedBody } from 'h3';
 import * as v from 'valibot';
 
 import { container } from '../config/container.ts';
+import { UserNotFoundError } from '../core/repos/Repo.ts';
 
 const schema = v.object({ id: v.string(), username: v.string() });
 
@@ -18,7 +19,11 @@ export const setUsername = defineEventHandler(async event => {
   try {
     await repo.setTelegramUsername(id, username);
     return { status: 201 };
-  } catch {
-    throw createError({ statusCode: 404, statusMessage: 'not.found' });
+  } catch (e) {
+    if (e instanceof UserNotFoundError) {
+      throw createError({ statusCode: 404, statusMessage: e.message });
+    }
+
+    throw e;
   }
 });

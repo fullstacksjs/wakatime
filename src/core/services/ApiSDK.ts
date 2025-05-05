@@ -49,6 +49,6 @@ export class ApiSDK {
   }
 
   async setUsername(id: string, username: string) {
-    return this.client.put('/user', { id, username });
+    return this.client.put('/users', { id, username });
   }
 }

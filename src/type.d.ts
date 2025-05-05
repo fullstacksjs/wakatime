@@ -3,7 +3,7 @@ interface Config {
     token: string;
     webhookUrl?: string;
     port: number;
-    reportId?: string;
+    reportId?: number;
     adminId: number;
     api: string;
   };
