@@ -39,6 +39,7 @@ export const setUsername = defineEventHandler({
     const token = auth.split(' ')[1];
 
     if (token !== container.cradle.config.api.token) {
+      console.warn('Invalid token', { authorization: auth, token });
       throw createError({ statusCode: 403, statusMessage: 'Forbidden' });
     }
   },

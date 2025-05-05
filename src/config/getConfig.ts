@@ -36,6 +36,7 @@ const schema = v.object({
       '4000',
     ),
     dbFilePath: v.string(),
+    token: v.string(),
   }),
   wakatime: v.object({
     apiKey: v.string(),
@@ -61,6 +62,7 @@ export function getConfig(): Config {
     api: {
       port: process.env['API_PORT'],
       dbFilePath: toAbsolutePath('../data/db.json'),
+      token: process.env['API_TOKEN'],
     },
     wakatime: {
       apiKey: process.env['WAKATIME_API_KEY'],
