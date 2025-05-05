@@ -8,6 +8,7 @@ interface Config {
     api: string;
   };
   api: {
+    token: string;
     port: number;
     dbFilePath: string;
   };

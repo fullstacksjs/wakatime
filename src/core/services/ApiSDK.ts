@@ -49,6 +49,14 @@ export class ApiSDK {
   }
 
   async setUsername(id: string, username: string) {
-    return this.client.put('/users', { id, username });
+    return this.client.put(
+      '/users',
+      { id, username },
+      {
+        headers: {
+          Authorization: `Bearer ${this.config.api.token}`,
+        },
+      },
+    );
   }
 }
