@@ -2,6 +2,7 @@
   "name": "wakatime-bot",
   "version": "1.0.0",
   "license": "MIT",
+  "private": true,
   "type": "module",
   "packageManager": "pnpm@10.15.0",
   "scripts": {
@@ -33,6 +34,6 @@
   },
   "volta": {
     "node": "22.14.0",
-    "pnpm": "10.10.0"
+    "pnpm": "10.15.0"
   }
 }
