@@ -51,6 +51,11 @@ export async function createBrowser() {
 
 export async function openPage(browser: Browser, url: string) {
   const page = await browser.newPage();
+
+  // In order to make sure that the web-page is fresh,
+  // we have to forcefully disable the cache.
+  await page.setCacheEnabled(false);
+
   page.on('console', message =>
     console.log(`Puppeteer ${message.type().substring(0, 3)}: ${message.text()}`),
   );

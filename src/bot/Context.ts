@@ -43,7 +43,6 @@ export class WakatimeContext extends Context {
     const hasMessageId = this.update.message?.message_id;
     const isAdmin = this.update.message?.from.id === container.cradle.config.bot.adminId;
 
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     return (hasMessageId && isAdmin) || (hasReportId && isReportChat);
   }
 
