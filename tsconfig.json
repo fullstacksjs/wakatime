@@ -1,15 +1,34 @@
 {
-  "extends": "@fullstacksjs/tsconfig/esm",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "noEmit": true,
+    "lib": ["ESNext", "DOM"],
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleDetection": "force",
+    "allowJs": true,
+
+    "moduleResolution": "NodeNext",
     "allowImportingTsExtensions": true,
-    "experimentalDecorators": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+
+    "strict": true,
+    "skipLibCheck": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noEmitOnError": true,
+
+    "incremental": true,
+    "stripInternal": true,
+    "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
-    "lib": ["DOM", "ESNext"],
+    "experimentalDecorators": true,
+
     "outDir": "./dist",
-    "allowJs": true
-  },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+    "paths": { "@/*": ["./src/*"] }
+  }
 }
