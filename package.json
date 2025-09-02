@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@10.15.1",
   "scripts": {
     "dev:bot": "NODE_NO_WARNINGS=1 node --env-file=.env --experimental-transform-types --watch ./src/main.ts bot",
     "dev:api": "NODE_NO_WARNINGS=1 node --env-file=.env --experimental-transform-types --watch ./src/main.ts api",
@@ -34,7 +34,6 @@
     "typescript": "5.8.2"
   },
   "volta": {
-    "node": "22.14.0",
-    "pnpm": "10.15.0"
+    "node": "22.19.0"
   }
 }
