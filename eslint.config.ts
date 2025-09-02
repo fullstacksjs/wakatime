@@ -1,5 +1,9 @@
+import type { Linter } from 'eslint';
+
 import { defineConfig } from '@fullstacksjs/eslint-config';
 
-export default defineConfig({
+const config: Linter.Config<Linter.RulesRecord>[] = defineConfig({
   node: true,
 });
+
+export default config;
