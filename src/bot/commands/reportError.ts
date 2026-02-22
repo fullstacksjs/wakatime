@@ -1,9 +1,10 @@
 import type { BotError, NextFunction } from 'grammy';
 
-import { isObject, isPlainObject } from '@fullstacksjs/toolbox';
-import { AxiosError } from 'axios';
+import { isObject } from '@fullstacksjs/toolbox';
 
 import type { WakatimeContext } from '../Context';
+
+import { HttpError } from '../../core/services/HttpClient.ts';
 
 interface SendErrorPayload {
   chat_id: number;
@@ -14,36 +15,15 @@ function isSendErrorPayload(payload: unknown): payload is SendErrorPayload {
   return isObject(payload) && 'chat_id' in payload && 'text' in payload;
 }
 
-function isHTTPError(error: unknown): error is AxiosError & {
-  response: { status: number };
-  request: { method: string; res: { responseUrl: string } };
-} {
-  if (!(error instanceof AxiosError)) return false;
-  if (!error.response?.status || error.response.status < 400) return false;
-
-  return true;
-}
-
 export async function reportError(err: BotError<WakatimeContext>, next: NextFunction) {
   const { error } = err;
 
-  if (isHTTPError(error)) {
-    const { method } = error.request;
-    const url = error.request.res.responseUrl;
-    const { status } = error.response;
-
-    const message =
-      isPlainObject(error.response.data) && 'statusMessage' in error.response.data
-        ? error.response.data['statusMessage']
-        : undefined;
-
-    if (message) {
-      return err.ctx.reportError(
-        `Failed to ${method} "${url}" with status ${status}\nError: ${message}`,
-      );
-    }
-
-    return err.ctx.reportError(`Failed to ${method} "${url}" with status ${status}`);
+  if (error instanceof HttpError) {
+    const { statusCode, statusMessage, url } = error;
+    await err.ctx.reportError(
+      `Failed with status ${statusCode}\nError: ${statusMessage}\nURL: ${url}`,
+    );
+    return;
   } else if (isSendErrorPayload(error)) {
     const { chat_id: chatId, text } = error;
     return err.ctx.report(`Cannot send message to ${chatId}, Error: ${text}`);
