@@ -1,5 +1,6 @@
 onlyBuiltDependencies:
   - puppeteer
   - unrs-resolver
+  - esbuild
 
 savePrefix: ''

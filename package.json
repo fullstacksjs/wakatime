@@ -12,26 +12,26 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@fullstacksjs/toolbox": "4.20.0",
+    "@fullstacksjs/toolbox": "4.22.0",
     "awilix": "12.0.5",
-    "axios": "1.11.0",
-    "dedent": "1.6.0",
+    "axios": "1.13.5",
+    "dedent": "1.7.1",
     "deepmerge-ts": "7.1.5",
-    "grammy": "1.38.1",
+    "grammy": "1.40.0",
     "h3": "1.15.4",
     "lowdb": "7.0.1",
-    "puppeteer": "24.17.0",
-    "valibot": "1.1.0"
+    "puppeteer": "24.37.5",
+    "valibot": "1.2.0"
   },
   "devDependencies": {
-    "@fullstacksjs/eslint-config": "13.2.2",
+    "@fullstacksjs/eslint-config": "14.0.1",
     "@fullstacksjs/tsconfig": "2.0.0",
     "@types/node": "24.3.0",
     "eslint": "9.34.0",
     "husky": "9.1.7",
-    "lint-staged": "16.1.5",
-    "prettier": "3.6.2",
-    "typescript": "5.8.2"
+    "lint-staged": "16.2.7",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
   },
   "volta": {
     "node": "22.19.0"

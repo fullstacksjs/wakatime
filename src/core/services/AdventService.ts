@@ -22,8 +22,8 @@ export class AdventService {
           score: row.local_score,
           stars: Object.values(row.completion_day_level).reduce<AdventUser['stars']>(
             (acc, star) => {
-              if (star[0]) acc.silver++;
-              if (star[1]) acc.gold++;
+              if (star[0]) acc.silver = acc.silver + 1;
+              if (star[1]) acc.gold = acc.gold + 1;
               return acc;
             },
             { gold: 0, silver: 0 },
