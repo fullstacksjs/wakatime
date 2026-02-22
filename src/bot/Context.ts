@@ -66,6 +66,7 @@ export class WakatimeContext extends Context {
 
   public reportError(error: string) {
     const { reportId } = container.cradle.config.bot;
+    console.error(error);
     if (!reportId) return;
 
     const { grammy } = container.cradle;

@@ -53,6 +53,8 @@ export class LeaderboardService {
 
   async syncDay() {
     const reports = await this.wakatime.getReports();
+    console.log({ reports });
+
     if (!reports) throw Error('Cannot fetch reports');
 
     await this.reportRepo.saveUsers(reports.data.map(toUserModel));

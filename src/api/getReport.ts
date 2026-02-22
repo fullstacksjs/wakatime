@@ -16,6 +16,7 @@ export const getReport = defineEventHandler(async event => {
       throw createError({ statusCode: 400, statusMessage: 'Bad Input' });
     }
 
+    console.error(error);
     throw createError({ statusCode: 500, statusMessage: 'Internal Server Error' });
   }
 });
