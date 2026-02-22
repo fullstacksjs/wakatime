@@ -31,7 +31,7 @@ async function waitForAllImages() {
 }
 
 export async function createBrowser() {
-  const config = container.cradle.config;
+  const { config } = container.cradle;
 
   return puppeteer.launch({
     args: [

@@ -19,6 +19,7 @@ const typeSchema = v.optional(
     }),
   ),
 );
+
 export const usersCommand = async (ctx: WakatimeContext) => {
   const repo = container.cradle.api;
   const firstArg = ctx.message?.text?.split(' ')[1];

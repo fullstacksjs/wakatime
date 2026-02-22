@@ -8,8 +8,7 @@ const cache = new Map<string, Uint8Array>();
 
 export async function day(ctx: WakatimeContext) {
   if (!ctx.chat) return ctx.reply('Why are you gay?');
-  const api = container.cradle.api;
-  const leaderboardService = container.cradle.leaderboardService;
+  const { api, leaderboardService } = container.cradle;
 
   const leaderboard = await api.getLeaderboard();
   const title = leaderboard.getDayCaption();

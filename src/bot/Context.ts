@@ -33,7 +33,6 @@ export class WakatimeContext extends Context {
       Why are you gay?
     `,
   };
-
   schedule: Schedule | null = null;
 
   public isAdmin() {
@@ -59,17 +58,17 @@ export class WakatimeContext extends Context {
   }
 
   public report(log: string) {
-    const reportId = container.cradle.config.bot.reportId;
+    const { reportId } = container.cradle.config.bot;
     if (!reportId) return;
 
     return container.cradle.grammy.sendMessage(reportId, `ℹ️\n${log}`, { parse_mode: 'HTML' });
   }
 
   public reportError(error: string) {
-    const reportId = container.cradle.config.bot.reportId;
+    const { reportId } = container.cradle.config.bot;
     if (!reportId) return;
 
-    const grammy = container.cradle.grammy;
+    const { grammy } = container.cradle;
     return grammy.sendMessage(reportId, `❗️ ${error}`, { parse_mode: 'HTML' });
   }
 

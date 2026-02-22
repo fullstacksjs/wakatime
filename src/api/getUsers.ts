@@ -9,7 +9,7 @@ const schema = v.object({
   type: v.optional(v.union([v.literal('WithUsername'), v.literal('WithoutUsername')]), undefined),
 });
 export const getUsers = defineEventHandler(async event => {
-  const repo = container.cradle.repo;
+  const { repo } = container.cradle;
   const { size, page, type } = await getValidatedQuery(event, query => v.parse(schema, query));
 
   const users = await repo.getUserList({ size, page, type });

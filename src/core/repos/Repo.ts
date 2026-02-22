@@ -87,8 +87,10 @@ export class Repo {
     switch (type) {
       case 'WithUsername':
         return users.filter(u => u.telegramUsername);
+
       case 'WithoutUsername':
         return users.filter(u => !u.telegramUsername);
+
       default:
         return users;
     }

@@ -9,7 +9,7 @@ const schema = v.object({ id: v.string(), username: v.string() });
 
 export const setUsername = defineEventHandler({
   handler: async event => {
-    const repo = container.cradle.repo;
+    const { repo } = container.cradle;
 
     const { id, username } = await readValidatedBody(event, value => v.parse(schema, value));
 

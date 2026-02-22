@@ -25,12 +25,12 @@ function isHTTPError(error: unknown): error is AxiosError & {
 }
 
 export async function reportError(err: BotError<WakatimeContext>, next: NextFunction) {
-  const error = err.error;
+  const { error } = err;
 
   if (isHTTPError(error)) {
-    const method = error.request.method;
+    const { method } = error.request;
     const url = error.request.res.responseUrl;
-    const status = error.response.status;
+    const { status } = error.response;
 
     const message =
       isPlainObject(error.response.data) && 'statusMessage' in error.response.data
