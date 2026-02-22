@@ -7,7 +7,6 @@ import { createError, readBody } from 'h3';
 import type { Container } from '../config/initContainer.ts';
 
 import { container } from '../config/container.ts';
-import { adventCommand } from './commands/advent.ts';
 import { day } from './commands/day.ts';
 import { helpCommand } from './commands/help.ts';
 import { reportError } from './commands/reportError.ts';
@@ -54,7 +53,6 @@ export class Bot extends Grammy<WakatimeContext> {
     composer.command('help', helpCommand);
     composer.command('day', day);
     composer.command('set', authMiddleware, setCommand);
-    composer.command('advent', adventCommand);
     composer.command('users', authMiddleware, usersCommand);
     this.errorBoundary(reportError).use(composer);
     this.use(composer);

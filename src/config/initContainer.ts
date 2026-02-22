@@ -6,7 +6,6 @@ import type { Repo } from '../core/repos/Repo.ts';
 
 import { Bot } from '../bot/Bot.ts';
 import { createRepo } from '../core/repos/Repo.ts';
-import { AdventService } from '../core/services/AdventService.ts';
 import { ApiSDK } from '../core/services/ApiSDK.ts';
 import { LeaderboardService } from '../core/services/LeaderboardService.ts';
 import { WakatimeSDK } from '../core/services/WakatimeSDK.ts';
@@ -17,7 +16,6 @@ export interface Container {
   config: Config;
   repo: Repo;
   leaderboardService: LeaderboardService;
-  adventService: AdventService;
   grammy: GrammyApi;
   bot: Bot;
   api: ApiSDK;
@@ -45,7 +43,6 @@ export async function registerBotContainer() {
     config: awilix.asValue(config),
     bot: awilix.asClass(Bot).singleton(),
     leaderboardService: awilix.asClass(LeaderboardService).singleton(),
-    adventService: awilix.asClass(AdventService).singleton(),
     api: awilix.asClass(ApiSDK).singleton(),
     repo: awilix.asValue({} as Repo),
     wakatime: awilix.asClass(WakatimeSDK).singleton(),

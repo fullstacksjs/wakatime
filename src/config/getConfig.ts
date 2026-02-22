@@ -43,9 +43,6 @@ const schema = v.object({
     leaderboardUrl: v.string(),
     webpageUrl: v.string(),
   }),
-  advent: v.object({
-    webpageUrl: v.string(),
-  }),
   puppeteerExecPath: v.optional(v.string()),
 });
 
@@ -68,9 +65,6 @@ export function getConfig(): Config {
       apiKey: process.env['WAKATIME_API_KEY'],
       leaderboardUrl: process.env['WAKATIME_LEADERBOARD_URL'],
       webpageUrl: process.env['WAKATIME_PAGE_URL'],
-    },
-    advent: {
-      webpageUrl: process.env['ADVENT_PAGE_URL'],
     },
     puppeteerExecPath: process.env['PUPPETEER_EXECUTABLE_PATH'],
   });
