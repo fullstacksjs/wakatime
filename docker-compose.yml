@@ -9,6 +9,7 @@ services:
       - ./data/:/usr/wakatime/data
     env_file:
       - .env
+    restart: on-failure:16
 
   bot:
     platform: linux/amd64
@@ -21,3 +22,4 @@ services:
       - SYS_ADMIN
     env_file:
       - .env
+    restart: on-failure:16
