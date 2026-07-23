@@ -13,6 +13,6 @@
     "outDir": "./dist",
     "allowJs": true
   },
-  "include": ["src", "eslint.config.ts"],
+  "include": ["src", "test", "eslint.config.ts"],
   "exclude": ["node_modules"]
 }

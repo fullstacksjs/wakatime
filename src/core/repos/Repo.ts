@@ -19,10 +19,13 @@ interface DB {
 
 export type InitializedLow<T> = Omit<Low<T>, 'data'> & { data: T };
 
-const updateUser = (oldUser: UserModel | undefined, user: UserModel): UserModel =>
-  deepmerge(oldUser ?? {}, user, {
+export const updateUser = (oldUser: UserModel | undefined, user: UserModel): UserModel => {
+  const updated = deepmerge(oldUser ?? {}, user, {
     diff: oldUser?.lastRank != null ? oldUser.lastRank - user.lastRank : 0,
   }) as UserModel;
+
+  return { ...updated, languages: user.languages };
+};
 
 export interface UserFilter {
   type?: 'WithoutUsername' | 'WithUsername';
