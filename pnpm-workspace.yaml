@@ -1,3 +1,8 @@
+allowBuilds:
+  esbuild: true
+  puppeteer: true
+  unrs-resolver: true
+
 onlyBuiltDependencies:
   - puppeteer
   - unrs-resolver
