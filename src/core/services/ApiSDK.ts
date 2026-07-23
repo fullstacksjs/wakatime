@@ -33,7 +33,11 @@ export class ApiSDK {
   }
 
   async getUserList(filter: UserFilter) {
-    const params = new URLSearchParams(Object.entries(filter).map(([k, v]) => [k, String(v)]));
+    const params = new URLSearchParams(
+      Object.entries(filter)
+        .filter(([_, v]) => v != null)
+        .map(([k, v]) => [k, String(v)]),
+    );
     const data = await this.httpClient.get(`/users?${params.toString()}`);
 
     if (!Array.isArray(data)) throw Error(`Invalid data:\n${JSON.stringify(data)}`);
