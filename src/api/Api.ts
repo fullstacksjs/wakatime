@@ -1,39 +1,31 @@
-import type { App } from 'h3';
-
-import { createApp, createRouter, toNodeListener } from 'h3';
-import { createServer } from 'node:http';
+import { H3 } from 'h3';
+import { serve } from 'h3/node';
 
 import type { Container } from '../config/initContainer.ts';
 
 import { getReport } from './getReport.ts';
 import { getUsers } from './getUsers.ts';
+import { authMiddleware } from './middleware/auth.ts';
 import { setUsername } from './setUsername.ts';
 
 export class Api {
-  private app: App;
+  private app: H3;
   private config: Config;
 
   constructor(opts: Container) {
     this.config = opts.config;
 
-    this.app = createApp();
-    const router = createRouter();
+    this.app = new H3();
 
-    router.get('/api/day', getReport);
-    router.get('/api/users', getUsers);
-    router.put('/api/users', setUsername);
-
-    this.app.use(router);
+    this.app.get('/api/day', getReport);
+    this.app.get('/api/users', getUsers);
+    this.app.put('/api/users', setUsername, { middleware: [authMiddleware] });
   }
 
-  public start() {
-    const server = createServer(toNodeListener(this.app));
-
-    return new Promise(resolve => {
-      server.listen(this.config.api.port, () => {
-        console.log(`Api is listening on port ${this.config.api.port}`);
-        resolve(this.config);
-      });
-    });
+  public async start() {
+    const server = serve(this.app, { port: this.config.api.port });
+    await server.ready();
+    console.log(`Api is listening on port ${this.config.api.port}`);
+    return this.config;
   }
 }

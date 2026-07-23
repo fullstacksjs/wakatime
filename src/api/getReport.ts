@@ -1,22 +1,22 @@
-import { createError, defineEventHandler, getValidatedQuery } from 'h3';
+import { defineHandler, getValidatedQuery, HTTPError } from 'h3';
 import * as v from 'valibot';
 
 import { container } from '../config/container.ts';
 
 const schema = v.object({ size: v.optional(v.pipe(v.string(), v.transform(Number)), '3') });
-export const getReport = defineEventHandler(async event => {
+export const getReport = defineHandler(async event => {
   const leaderBoardService = container.cradle.leaderboardService;
 
   try {
     const { size } = await getValidatedQuery(event, value => v.parse(schema, value));
     const day = await leaderBoardService.getDay(size);
-    return day.report;
+    return Response.json(day.report);
   } catch (error) {
     if (error instanceof v.ValiError) {
-      throw createError({ statusCode: 400, statusMessage: 'Bad Input' });
+      throw HTTPError.status(400, 'Bad Input');
     }
 
     console.error(error);
-    throw createError({ statusCode: 500, statusMessage: 'Internal Server Error' });
+    throw HTTPError.status(500, 'Internal Server Error');
   }
 });
