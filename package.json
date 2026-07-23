@@ -10,6 +10,7 @@
     "dev:api": "NODE_NO_WARNINGS=1 node --env-file=.env --experimental-transform-types --watch ./src/main.ts api",
     "lint": "eslint . --fix",
     "test": "node --experimental-transform-types --test src/**/*.spec.ts",
+    "typecheck": "tsc --noEmit",
     "prepare": "husky"
   },
   "dependencies": {
@@ -35,6 +36,6 @@
     "typescript": "^6"
   },
   "volta": {
-    "node": "22.19.0"
+    "node": "24.12.0"
   }
 }
