@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.33.2",
+  "packageManager": "pnpm@11.16.0",
   "scripts": {
     "dev:bot": "NODE_NO_WARNINGS=1 node --env-file=.env --experimental-transform-types --watch ./src/main.ts bot",
     "dev:api": "NODE_NO_WARNINGS=1 node --env-file=.env --experimental-transform-types --watch ./src/main.ts api",
