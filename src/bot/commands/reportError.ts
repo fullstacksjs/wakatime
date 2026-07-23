@@ -2,7 +2,7 @@ import type { BotError, NextFunction } from 'grammy';
 
 import { isObject } from '@fullstacksjs/toolbox';
 
-import type { WakatimeContext } from '../Context';
+import type { WakatimeContext } from '../Context.ts';
 
 import { HttpError } from '../../core/services/HttpClient.ts';
 
