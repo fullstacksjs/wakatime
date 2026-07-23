@@ -29,13 +29,14 @@ export class LeaderboardService {
 
   async getDay(size = 3): Promise<Leaderboard> {
     await this.backfillLanguages();
-    const report = await this.reportRepo.getTopDayReport(size);
+    let report = await this.reportRepo.getTopDayReport(size);
 
-    if (isNull(report) || report.usages.some(u => isNull(u.user))) {
+    if (isNull(report) || report.usages.length < size || report.usages.some(u => isNull(u.user))) {
       await this.syncDay();
-      return this.getDay(size);
+      report = await this.reportRepo.getTopDayReport(size);
     }
 
+    if (isNull(report)) throw Error('Cannot load day report');
     return Leaderboard.fromReport(report);
   }
 
@@ -50,19 +51,19 @@ export class LeaderboardService {
 
   async getWeek(size = 3): Promise<Leaderboard> {
     await this.backfillLanguages();
-    const report = await this.reportRepo.getTopWeekReports(size);
+    let report = await this.reportRepo.getTopWeekReports(size);
 
-    if (isNull(report) || report.usages.some(u => isNull(u.user))) {
+    if (isNull(report) || report.usages.length < size || report.usages.some(u => isNull(u.user))) {
       await this.syncWeek();
-      return this.getWeek(size);
+      report = await this.reportRepo.getTopWeekReports(size);
     }
 
+    if (isNull(report)) throw Error('Cannot load week report');
     return Leaderboard.fromReport(report);
   }
 
   async syncDay() {
     const reports = await this.wakatime.getReports();
-    console.log({ reports });
 
     if (!reports) throw Error('Cannot fetch reports');
 
