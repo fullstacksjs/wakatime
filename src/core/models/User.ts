@@ -1,7 +1,8 @@
-import type { UserModel } from '../repos/UserModel.ts';
+import type { LanguageModel, UserModel } from '../repos/UserModel.ts';
 
 import { secondsToHours } from '../../utils/date.ts';
 import { formatOrdinals } from '../../utils/ordinal.ts';
+import { sortLanguagesByUsage } from '../repos/UserModel.ts';
 
 const medals = ['🥇', '🥈', '🥉'];
 
@@ -9,6 +10,7 @@ export class User {
   avatar: string;
   diff: number;
   id: string;
+  languages: LanguageModel[];
   lastDailyAverage: number;
   lastRank: number;
   lastTotalSeconds: number;
@@ -25,6 +27,7 @@ export class User {
     this.name = user.name;
     this.avatar = user.avatar;
     this.username = user.username;
+    this.languages = sortLanguagesByUsage(user.languages ?? []);
     this.lastTotalSeconds = user.lastTotalSeconds ?? 0;
     this.lastDailyAverage = user.lastDailyAverage ?? 0;
     this.lastRank = user.lastRank;
