@@ -1,4 +1,4 @@
-import { defineEventHandler, getValidatedQuery } from 'h3';
+import { defineHandler, getValidatedQuery } from 'h3';
 import * as v from 'valibot';
 
 import { container } from '../config/container.ts';
@@ -8,7 +8,7 @@ const schema = v.object({
   page: v.optional(v.pipe(v.string(), v.transform(Number), v.minValue(0)), '0'),
   type: v.optional(v.union([v.literal('WithUsername'), v.literal('WithoutUsername')]), undefined),
 });
-export const getUsers = defineEventHandler(async event => {
+export const getUsers = defineHandler(async event => {
   const { repo } = container.cradle;
   const { size, page, type } = await getValidatedQuery(event, query => v.parse(schema, query));
 

@@ -1,13 +1,11 @@
-import type { App } from 'h3';
-
-import { createApp, toNodeListener } from 'h3';
-import { createServer } from 'node:http';
+import { H3 } from 'h3';
+import { serve } from 'h3/node';
 
 import type { Container } from '../config/initContainer.ts';
 import type { Bot } from './Bot.ts';
 
 export class BotApi {
-  private app: App;
+  private app: H3;
   private bot: Bot;
   private config: Config;
 
@@ -15,7 +13,7 @@ export class BotApi {
     this.config = opts.config;
     this.bot = opts.bot;
 
-    this.app = createApp();
+    this.app = new H3();
   }
 
   public async registerWebhook(webhookUrl: string) {
@@ -23,15 +21,11 @@ export class BotApi {
     await this.bot.api.setWebhook(webhookUrl);
   }
 
-  public start() {
+  public async start() {
     void this.bot.start();
-    const server = createServer(toNodeListener(this.app));
-
-    return new Promise(resolve => {
-      server.listen(this.config.bot.port, () => {
-        console.log(`listening on port ${this.config.bot.port}`);
-        resolve(this.config);
-      });
-    });
+    const server = serve(this.app, { port: this.config.bot.port });
+    await server.ready();
+    console.log(`listening on port ${this.config.bot.port}`);
+    return this.config;
   }
 }
