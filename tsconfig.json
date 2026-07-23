@@ -1,11 +1,14 @@
 {
   "extends": "@fullstacksjs/tsconfig/esm",
   "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "noEmit": true,
     "allowImportingTsExtensions": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "types": ["node"],
     "lib": ["DOM", "ESNext"],
     "outDir": "./dist",
     "allowJs": true

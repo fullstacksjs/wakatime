@@ -3,6 +3,9 @@ allowBuilds:
   puppeteer: true
   unrs-resolver: true
 
+minimumReleaseAgeExclude:
+  - lint-staged@17.2.0
+
 onlyBuiltDependencies:
   - puppeteer
   - unrs-resolver
