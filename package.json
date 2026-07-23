@@ -19,7 +19,7 @@
     "grammy": "1.45.1",
     "h3": "2.0.1-rc.25",
     "lowdb": "7.0.1",
-    "puppeteer": "24.42.0",
+    "puppeteer": "25.3.0",
     "valibot": "1.4.2"
   },
   "devDependencies": {
