@@ -23,7 +23,7 @@ export class HttpClient {
   }
 
   async request(path: string, options?: RequestInit): Promise<any> {
-    const url = joinPaths(this.baseUrl, path);
+    const url = path ? joinPaths(this.baseUrl, path) : this.baseUrl;
 
     try {
       const response = await fetch(url, options);
