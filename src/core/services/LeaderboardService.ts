@@ -20,7 +20,15 @@ export class LeaderboardService {
     this.config = opts.config;
   }
 
+  async backfillLanguages(): Promise<void> {
+    if (!(await this.reportRepo.hasUsersMissingLanguageData())) return;
+
+    await this.syncDay();
+    await this.reportRepo.initializeMissingLanguages();
+  }
+
   async getDay(size = 3): Promise<Leaderboard> {
+    await this.backfillLanguages();
     const report = await this.reportRepo.getTopDayReport(size);
 
     if (isNull(report) || report.usages.some(u => isNull(u.user))) {
@@ -41,6 +49,7 @@ export class LeaderboardService {
   }
 
   async getWeek(size = 3): Promise<Leaderboard> {
+    await this.backfillLanguages();
     const report = await this.reportRepo.getTopWeekReports(size);
 
     if (isNull(report) || report.usages.some(u => isNull(u.user))) {

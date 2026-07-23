@@ -4,7 +4,7 @@ import test from 'node:test';
 import type { UserModel } from './UserModel.ts';
 
 import { User } from '../models/User.ts';
-import { updateUser } from './Repo.ts';
+import { hasMissingLanguageData, updateUser } from './Repo.ts';
 import { toUserModel } from './UserModel.ts';
 
 const createDto = (languages: LanguageReport[]): WakatimeDto => ({
@@ -91,4 +91,21 @@ test('replaces the previous language snapshot when updating a user', () => {
 
   assert.deepEqual(updated.languages, [{ name: 'TypeScript', totalSeconds: 700 }]);
   assert.equal(updated.telegramUsername, 'test-user');
+});
+
+test('only backfills users whose persisted language field is missing', () => {
+  const user: UserModel = {
+    avatar: '',
+    id: 'test-user',
+    languages: [],
+    lastDailyAverage: 1_000,
+    lastRank: 1,
+    lastTotalSeconds: 3_000,
+    name: 'Test User',
+    username: 'test',
+  };
+  const legacyUser = { ...user, languages: undefined } as unknown as UserModel;
+
+  assert.equal(hasMissingLanguageData([user]), false);
+  assert.equal(hasMissingLanguageData([legacyUser]), true);
 });

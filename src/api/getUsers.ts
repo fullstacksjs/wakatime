@@ -9,9 +9,10 @@ const schema = v.object({
   type: v.optional(v.union([v.literal('WithUsername'), v.literal('WithoutUsername')]), undefined),
 });
 export const getUsers = defineHandler(async event => {
-  const { repo } = container.cradle;
+  const { leaderboardService, repo } = container.cradle;
   const { size, page, type } = await getValidatedQuery(event, query => v.parse(schema, query));
 
+  await leaderboardService.backfillLanguages();
   const users = await repo.getUserList({ size, page, type });
   return users;
 });

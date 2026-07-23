@@ -19,6 +19,10 @@ interface DB {
 
 export type InitializedLow<T> = Omit<Low<T>, 'data'> & { data: T };
 
+export const hasMissingLanguageData = (users: UserModel[]): boolean => {
+  return users.some(user => !Array.isArray(user.languages));
+};
+
 export const updateUser = (oldUser: UserModel | undefined, user: UserModel): UserModel => {
   const updated = deepmerge(oldUser ?? {}, user, {
     diff: oldUser?.lastRank != null ? oldUser.lastRank - user.lastRank : 0,
@@ -41,6 +45,19 @@ export class UserNotFoundError extends Error {
 
 export class Repo {
   constructor(private db: InitializedLow<DB>) {}
+
+  public async hasUsersMissingLanguageData(): Promise<boolean> {
+    await this.db.read();
+    return hasMissingLanguageData(Object.values(this.db.data.users));
+  }
+
+  public async initializeMissingLanguages(): Promise<void> {
+    await this.db.update(({ users }) => {
+      Object.values(users).forEach(user => {
+        if (!Array.isArray(user.languages)) user.languages = [];
+      });
+    });
+  }
 
   public async getTopDayReport(count: number): Promise<Report | undefined> {
     await this.db.read();
