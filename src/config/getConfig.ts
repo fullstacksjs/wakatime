@@ -21,6 +21,18 @@ const schema = v.object({
         v.transform(x => toDecimal(x)),
       ),
     ),
+    defaultChatId: v.optional(
+      v.pipe(
+        v.string(),
+        v.transform(x => toDecimal(x)),
+      ),
+    ),
+    defaultTopicId: v.optional(
+      v.pipe(
+        v.string(),
+        v.transform(x => toDecimal(x)),
+      ),
+    ),
     adminId: v.pipe(
       v.string(),
       v.transform(x => toDecimal(x)),
@@ -53,6 +65,8 @@ export function getConfig(): Config {
       webhookUrl: process.env['BOT_WEBHOOK_URL'],
       port: process.env['BOT_PORT'],
       reportId: process.env['BOT_REPORT_ID'],
+      defaultChatId: process.env['BOT_DEFAULT_CHAT_ID'],
+      defaultTopicId: process.env['BOT_DEFAULT_TOPIC_ID'],
       adminId: process.env['BOT_ADMIN_ID'],
       api: process.env['BOT_API_ENDPOINT'],
     },
