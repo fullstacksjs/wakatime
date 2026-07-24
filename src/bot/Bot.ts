@@ -14,6 +14,7 @@ import { setCommand } from './commands/set.ts';
 import { startCommand } from './commands/start.ts';
 import { usersCommand } from './commands/users.ts';
 import { WakatimeContext } from './Context.ts';
+import { scheduleCronJobs } from './jobs/index.ts';
 import { authMiddleware } from './middleware/auth.ts';
 
 export class Bot extends Grammy<WakatimeContext> {
@@ -43,5 +44,6 @@ export class Bot extends Grammy<WakatimeContext> {
     composer.command('users', authMiddleware, usersCommand);
     this.errorBoundary(reportError).use(composer);
     this.use(composer);
+    scheduleCronJobs();
   }
 }

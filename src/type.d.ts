@@ -4,6 +4,8 @@ interface Config {
     webhookUrl?: string;
     port: number;
     reportId?: number;
+    defaultChatId?: number;
+    defaultTopicId?: number;
     adminId: number;
     api: string;
   };
