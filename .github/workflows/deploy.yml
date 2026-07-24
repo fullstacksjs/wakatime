@@ -55,8 +55,8 @@ jobs:
           provenance: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=wakatime-api
-          cache-to: type=wakatime-api,mode=max
+          cache-from: type=gha,scope=api
+          cache-to: type=gha,scope=api,mode=max
 
       - name: Output image ref
         id: out
@@ -117,8 +117,8 @@ jobs:
           provenance: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=wakatime-bot
-          cache-to: type=wakatime-bot,mode=max
+          cache-from: type=gha,scope=bot
+          cache-to: type=gha,scope=bot,mode=max
 
       - name: Output image ref
         id: out
