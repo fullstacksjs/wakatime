@@ -1,0 +1,21 @@
+services:
+  api:
+    image: ${API_IMAGE}
+    ports:
+      - ${API_PORT}:${API_PORT}
+    volumes:
+      - ./data/:/usr/wakatime/data
+    env_file:
+      - .env
+    restart: on-failure:16
+
+  bot:
+    platform: linux/amd64
+    image: ${BOT_IMAGE}
+    ports:
+      - ${BOT_PORT}:${BOT_PORT}
+    cap_add:
+      - SYS_ADMIN
+    env_file:
+      - .env
+    restart: on-failure:16

@@ -9,8 +9,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-push:
-    name: Build and Push Image
+  build-api:
+    name: Build and Push API Image
     runs-on: ubuntu-24.04
 
     outputs:
@@ -25,7 +25,7 @@ jobs:
 
     env:
       REGISTRY: ghcr.io
-      IMAGE_NAME: ${{ github.repository }}
+      IMAGE_NAME: ${{ github.repository }}-api
 
     steps:
       - uses: actions/checkout@v6
@@ -50,13 +50,75 @@ jobs:
         id: push
         with:
           context: .
-          file: ./Dockerfile
+          file: ./Dockerfile.api
           push: true
           provenance: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=wakatime
-          cache-to: type=wakatime,mode=max
+          cache-from: type=wakatime-api
+          cache-to: type=wakatime-api,mode=max
+
+      - name: Output image ref
+        id: out
+        run: |
+          echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+
+  build-bot:
+    name: Build and Push Bot Image
+    runs-on: ubuntu-24.04
+
+    outputs:
+      image: ${{ steps.out.outputs.image }}
+      digest: ${{ steps.push.outputs.digest }}
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}-bot
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=latest
+
+      - uses: docker/build-push-action@v6
+        id: push
+        with:
+          context: .
+          file: ./Dockerfile.bot
+          platforms: linux/amd64
+          push: true
+          provenance: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=wakatime-bot
+          cache-to: type=wakatime-bot,mode=max
 
       - name: Output image ref
         id: out
@@ -73,20 +135,32 @@ jobs:
   deploy:
     name: Deploy to Server
     runs-on: ubuntu-24.04
-    needs: build-and-push
+    needs: [build-api, build-bot]
 
     permissions:
       contents: read
       packages: read
 
     env:
-      IMAGE: ${{ needs.build-and-push.outputs.image }}
-      DIGEST: ${{ needs.build-and-push.outputs.digest }}
-      CONTAINER_NAME: ${{ vars.DOCKER_CONTAINER_NAME }}
+      API_IMAGE: ${{ needs.build-api.outputs.image }}@${{ needs.build-api.outputs.digest }}
+      BOT_IMAGE: ${{ needs.build-bot.outputs.image }}@${{ needs.build-bot.outputs.digest }}
       GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
       GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
 
     steps:
+      - uses: actions/checkout@v6
+
+      - name: Copy compose file to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          source: docker-compose.prod.yml
+          target: wakatime
+          strip_components: 0
+
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.2.4
         with:
@@ -94,7 +168,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          envs: IMAGE,DIGEST,CONTAINER_NAME,GHCR_USERNAME,GHCR_TOKEN
+          envs: API_IMAGE,BOT_IMAGE,GHCR_USERNAME,GHCR_TOKEN
           script: |
             set -euo pipefail
 
@@ -102,14 +176,12 @@ jobs:
 
             printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
 
-            IMAGE_REF="$IMAGE@$DIGEST"
-            echo "Deploying $IMAGE_REF"
+            echo "Deploying api: $API_IMAGE"
+            echo "Deploying bot: $BOT_IMAGE"
 
-            docker pull "$IMAGE_REF"
-            docker stop "$CONTAINER_NAME" 2>/dev/null || true
-            docker rm "$CONTAINER_NAME" 2>/dev/null || true
+            docker compose -f docker-compose.prod.yml pull
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
 
-            API_PORT=$(grep ^API_PORT= .env | cut -d '=' -f2)
-            docker run -d -p ${API_PORT}:${API_PORT} --env-file .env -v ./data:/app/data --restart on-failure:16 --name "$CONTAINER_NAME" "$IMAGE_REF"
+            docker image prune -f
 
             docker logout ghcr.io
