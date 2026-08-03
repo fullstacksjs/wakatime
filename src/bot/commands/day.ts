@@ -3,6 +3,7 @@ import dedent from 'dedent';
 import type { WakatimeContext } from '../Context.ts';
 
 import { container } from '../../config/container.ts';
+import { escapeHTML } from '../../utils/html.ts';
 
 const cache = new Map<string, Uint8Array>();
 
@@ -16,9 +17,9 @@ export async function getDailyReport() {
       dedent`
         ${acc}
         ${u.rank}:
-        ID: <code>${u.user.id}</code>
-        NAME: ${u.user.name}
-        UNAME: ${u.user.username ?? ''}
+        ID: <code>${escapeHTML(u.user.id)}</code>
+        NAME: ${escapeHTML(u.user.name)}
+        UNAME: ${escapeHTML(u.user.username ?? '')}
       `,
     '',
   );

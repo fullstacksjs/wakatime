@@ -1,6 +1,7 @@
 import type { LanguageModel, UserModel } from '../repos/UserModel.ts';
 
 import { secondsToHours } from '../../utils/date.ts';
+import { escapeHTML } from '../../utils/html.ts';
 import { formatOrdinals } from '../../utils/ordinal.ts';
 import { sortLanguagesByUsage } from '../repos/UserModel.ts';
 
@@ -19,7 +20,7 @@ export class User {
   username: string | null;
 
   get publicName() {
-    return `${this.name} | ${this.username ?? 'N/A'}`;
+    return `${escapeHTML(this.name)} | ${escapeHTML(this.username ?? 'N/A')}`;
   }
 
   private constructor(user: UserModel) {
@@ -40,13 +41,15 @@ export class User {
   }
 
   public dumpInfo() {
-    const name = this.telegramUsername ? `@${this.telegramUsername}` : '';
-    return `<code>${this.id}</code>\n${this.publicName} ${name}`;
+    const name = this.telegramUsername ? `@${escapeHTML(this.telegramUsername)}` : '';
+    return `<code>${escapeHTML(this.id)}</code>\n${this.publicName} ${name}`;
   }
 
   public getRankCaption(rank: number) {
     const medal = medals[rank] ?? formatOrdinals(rank + 1);
-    const name = this.telegramUsername ? `@${this.telegramUsername}` : this.name;
+    const name = this.telegramUsername
+      ? `@${escapeHTML(this.telegramUsername)}`
+      : escapeHTML(this.name);
 
     const hours = secondsToHours(this.lastTotalSeconds);
     return `${medal} <b>${name}</b>: <i>~${hours}hrs</i>`;
