@@ -2,6 +2,7 @@ import dedent from 'dedent';
 import { Context, InputFile } from 'grammy';
 
 import { container } from '../config/container.ts';
+import { escapeHTML } from '../utils/html.ts';
 
 export class WakatimeContext extends Context {
   messages = {
@@ -16,7 +17,7 @@ export class WakatimeContext extends Context {
     `,
 
     welcome: dedent`
-      👋 Hello, Welcome <b>${this.from?.first_name}</b>!
+      👋 Hello, Welcome <b>${escapeHTML(this.from?.first_name)}</b>!
       🎯 This bot will give you latest stats of wakatime per weeks.
       Press /help to get the list of available commands.
     `,
@@ -70,7 +71,7 @@ export class WakatimeContext extends Context {
     if (!reportId) return;
 
     const { grammy } = container.cradle;
-    return grammy.sendMessage(reportId, `❗️ ${error}`, { parse_mode: 'HTML' });
+    return grammy.sendMessage(reportId, `❗️ ${escapeHTML(error)}`, { parse_mode: 'HTML' });
   }
 
   public sendLeaderboard(image: Uint8Array, title: string) {

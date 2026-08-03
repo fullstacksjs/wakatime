@@ -5,6 +5,7 @@ import { isObject } from '@fullstacksjs/toolbox';
 import type { WakatimeContext } from '../Context.ts';
 
 import { HttpError } from '../../core/services/HttpClient.ts';
+import { escapeHTML } from '../../utils/html.ts';
 
 interface SendErrorPayload {
   chat_id: number;
@@ -26,7 +27,7 @@ export async function reportError(err: BotError<WakatimeContext>, next: NextFunc
     return;
   } else if (isSendErrorPayload(error)) {
     const { chat_id: chatId, text } = error;
-    return err.ctx.report(`Cannot send message to ${chatId}, Error: ${text}`);
+    return err.ctx.report(`Cannot send message to ${chatId}, Error: ${escapeHTML(text)}`);
   }
 
   return next();
