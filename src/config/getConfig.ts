@@ -1,52 +1,27 @@
-/* eslint-disable n/no-process-env */
 import { toDecimal } from '@fullstacksjs/toolbox';
 import * as v from 'valibot';
 
+import { optionalEnv, requiredEnv } from '../utils/env.ts';
 import { toAbsolutePath } from '../utils/path.ts';
+
+const decimalEnv = v.pipe(
+  v.string(),
+  v.transform(x => toDecimal(x)),
+);
 
 const schema = v.object({
   bot: v.object({
     token: v.string(),
-    webhookUrl: v.string(),
-    port: v.optional(
-      v.pipe(
-        v.string(),
-        v.transform(x => toDecimal(x)),
-      ),
-      '3000',
-    ),
-    reportId: v.optional(
-      v.pipe(
-        v.string(),
-        v.transform(x => toDecimal(x)),
-      ),
-    ),
-    defaultChatId: v.optional(
-      v.pipe(
-        v.string(),
-        v.transform(x => toDecimal(x)),
-      ),
-    ),
-    defaultTopicId: v.optional(
-      v.pipe(
-        v.string(),
-        v.transform(x => toDecimal(x)),
-      ),
-    ),
-    adminId: v.pipe(
-      v.string(),
-      v.transform(x => toDecimal(x)),
-    ),
+    webhookUrl: v.optional(v.string()),
+    port: decimalEnv,
+    reportId: v.optional(decimalEnv),
+    defaultChatId: v.optional(decimalEnv),
+    defaultTopicId: v.optional(decimalEnv),
+    adminId: decimalEnv,
     api: v.string(),
   }),
   api: v.object({
-    port: v.optional(
-      v.pipe(
-        v.string(),
-        v.transform(x => toDecimal(x)),
-      ),
-      '4000',
-    ),
+    port: decimalEnv,
     dbFilePath: v.string(),
     token: v.string(),
   }),
@@ -61,25 +36,25 @@ const schema = v.object({
 export function getConfig(): Config {
   return v.parse(schema, {
     bot: {
-      token: process.env['BOT_TOKEN'],
-      webhookUrl: process.env['BOT_WEBHOOK_URL'],
-      port: process.env['BOT_PORT'],
-      reportId: process.env['BOT_REPORT_ID'],
-      defaultChatId: process.env['BOT_DEFAULT_CHAT_ID'],
-      defaultTopicId: process.env['BOT_DEFAULT_TOPIC_ID'],
-      adminId: process.env['BOT_ADMIN_ID'],
-      api: process.env['BOT_API_ENDPOINT'],
+      token: requiredEnv('BOT_TOKEN'),
+      webhookUrl: optionalEnv('BOT_WEBHOOK_URL'),
+      port: optionalEnv('BOT_PORT', '3000'),
+      reportId: optionalEnv('BOT_REPORT_ID'),
+      defaultChatId: optionalEnv('BOT_DEFAULT_CHAT_ID'),
+      defaultTopicId: optionalEnv('BOT_DEFAULT_TOPIC_ID'),
+      adminId: requiredEnv('BOT_ADMIN_ID'),
+      api: requiredEnv('BOT_API_ENDPOINT'),
     },
     api: {
-      port: process.env['API_PORT'],
+      port: optionalEnv('API_PORT', '4000'),
       dbFilePath: toAbsolutePath('../data/db.json'),
-      token: process.env['API_TOKEN'],
+      token: requiredEnv('API_TOKEN'),
     },
     wakatime: {
-      apiKey: process.env['WAKATIME_API_KEY'],
-      leaderboardUrl: process.env['WAKATIME_LEADERBOARD_URL'],
-      webpageUrl: process.env['WAKATIME_PAGE_URL'],
+      apiKey: requiredEnv('WAKATIME_API_KEY'),
+      leaderboardUrl: requiredEnv('WAKATIME_LEADERBOARD_URL'),
+      webpageUrl: requiredEnv('WAKATIME_PAGE_URL'),
     },
-    puppeteerExecPath: process.env['PUPPETEER_EXECUTABLE_PATH'],
+    puppeteerExecPath: optionalEnv('PUPPETEER_EXECUTABLE_PATH'),
   });
 }
