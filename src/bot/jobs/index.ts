@@ -13,3 +13,5 @@ export const scheduleCronJobs = () => {
     { timezone: 'UTC' },
   );
 };
+
+export const stopCronJobs = () => cron.shutdown();

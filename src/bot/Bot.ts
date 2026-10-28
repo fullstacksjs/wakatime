@@ -14,7 +14,7 @@ import { setCommand } from './commands/set.ts';
 import { startCommand } from './commands/start.ts';
 import { usersCommand } from './commands/users.ts';
 import { WakatimeContext } from './Context.ts';
-import { scheduleCronJobs } from './jobs/index.ts';
+import { scheduleCronJobs, stopCronJobs } from './jobs/index.ts';
 import { authMiddleware } from './middleware/auth.ts';
 
 export class Bot extends Grammy<WakatimeContext> {
@@ -48,5 +48,13 @@ export class Bot extends Grammy<WakatimeContext> {
       console.error('Unhandled error in bot:', err);
     });
     scheduleCronJobs();
+
+    const shutdown = async () => {
+      stopCronJobs();
+      await this.stop();
+    };
+
+    process.once('SIGINT', shutdown);
+    process.once('SIGTERM', shutdown);
   }
 }

@@ -21,5 +21,3 @@ if (process.argv[2] === 'bot') {
     void bot.start();
   }
 }
-
-export {};
