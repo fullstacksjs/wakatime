@@ -144,8 +144,8 @@ jobs:
     env:
       API_IMAGE: ${{ needs.build-api.outputs.image }}@${{ needs.build-api.outputs.digest }}
       BOT_IMAGE: ${{ needs.build-bot.outputs.image }}@${{ needs.build-bot.outputs.digest }}
-      GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
-      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+      GHCR_USERNAME: ${{ github.actor }}
+      GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v6
