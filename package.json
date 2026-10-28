@@ -4,38 +4,38 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.16.0",
+  "packageManager": "pnpm@12.16.1",
   "scripts": {
-    "dev:bot": "NODE_NO_WARNINGS=1 node --env-file=.env --experimental-transform-types --watch ./src/main.ts bot",
-    "dev:api": "NODE_NO_WARNINGS=1 node --env-file=.env --experimental-transform-types --watch ./src/main.ts api",
+    "dev:bot": "NODE_NO_WARNINGS=1 node --env-file=.env --watch ./src/main.ts bot",
+    "dev:api": "NODE_NO_WARNINGS=1 node --env-file=.env --watch ./src/main.ts api",
     "lint": "eslint . --fix",
-    "test": "node --experimental-transform-types --test src/**/*.spec.ts",
+    "test": "node --test \"src/**/*.spec.ts\"",
     "typecheck": "tsc --noEmit",
     "prepare": "husky"
   },
   "dependencies": {
-    "@fullstacksjs/toolbox": "4.22.0",
+    "@fullstacksjs/toolbox": "4.25.1",
     "awilix": "13.0.5",
     "dedent": "1.7.2",
-    "deepmerge-ts": "7.1.5",
-    "grammy": "1.45.1",
-    "h3": "2.0.1-rc.25",
+    "deepmerge-ts": "8.0.2",
+    "grammy": "1.46.0",
+    "h3": "2.0.8",
     "lowdb": "7.0.1",
     "node-cron": "4.6.0",
-    "puppeteer": "25.3.0",
-    "valibot": "1.4.2"
+    "puppeteer": "25.16.0",
+    "valibot": "1.5.0"
   },
   "devDependencies": {
-    "@fullstacksjs/eslint-config": "14.8.0",
+    "@fullstacksjs/eslint-config": "15.4.0",
     "@fullstacksjs/tsconfig": "2.0.0",
-    "@types/node": "24.3.0",
-    "eslint": "10.7.0",
+    "@types/node": "26.6.6",
+    "eslint": "10.13.0",
     "husky": "9.1.7",
-    "lint-staged": "17.2.0",
-    "prettier": "3.9.6",
-    "typescript": "^6"
+    "lint-staged": "17.6.0",
+    "prettier": "3.9.10",
+    "typescript": "6.0.3"
   },
   "volta": {
-    "node": "24.12.0"
+    "node": "26.13.0"
   }
 }

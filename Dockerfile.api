@@ -1,8 +1,8 @@
-FROM node:24-alpine
+FROM node:26-alpine
 
 WORKDIR /usr/wakatime
 
-RUN corepack enable && corepack prepare pnpm@10.33.2 --activate
+RUN npm install --global pnpm@12.16.1
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN npm pkg delete scripts.prepare && \
@@ -11,4 +11,4 @@ RUN npm pkg delete scripts.prepare && \
 COPY . .
 
 ENV NODE_NO_WARNINGS=1
-CMD ["node", "--experimental-transform-types", "./src/main.ts", "api"]
+CMD ["node", "./src/main.ts", "api"]

@@ -1,8 +1,9 @@
-FROM ghcr.io/puppeteer/puppeteer:25.3.0
+FROM ghcr.io/puppeteer/puppeteer:25.16.0
 USER root
+WORKDIR /app
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN npm install -g pnpm@latest-10
+RUN npm install -g pnpm@12.16.1
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN npm pkg delete scripts.prepare
@@ -12,4 +13,4 @@ USER pptruser
 COPY . .
 
 ENV NODE_NO_WARNINGS=1
-CMD ["node", "--experimental-transform-types", "./src/main.ts", "bot"]
+CMD ["node", "./src/main.ts", "bot"]
