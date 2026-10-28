@@ -11,6 +11,7 @@ services:
 
   bot:
     platform: linux/amd64
+    mem_limit: 1g
     image: ${BOT_IMAGE}
     ports:
       - 127.0.0.1:${BOT_PORT}:${BOT_PORT}
