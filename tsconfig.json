@@ -6,6 +6,7 @@
     "esModuleInterop": true,
     "noEmit": true,
     "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "types": ["node"],

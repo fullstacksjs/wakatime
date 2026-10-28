@@ -44,7 +44,11 @@ export class UserNotFoundError extends Error {
 }
 
 export class Repo {
-  constructor(private db: InitializedLow<DB>) {}
+  private db: InitializedLow<DB>;
+
+  constructor(db: InitializedLow<DB>) {
+    this.db = db;
+  }
 
   public async hasUsersMissingLanguageData(): Promise<boolean> {
     await this.db.read();
