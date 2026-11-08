@@ -26,7 +26,7 @@ const schema = v.object({
     token: v.string(),
   }),
   wakatime: v.object({
-    apiKey: v.string(),
+    accessToken: v.string(),
     leaderboardUrl: v.string(),
     webpageUrl: v.string(),
   }),
@@ -51,7 +51,7 @@ export function getConfig(): Config {
       token: requiredEnv('API_TOKEN'),
     },
     wakatime: {
-      apiKey: requiredEnv('WAKATIME_API_KEY'),
+      accessToken: requiredEnv('WAKATIME_ACCESS_TOKEN'),
       leaderboardUrl: requiredEnv('WAKATIME_LEADERBOARD_URL'),
       webpageUrl: requiredEnv('WAKATIME_PAGE_URL'),
     },

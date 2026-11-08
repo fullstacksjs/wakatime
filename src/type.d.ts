@@ -15,7 +15,7 @@ interface Config {
     dbFilePath: string;
   };
   wakatime: {
-    apiKey: string;
+    accessToken: string;
     leaderboardUrl: string;
     webpageUrl: string;
   };

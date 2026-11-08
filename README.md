@@ -4,6 +4,17 @@
 
 Fullstacks community Wakatime leaderboard API and tools.
 
+## WakaTime access token
+
+1. Create an app at <https://wakatime.com/apps>. Add `https://wakatime.com/oauth/test` to its
+   authorized redirect URLs, so WakaTime shows you the code directly.
+2. Run `pnpm run wakatime:token` and follow the prompts. It prints an authorize URL, asks for the
+   code, exchanges it for a token and can write `WAKATIME_ACCESS_TOKEN` to `.env` for you.
+
+The script reads `WAKATIME_CLIENT_ID`, `WAKATIME_CLIENT_SECRET` and (optionally)
+`WAKATIME_REDIRECT_URI` from `.env` (or the environment) and only prompts for the ones that are
+missing.
+
 ## Repository structure
 
 ## Contributing

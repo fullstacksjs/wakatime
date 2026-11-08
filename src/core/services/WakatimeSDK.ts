@@ -15,7 +15,7 @@ export class WakatimeSDK {
     return await this.httpClient.get('', {
       headers: {
         Accept: 'application/json',
-        Authorization: `Basic ${this.config.wakatime.apiKey}`,
+        Authorization: `Bearer ${this.config.wakatime.accessToken}`,
       },
     });
   }
