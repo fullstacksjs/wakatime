@@ -1,5 +1,3 @@
-import { joinPaths } from '@fullstacksjs/toolbox';
-
 export class HttpError extends Error {
   statusCode: number;
   url: string;
@@ -23,7 +21,7 @@ export class HttpClient {
   }
 
   async request(path: string, options?: RequestInit): Promise<any> {
-    const url = path ? joinPaths(this.baseUrl, path) : this.baseUrl;
+    const url = path ? this.baseUrl + path : this.baseUrl;
 
     try {
       const response = await fetch(url, options);
