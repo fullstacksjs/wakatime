@@ -12,7 +12,8 @@ export class WakatimeSDK {
   }
 
   async getReports(): Promise<WakatimeUserResponse | undefined> {
-    return await this.httpClient.get('', {
+    // Without `page`, WakaTime returns the page that contains the token owner, not the top.
+    return await this.httpClient.get('?page=1', {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${this.config.wakatime.accessToken}`,
