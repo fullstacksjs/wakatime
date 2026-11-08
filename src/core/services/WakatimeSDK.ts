@@ -12,10 +12,9 @@ export class WakatimeSDK {
   }
 
   async getReports(): Promise<WakatimeUserResponse | undefined> {
-    return await this.httpClient.get('', {
+    return await this.httpClient.get(`?api_key=${this.config.wakatime.apiKey}`, {
       headers: {
         Accept: 'application/json',
-        Authorization: `Basic ${this.config.wakatime.apiKey}`,
       },
     });
   }
