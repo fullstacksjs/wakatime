@@ -23,6 +23,9 @@ export class Leaderboard {
   private footer = dedent`
 
       #wakatime_report
+ 
+      🏆 Want to join the leaderboard?
+      Send #wakatime_req to join.
 
       👉 https://fullstacksjs.com/en/wakatime
   `;
