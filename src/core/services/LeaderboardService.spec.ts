@@ -5,7 +5,7 @@ import type { Container } from '../../config/initContainer.ts';
 import type { UserModel } from '../repos/UserModel.ts';
 
 import { Report } from '../models/Report.ts';
-import { LeaderboardService } from './LeaderboardService.ts';
+import { captureScreenshot, LeaderboardService } from './LeaderboardService.ts';
 
 const user: UserModel = {
   avatar: '',
@@ -73,4 +73,44 @@ test('does not retry forever when WakaTime has fewer users than requested', asyn
 
   assert.equal(getFetchCount(), 1);
   assert.equal(leaderboard.report.usages.length, 1);
+});
+
+test('closes the browser when screenshot setup fails', async () => {
+  let closed = 0;
+
+  await assert.rejects(
+    () =>
+      captureScreenshot('http://example.test', {
+        createBrowser: async () => ({
+          close: async () => {
+            closed += 1;
+          },
+        }),
+        openPage: async () => {
+          throw new Error('open failed');
+        },
+        getScreenshot: async () => new Uint8Array(),
+      }),
+    /open failed/,
+  );
+
+  assert.equal(closed, 1);
+});
+
+test('closes the browser after a successful screenshot', async () => {
+  let closed = 0;
+  const image = new Uint8Array([1, 2, 3]);
+
+  const result = await captureScreenshot('http://example.test', {
+    createBrowser: async () => ({
+      close: async () => {
+        closed += 1;
+      },
+    }),
+    openPage: async () => ({}),
+    getScreenshot: async () => image,
+  });
+
+  assert.equal(result, image);
+  assert.equal(closed, 1);
 });

@@ -74,19 +74,19 @@ export class WakatimeContext extends Context {
     return grammy.sendMessage(reportId, `❗️ ${escapeHTML(error)}`, { parse_mode: 'HTML' });
   }
 
-  public sendLeaderboard(image: Uint8Array, title: string) {
+  public async sendLeaderboard(image: Uint8Array, title: string) {
     const groupId = this.chat!.id.toString();
     const threadId = this.message?.message_thread_id;
 
     try {
-      return container.cradle.grammy.sendPhoto(groupId, new InputFile(image), {
+      return await container.cradle.grammy.sendPhoto(groupId, new InputFile(image), {
         caption: title,
         parse_mode: 'HTML',
         message_thread_id: threadId,
       });
     } catch (error) {
       console.error(error);
-      return container.cradle.grammy.sendMessage(groupId, 'Oops! try again');
+      return await container.cradle.grammy.sendMessage(groupId, 'Oops! try again');
     }
   }
 }

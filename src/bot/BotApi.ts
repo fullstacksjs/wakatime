@@ -19,10 +19,15 @@ export class BotApi {
   public async registerWebhook(webhookUrl: string) {
     this.app.use(this.bot.createH3WebhookCallback());
     await this.bot.api.setWebhook(webhookUrl);
+    return this.listen();
   }
 
   public async start() {
     void this.bot.start();
+    return this.listen();
+  }
+
+  private async listen() {
     const server = serve(this.app, { port: this.config.bot.port });
     await server.ready();
     console.log(`listening on port ${this.config.bot.port}`);

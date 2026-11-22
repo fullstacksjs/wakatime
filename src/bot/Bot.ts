@@ -43,9 +43,10 @@ export class Bot extends Grammy<WakatimeContext> {
     composer.command('set', authMiddleware, setCommand);
     composer.command('users', authMiddleware, usersCommand);
     this.errorBoundary(reportError).use(composer);
-    this.use(composer);
     this.catch(err => {
-      console.error('Unhandled error in bot:', err);
+      console.error('Unhandled error in bot:', err.error);
+      const message = err.error instanceof Error ? err.error.message : String(err.error);
+      void err.ctx.reportError(message);
     });
     scheduleCronJobs();
   }
