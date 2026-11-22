@@ -9,6 +9,36 @@ import { toReportModel } from '../repos/ReportModel.ts';
 import { toUserModel } from '../repos/UserModel.ts';
 import { createBrowser, getScreenshot, openPage } from './puppeteer.ts';
 
+interface ScreenshotBrowser {
+  close: () => Promise<unknown>;
+}
+
+interface BrowserOps {
+  createBrowser: () => Promise<ScreenshotBrowser>;
+  openPage: (browser: ScreenshotBrowser, url: string) => Promise<unknown>;
+  getScreenshot: (page: unknown) => Promise<Uint8Array>;
+}
+
+const defaultBrowserOps: BrowserOps = {
+  createBrowser,
+  openPage: (browser, url) => openPage(browser as Awaited<ReturnType<typeof createBrowser>>, url),
+  getScreenshot: page => getScreenshot(page as Parameters<typeof getScreenshot>[0]),
+};
+
+export async function captureScreenshot(
+  webpageUrl: string,
+  ops: BrowserOps = defaultBrowserOps,
+): Promise<Uint8Array> {
+  const browser = await ops.createBrowser();
+
+  try {
+    const page = await ops.openPage(browser, webpageUrl);
+    return await ops.getScreenshot(page);
+  } finally {
+    await browser.close();
+  }
+}
+
 export class LeaderboardService {
   private config: Config;
   private reportRepo: Repo;
@@ -41,12 +71,7 @@ export class LeaderboardService {
   }
 
   async getScreenshot(): Promise<Uint8Array> {
-    const browser = await createBrowser();
-    const page = await openPage(browser, this.config.wakatime.webpageUrl);
-    const screenshot = await getScreenshot(page);
-    await browser.close();
-
-    return screenshot;
+    return captureScreenshot(this.config.wakatime.webpageUrl);
   }
 
   async getWeek(size = 3): Promise<Leaderboard> {
