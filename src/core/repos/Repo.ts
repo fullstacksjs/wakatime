@@ -104,20 +104,19 @@ export class Repo {
 
   public async getUserList({ size, page, type }: UserFilter): Promise<User[]> {
     await this.db.read();
-    const users = Object.values(this.db.data.users)
-      .map(User.fromModel)
-      .slice(page * size, (page + 1) * size);
+    let users = Object.values(this.db.data.users).map(User.fromModel);
 
     switch (type) {
       case 'WithUsername':
-        return users.filter(u => u.telegramUsername);
+        users = users.filter(u => u.telegramUsername);
+        break;
 
       case 'WithoutUsername':
-        return users.filter(u => !u.telegramUsername);
-
-      default:
-        return users;
+        users = users.filter(u => !u.telegramUsername);
+        break;
     }
+
+    return users.slice(page * size, (page + 1) * size);
   }
 
   public async saveDay(report: ReportModel) {
