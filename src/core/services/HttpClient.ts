@@ -38,11 +38,8 @@ export class HttpClient {
 
       return await response.text();
     } catch (error) {
-      throw new HttpError(
-        error instanceof HttpError ? error.statusCode : 500,
-        url,
-        error instanceof Error ? error.message : String(error),
-      );
+      if (error instanceof HttpError) throw error;
+      throw new HttpError(500, url, error instanceof Error ? error.message : String(error));
     }
   }
 

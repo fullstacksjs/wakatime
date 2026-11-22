@@ -1,4 +1,4 @@
-import type { BotError, NextFunction } from 'grammy';
+import type { BotError } from 'grammy';
 
 import { isObject } from '@fullstacksjs/toolbox';
 
@@ -16,7 +16,7 @@ function isSendErrorPayload(payload: unknown): payload is SendErrorPayload {
   return isObject(payload) && 'chat_id' in payload && 'text' in payload;
 }
 
-export async function reportError(err: BotError<WakatimeContext>, next: NextFunction) {
+export async function reportError(err: BotError<WakatimeContext>) {
   const { error } = err;
 
   if (error instanceof HttpError) {
@@ -25,10 +25,14 @@ export async function reportError(err: BotError<WakatimeContext>, next: NextFunc
       `Failed with status ${statusCode}\nError: ${statusMessage}\nURL: ${url}`,
     );
     return;
-  } else if (isSendErrorPayload(error)) {
-    const { chat_id: chatId, text } = error;
-    return err.ctx.report(`Cannot send message to ${chatId}, Error: ${escapeHTML(text)}`);
   }
 
-  return next();
+  if (isSendErrorPayload(error)) {
+    const { chat_id: chatId, text } = error;
+    await err.ctx.report(`Cannot send message to ${chatId}, Error: ${escapeHTML(text)}`);
+    return;
+  }
+
+  const message = error instanceof Error ? error.message : String(error);
+  await err.ctx.reportError(message);
 }

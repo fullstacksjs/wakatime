@@ -86,7 +86,7 @@ export class WakatimeContext extends Context {
       });
     } catch (error) {
       console.error(error);
-      return container.cradle.grammy.sendMessage(groupId, 'Oops! try again');
+      return await container.cradle.grammy.sendMessage(groupId, 'Oops! try again');
     }
   }
 }
